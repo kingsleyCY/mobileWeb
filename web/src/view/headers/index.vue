@@ -1,8 +1,9 @@
 <template>
   <div class="header-model">
     <div class="container">
+      <i class="el-icon-menu"></i>
       <img src="../../assets/images/logo.jpg" class="left-avator"/>
-      <div class="right-tab">
+      <div class="right-tab hidden-xs-only">
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
           <el-menu-item index="1">朝花夕拾</el-menu-item>
           <el-menu-item index="2">四季豆花</el-menu-item>
