@@ -8,7 +8,8 @@
         <el-menu :default-active="activeIndex" class="el-menu-demo"
                  mode="horizontal" @select="menuSelect">
           <el-menu-item :index="item.index" v-for="(item, index) in menuArr"
-                        :key="index">{{item.name}}</el-menu-item>
+                        :key="index">{{item.name}}
+          </el-menu-item>
         </el-menu>
         <div class="line"></div>
       </div>
@@ -16,7 +17,9 @@
     <div class="menu-background" ref="menuBack" @click="closeMenu">
       <ul ref="menuList">
         <li v-for="(item, index) in menuArr" :key="index" @click="menuSelect(index,[item.index])">
-          <i :class="['iconfont', item.icon]"></i>
+          <svg class="iconfont" aria-hidden="true">
+            <use :xlink:href="'#'+item.icon"></use>
+          </svg>
           {{item.name}}
         </li>
       </ul>
@@ -37,17 +40,17 @@
             index: "1",
             icon: 'icon-shuqian',
             path: ''
-          },{
+          }, {
             name: "四季豆花",
             index: "2",
             icon: 'icon-zhezhi',
             path: ''
-          },{
+          }, {
             name: "前端日记",
             icon: 'icon-wanjufengche',
             index: "3",
             path: ''
-          },{
+          }, {
             name: "自我介绍",
             index: "4",
             icon: 'icon-wenju',
@@ -67,13 +70,13 @@
         this.$refs.menuBack.style.display = 'block'
         setTimeout(function () {
           this.$refs.menuList.style.transform = 'translateX(0px)'
-        }.bind(this),50)
+        }.bind(this), 50)
       },
       closeMenu(e) {
         this.$refs.menuList.style.transform = 'translateX(-200px)'
         setTimeout(function () {
           this.$refs.menuBack.style.display = 'none'
-        }.bind(this),300)
+        }.bind(this), 300)
       },
       menuSelect(index, indexPath) {
         let routerPath = ''
@@ -118,10 +121,10 @@
         border-radius: 45px;
         display: inline-block;
       }
-      .el-icon-menu{
+      .el-icon-menu {
         font-size: 20px
       }
-      .header-title{
+      .header-title {
         font-size: 16px;
         font-weight: bold;
       }
@@ -139,15 +142,15 @@
       }
     }
   }
-  .menu-background{
+  .menu-background {
     display: none;
     width: 100%;
     height: 100%;
     position: fixed;
     left: 0;
     top: 0;
-    background-color: rgba(0,0,0,0.5);
-    ul{
+    background-color: rgba(0, 0, 0, 0.5);
+    ul {
       height: 100%;
       width: 200px;
       overflow-y: auto;
@@ -155,24 +158,23 @@
       background-color: white;
       transform: translateX(-200px);
       transition: transform 0.5s;
-      li{
+      li {
         border-bottom: 1px solid #c8d0dc;
         padding-left: 15px;
         box-sizing: border-box;
         line-height: 45px;
         height: 45px;
         font-size: 14px;
-        i{
+        svg {
           display: inline-block;
-          min-width: 30px;
+          width: 20px;
+          height: 20px;
+          margin-right: 5px;
+          vertical-align: -6px;
         }
       }
     }
   }
-
-
-
-
   @media only screen and (max-width: 768px) {
     .container {
       padding: 0 15px;

@@ -4,9 +4,7 @@
       <header-model v-if="!allClient"></header-model>
     </el-collapse-transition>
     <section-model></section-model>
-    <transition name="el-fade-in">
-      <footer-model v-show="allClient"></footer-model>
-    </transition>
+    <footer-model></footer-model>
   </div>
 </template>
 
@@ -16,24 +14,24 @@
   import footerModel from '@/view/footer'
 
   import { mapState } from "vuex"
-export default {
-  name: 'index',
-  data () {
-    return {
 
-    }
-  },
-  computed: {
-    ...mapState({
-      allClient: state => state.baseStates.allClient
-    })
-  },
-  components: {
-    headerModel, sectionModel, footerModel
+  export default {
+    name: 'index',
+    data() {
+      return {}
+    },
+    computed: {
+      ...mapState({
+        allClient: state => state.baseStates.allClient
+      })
+    },
+    components: {
+      headerModel, sectionModel, footerModel
+    },
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped type="text/css">
+
 </style>
