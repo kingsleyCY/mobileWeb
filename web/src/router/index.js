@@ -9,7 +9,26 @@ export default new Router({
     {
       path: '/',
       name: 'index',
-      component: () => import('@/view/index')
+      component: () => import('@/view/index'),
+      children: [
+        {
+          path: 'indexPage',
+          name: 'index-page',
+          component: () => import('@/view/indexPage'),
+        },{
+          path: 'forOurs',
+          name: 'for-ours',
+          component: () => import('@/view/forOurs'),
+        },{
+          path: 'someNote',
+          name: 'some-note',
+          component: () => import('@/view/someNote'),
+        },{
+          path: 'myIntroduce',
+          name: 'my-introduce',
+          component: () => import('@/view/myIntroduce'),
+        }
+      ]
     }
   ]
 })

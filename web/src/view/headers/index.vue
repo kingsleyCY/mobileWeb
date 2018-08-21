@@ -5,7 +5,8 @@
       <span class="header-title hidden-sm-and-up">Some OF Myself</span>
       <img src="../../assets/images/logo.jpg" class="left-avator"/>
       <div class="right-tab hidden-xs-only">
-        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+        <el-menu :default-active="activeIndex" class="el-menu-demo"
+                 mode="horizontal" @select="menuSelect">
           <el-menu-item :index="item.index" v-for="(item, index) in menuArr"
                         :key="index">{{item.name}}</el-menu-item>
         </el-menu>
@@ -14,7 +15,7 @@
     </div>
     <div class="menu-background" ref="menuBack" @click="closeMenu">
       <ul ref="menuList">
-        <li v-for="(item, index) in menuArr" :key="index">
+        <li v-for="(item, index) in menuArr" :key="index" @click="menuSelect(index,[item.index])">
           <i :class="['iconfont', item.icon]"></i>
           {{item.name}}
         </li>
@@ -59,6 +60,7 @@
       if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
         this.isPc = true
       }
+      this.menuSelect(undefined, ["4"])
     },
     methods: {
       toggleMenu() {
@@ -72,6 +74,30 @@
         setTimeout(function () {
           this.$refs.menuBack.style.display = 'none'
         }.bind(this),300)
+      },
+      menuSelect(index, indexPath) {
+        let routerPath = ''
+        switch (indexPath[0]) {
+          case "1":
+            routerPath = '/indexPage'
+            break;
+          case "2":
+            routerPath = '/forOurs'
+            break;
+          case "3":
+            routerPath = '/someNote'
+            break;
+          case "4":
+            routerPath = '/myIntroduce'
+            break;
+          default:
+            routerPath = '/myIntroduce'
+            break;
+        }
+        console.log(routerPath);
+        this.$router.push({
+          path: routerPath
+        })
       }
     }
   }
@@ -138,7 +164,8 @@
         height: 45px;
         font-size: 14px;
         i{
-          margin-right: 10px;
+          display: inline-block;
+          min-width: 30px;
         }
       }
     }

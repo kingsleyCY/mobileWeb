@@ -1,6 +1,6 @@
 <template>
-  <div>
-
+  <div class="main-content" ref="mainContent">
+    <router-view/>
   </div>
 </template>
 
@@ -11,10 +11,14 @@ export default {
     return {
 
     }
-  }
+  },
+  created() {
+
+  },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped type="text/css">
+
 </style>

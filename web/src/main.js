@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import 'lib-flexible'
+import $ from 'jquery'
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/display.css';
