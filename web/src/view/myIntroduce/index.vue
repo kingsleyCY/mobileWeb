@@ -5,15 +5,14 @@
 </template>
 
 <script>
+  import { mapState, mapMutations } from "vuex"
   export default {
     name: "my-introduce",
     created() {
-      this.$nextTick(() => {
-        window.onresize = () => {
-          this.$refs.myIntroduce.style.height = document.body.clientHeight - 60 + 'px'
-        }
-        this.$refs.myIntroduce.style.height = document.body.clientHeight - 60 + 'px'
-      })
+
+    },
+    watch: {
+
     }
   }
 </script>

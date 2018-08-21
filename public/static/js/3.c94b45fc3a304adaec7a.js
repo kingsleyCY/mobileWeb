@@ -1,2 +1,0 @@
-webpackJsonp([3],{FUbX:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var a={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("\n  index-page\n")])},staticRenderFns:[]};var r=t("vSla")({name:"index-page",data:function(){return{}}},a,!1,function(e){t("RU6L")},"data-v-47f20d75",null);n.default=r.exports},RU6L:function(e,n){}});
-//# sourceMappingURL=3.c94b45fc3a304adaec7a.js.map

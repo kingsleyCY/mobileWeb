@@ -15,14 +15,15 @@
   },
   "dependencies": {
     "element-ui": "^2.4.6",
+    "jquery": "^2.2.3",
     "lib-flexible": "^0.3.2",
     "location": "^0.0.1",
     "navigator": "^1.0.1",
     "vue": "^2.5.2",
     "vue-cute-timeline": "^1.2.5",
     "vue-router": "^3.0.1",
-    "xmlhttprequest": "^1.8.0",
-    "jquery": "^2.2.3"
+    "vuex": "^3.0.1",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

@@ -10,15 +10,30 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/display.css';
 import 'element-ui/lib/theme-chalk/index.css';
 import '@/style/index.scss'
+import store from './store'
 
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 
+router.beforeEach((to, from, next) => {
+  let fullPath = ['/forOurs', '/myIntroduce']
+  if (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+    var isPc = true
+  }
+  if(fullPath.indexOf(to.fullPath) >= 0 && isPc) {
+    store.state.baseStates.allClient = true
+  }else {
+    store.state.baseStates.allClient = false
+  }
+  next()
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

@@ -1,8 +1,12 @@
 <template>
   <div>
-    <header-model></header-model>
+    <el-collapse-transition>
+      <header-model v-if="!allClient"></header-model>
+    </el-collapse-transition>
     <section-model></section-model>
-    <footer-model></footer-model>
+    <transition name="el-fade-in">
+      <footer-model v-show="allClient"></footer-model>
+    </transition>
   </div>
 </template>
 
@@ -10,12 +14,19 @@
   import headerModel from '@/view/headers'
   import sectionModel from '@/view/section'
   import footerModel from '@/view/footer'
+
+  import { mapState } from "vuex"
 export default {
   name: 'index',
   data () {
     return {
 
     }
+  },
+  computed: {
+    ...mapState({
+      allClient: state => state.baseStates.allClient
+    })
   },
   components: {
     headerModel, sectionModel, footerModel
