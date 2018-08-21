@@ -10,6 +10,7 @@ import 'element-ui/lib/theme-chalk/display.css';
 import 'element-ui/lib/theme-chalk/index.css';
 import '@/style/index.scss'
 
+
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 
