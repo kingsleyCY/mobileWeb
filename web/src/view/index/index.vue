@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%;width: 100%;">
     <el-collapse-transition>
       <header-model v-if="!allClient"></header-model>
     </el-collapse-transition>

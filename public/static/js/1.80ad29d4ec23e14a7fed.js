@@ -1,2 +1,0 @@
-webpackJsonp([1],{"4+Kh":function(e,n){},GHKu:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("\n  some-note\n")])},staticRenderFns:[]};var a=t("vSla")({name:"some-note",data:function(){return{}}},r,!1,function(e){t("4+Kh")},"data-v-7f908b68",null);n.default=a.exports}});
-//# sourceMappingURL=1.80ad29d4ec23e14a7fed.js.map

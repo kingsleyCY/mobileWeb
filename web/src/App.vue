@@ -10,6 +10,9 @@
   }
 </script>
 
-<style>
-
+<style type="text/scss" lang="scss">
+  #app{
+    width: 100%;
+    height: 100%;
+  }
 </style>

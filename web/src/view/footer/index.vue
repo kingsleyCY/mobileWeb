@@ -73,6 +73,7 @@
     height: 45px;
     opacity: 0;
     cursor: pointer;
+    z-index: 1000000;
     //background-color: white;
     .iconfont {
       width: 45px;

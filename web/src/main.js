@@ -9,6 +9,7 @@ import $ from 'jquery'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/display.css';
 import 'element-ui/lib/theme-chalk/index.css';
+import 'swiper/dist/css/swiper.css';
 import '@/style/index.scss'
 import store from './store'
 

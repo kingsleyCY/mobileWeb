@@ -1,0 +1,2 @@
+webpackJsonp([2],{GHKu:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var a={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("\n  some-note\n")])},staticRenderFns:[]};var r=t("vSla")({name:"some-note",data:function(){return{}}},a,!1,function(e){t("Gg0M")},"data-v-7b90ca3c",null);n.default=r.exports},Gg0M:function(e,n){}});
+//# sourceMappingURL=2.903809bf87b0303238f7.js.map

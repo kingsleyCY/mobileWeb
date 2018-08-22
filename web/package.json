@@ -19,6 +19,7 @@
     "lib-flexible": "^0.3.2",
     "location": "^0.0.1",
     "navigator": "^1.0.1",
+    "swiper": "^4.3.5",
     "vue": "^2.5.2",
     "vue-cute-timeline": "^1.2.5",
     "vue-router": "^3.0.1",
