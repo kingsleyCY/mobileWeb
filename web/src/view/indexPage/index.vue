@@ -30,11 +30,23 @@
           <div class="item-model">
             <el-card class="box-card">
               <div slot="header" class="clearfix">
-                <span class="title">通告</span>
+                <span class="title">消息</span>
               </div>
               <div class="public-notice">
                 网站以后会在每两周的星期天晚上12:00更新迭代，希望大家多多支持。<br/>
                 <p class="update-time">下次更新：2018-09-30</p>
+              </div>
+            </el-card>
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <span class="title">关注小程序</span>
+              </div>
+              <div class="public-notice my-smallprogram">
+                <img src="https://lionynn.cn/images/smallProgram.jpg" alt="">
+                <div class="smallgrogram-introduce">
+                  <p>ID：四季豆花</p>
+                  <p>个人网站关联的小程序，记录family的点点滴滴。<br><br>不忘丶始终</p>
+                </div>
               </div>
             </el-card>
           </div>
@@ -80,6 +92,9 @@ export default {
       border-radius: 3px;
       overflow: hidden;
       font-size: 14px;
+      .box-card + .box-card{
+        margin-top: 15px;
+      }
       .title{
         font-weight: bold;
       }
@@ -129,6 +144,24 @@ export default {
       .public-notice{
         .update-time{
           padding: 10px 0;
+        }
+        &.my-smallprogram{
+          font-size: 0px;
+          img{
+            display: inline-block;
+            width: 50%;
+            vertical-align: top;
+          }
+          .smallgrogram-introduce{
+            display: inline-block;
+            width: 50%;
+            font-size: 14px;
+            padding-left: 15px;
+            box-sizing: border-box;
+            p{
+              padding: 5px 0;
+            }
+          }
         }
       }
     }
