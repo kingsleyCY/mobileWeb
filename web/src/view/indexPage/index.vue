@@ -27,16 +27,8 @@
           </div>
         </el-col>
         <el-col class="hidden-xs-only" :sm="8">
-          <div class="item-model">
-            <el-card class="box-card">
-              <div slot="header" class="clearfix">
-                <span class="title">消息</span>
-              </div>
-              <div class="public-notice">
-                网站以后会在每两周的星期天晚上12:00更新迭代，希望大家多多支持。<br/>
-                <p class="update-time">下次更新：2018-09-30</p>
-              </div>
-            </el-card>
+          <div class="item-model" style="background-color: #F6F6F6">
+            <!--小程序-->
             <el-card class="box-card">
               <div slot="header" class="clearfix">
                 <span class="title">关注小程序</span>
@@ -47,6 +39,56 @@
                   <p>ID：四季豆花</p>
                   <p>个人网站关联的小程序，记录family的点点滴滴。<br><br>不忘丶始终</p>
                 </div>
+              </div>
+            </el-card>
+            <!--消息-->
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <span class="title">消息</span>
+              </div>
+              <div class="public-notice">
+                网站以后会在每两周的星期天晚上12:00更新迭代，希望大家多多支持。<br/>
+                <p class="update-time">下次更新：2018-09-30</p>
+              </div>
+            </el-card>
+            <!--社交-->
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <span class="title">社交</span>
+              </div>
+              <div class="public-notice social-content">
+                <el-tooltip placement="top">
+                  <div slot="content">GitHub</div>
+                  <div class="social-contact">
+                    <a href="https://github.com/Stur-Lion" target="_blank">
+                      <img src="https://lionynn.cn/images/github.jpg" alt="">
+                    </a>
+                  </div>
+                </el-tooltip>
+                <el-tooltip placement="top">
+                  <div slot="content">
+                    <img src="https://lionynn.cn/images/qq-qr.png" alt="">
+                  </div>
+                  <div class="social-contact">
+                    <img src="https://lionynn.cn/images/qq.jpg" alt="">
+                  </div>
+                </el-tooltip>
+                <el-tooltip placement="top">
+                  <div slot="content">
+                    微博
+                  </div>
+                  <div class="social-contact">
+                    <img src="https://lionynn.cn/images/weibo.jpg" alt="">
+                  </div>
+                </el-tooltip>
+                <el-tooltip placement="top">
+                  <div slot="content">
+                    <img src="https://lionynn.cn/images/weixin-qr.jpg" alt="">
+                  </div>
+                  <div class="social-contact">
+                    <img src="https://lionynn.cn/images/weixin.jpg" alt="">
+                  </div>
+                </el-tooltip>
               </div>
             </el-card>
           </div>
@@ -105,6 +147,10 @@ export default {
         line-height: 20px;
         padding: 15px 0;
         border-bottom: 1px solid #ebeef5;
+        cursor: pointer;
+        &:hover{
+          background-color: #fdfdfd;
+        }
         &:last-child{
           border-bottom: none;
         }
@@ -163,7 +209,30 @@ export default {
             }
           }
         }
+        &.social-content{
+          display: flex;
+          justify-content: center;
+          align-self: center;
+          .social-contact{
+            width: 25%;
+            display: inline-block;
+            img{
+              display: block;
+              width: 40px;
+              height: 40px;
+              margin: 0 auto;
+              border-radius: 20px;
+            }
+          }
+        }
       }
+    }
+  }
+  .el-tooltip__popper{
+    img{
+      display: block;
+      height: 150px;
+      width: 150px;
     }
   }
 </style>
