@@ -16,6 +16,9 @@
     </div>
     <div class="menu-background" ref="menuBack" @click="closeMenu">
       <ul ref="menuList">
+        <div>
+          <img src="../../assets/images/logo.jpg"/>
+        </div>
         <li v-for="(item, index) in menuArr" :key="index" @click="menuSelect(index,[item.index])">
           <svg class="iconfont" aria-hidden="true">
             <use :xlink:href="'#'+item.icon"></use>
@@ -106,7 +109,7 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped type="text/scss">
+<style lang="scss" scoped type="text/scss" scoped>
   .header-model {
     height: 60px;
     background-color: white;
@@ -153,14 +156,14 @@
     z-index: 1000000;
     ul {
       height: 100%;
-      width: 200px;
+      width: 170px;
       overflow-y: auto;
       display: inline-block;
       background-color: white;
       transform: translateX(-200px);
       transition: transform 0.5s;
       li {
-        border-bottom: 1px solid #c8d0dc;
+        border-top: 1px solid #c8d0dc;
         padding-left: 15px;
         box-sizing: border-box;
         line-height: 45px;
@@ -173,6 +176,16 @@
           margin-right: 5px;
           vertical-align: -6px;
         }
+      }
+      li:last-child{
+        border-bottom: 1px solid #c8d0dc;
+      }
+      img{
+        display: block;
+        margin: 15px auto;
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
       }
     }
   }
