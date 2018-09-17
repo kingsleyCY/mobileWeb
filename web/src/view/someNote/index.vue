@@ -1,6 +1,6 @@
 <template>
-  <div>
-    some-note
+  <div style="text-align: center;line-height: 600px;font-weight: bold;font-size: 100px">
+    coming soon ~~
   </div>
 </template>
 
