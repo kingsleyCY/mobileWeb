@@ -75,7 +75,7 @@
                 </el-tooltip>
                 <el-tooltip placement="top">
                   <div slot="content">
-                    微博
+                    <img src="https://lionynn.cn/images/weibo-qr.jpg" alt="">
                   </div>
                   <div class="social-contact">
                     <img src="https://lionynn.cn/images/weibo.jpg" alt="">
