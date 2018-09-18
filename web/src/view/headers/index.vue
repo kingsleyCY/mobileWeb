@@ -3,7 +3,10 @@
     <div class="container">
       <i class="el-icon-menu hidden-sm-and-up" @click="toggleMenu"></i>
       <span class="header-title hidden-sm-and-up">Some OF Myself</span>
-      <img src="../../assets/images/logo.jpg" class="left-avator"/>
+      <span class="my-logo">
+        <img src="../../assets/images/logo.jpg" class="left-avator"/>
+        <span class="webfont hidden-xs-only">Cheng丶C ' s Blog</span>
+      </span>
       <div class="right-tab hidden-xs-only">
         <el-menu :default-active="activeIndex" class="el-menu-demo"
                  mode="horizontal" @select="menuSelect">
@@ -130,6 +133,16 @@
       .header-title {
         font-size: 16px;
         font-weight: bold;
+      }
+      .my-logo{
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        span{
+          display: inline-block;
+          padding-left: 15px;
+          line-height: 45px;
+        }
       }
       .right-tab {
         height: 100%;

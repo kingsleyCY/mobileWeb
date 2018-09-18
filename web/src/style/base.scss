@@ -1,10 +1,23 @@
+@font-face {
+  font-family: 'webfonts';
+  src: url('//at.alicdn.com/t/webfont_4rxpnx5ke5w.eot'); /* IE9*/
+  src: url('//at.alicdn.com/t/webfont_4rxpnx5ke5w.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/webfont_4rxpnx5ke5w.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/webfont_4rxpnx5ke5w.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/webfont_4rxpnx5ke5w.svg#杨任东竹石体-Bold') format('svg'); /* iOS 4.1- */
+}
 .container {
   margin: 0 auto;
+}
+.webfont{
+  font-family: "webfonts";
+  font-size: 42px;
 }
 @media only screen and (max-width: 768px) {
   .container {
     max-width: 100%;
-    padding: 0;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 @media only screen and (min-width: 768px) {
@@ -36,6 +49,7 @@ html, body {
   font-size: 14px;
   font-family: "kaiti";
   overflow-x: hidden;
+  box-sizing: border-box;
 }
 ul {
   list-style: none;

@@ -1,5 +1,5 @@
 <template>
-  <div style="text-align: center;line-height: 600px;font-weight: bold;font-size: 100px">
+  <div style="text-align: center;line-height: 300%;font-weight: bold;font-size: 80px">
     coming soon ~~
   </div>
 </template>

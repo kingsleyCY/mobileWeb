@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container padding10">
       <el-row :gutter="20">
         <el-col :xs="24" :sm="16">
           <div class="item-model">
@@ -11,14 +11,20 @@
               <div>
                 <ul>
                   <li v-for="(item, index) in dynamicList" :key="index" class="dynamic-item">
-                    <img :src="item.avtar" alt="用户头像">
+                    <div class="left-base">
+                      <img :src="item.avtar" alt="用户头像">
+                      <p>
+                        <span>0</span> /
+                        <span>0</span>
+                      </p>
+                    </div>
                     <div class="article-con">
                       <p class="article-title">{{item.title}}</p>
                       <p class="article-content">{{item.content}}</p>
                     </div>
                     <div class="other-mess">
-                      <p>{{item.created_time}}</p>
                       <p>{{item.username}}</p>
+                      <p>{{item.created_time}}</p>
                     </div>
                   </li>
                 </ul>
@@ -26,7 +32,7 @@
             </el-card>
           </div>
         </el-col>
-        <el-col class="hidden-xs-only" :sm="8">
+        <el-col :xs="24" :sm="8">
           <div class="item-model" style="background-color: #F6F6F6">
             <!--小程序-->
             <el-card class="box-card">
@@ -154,11 +160,26 @@ export default {
         &:last-child{
           border-bottom: none;
         }
-        img{
-          display: inline-block;
-          width: 50px;
-          height: 50px;
-          border-radius: 25px;
+        .left-base{
+          img{
+            display: block;
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+          }
+          p{
+            font-family: "微软雅黑 Light";
+            text-align: center;
+            padding-top: 8px;
+            span:first-child{
+              color: #9e78c0;
+              font-size: 14px;
+            }
+            span:last-child{
+              color: #b4b4b4;
+              font-size: 10px;
+            }
+          }
         }
         .article-con{
           width: calc(100% - 130px);
@@ -185,6 +206,10 @@ export default {
         .other-mess{
           width: 80px;
           text-align: center;
+          color: #a9a9a9;
+          p:first-child{
+            padding-bottom: 5px;
+          }
         }
       }
       .public-notice{

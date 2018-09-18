@@ -1,0 +1,2 @@
+webpackJsonp([3],{Fp9I:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var i={render:function(){var e=this.$createElement;return(this._self._c||e)("div",{staticStyle:{"text-align":"center","line-height":"300%","font-weight":"bold","font-size":"80px"}},[this._v("\n  coming soon ~~\n")])},staticRenderFns:[]};var r=n("vSla")({name:"for-ours",data:function(){return{}}},i,!1,function(e){n("pjG+")},"data-v-718eb2bc",null);t.default=r.exports},"pjG+":function(e,t){}});
+//# sourceMappingURL=3.e9574f62df7a00306d48.js.map
