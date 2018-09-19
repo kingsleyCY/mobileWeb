@@ -12,10 +12,10 @@
                 <ul>
                   <li v-for="(item, index) in dynamicList" :key="index" class="dynamic-item">
                     <div class="left-base">
-                      <img :src="item.avtar" alt="用户头像">
+                      <img :src="item.avtar?item.avtar:'https://lionynn.cn/images/defaultAvtor.jpg'" alt="用户头像">
                       <p>
-                        <span>0</span> /
-                        <span>0</span>
+                        <span>{{item.article_info.comment_num}}</span> /
+                        <span>{{item.article_info.look_num}}</span>
                       </p>
                     </div>
                     <div class="article-con">
@@ -23,7 +23,7 @@
                       <p class="article-content">{{item.content}}</p>
                     </div>
                     <div class="other-mess">
-                      <p>{{item.username}}</p>
+                      <p>{{item.user_info.username}}</p>
                       <p>{{item.created_time}}</p>
                     </div>
                   </li>
@@ -109,24 +109,15 @@ export default {
   name: 'index-page',
   data () {
     return {
-      dynamicList: [
-        {
-          avtar: "https://lionynn.cn/images/defaultAvtor.jpg",
-          username: "lion",
-          title: "测试标题",
-          content: "文章内容不超过哇哈哈哈文章内容不超过哇哈哈哈文章内容不超过哇哈哈哈文章内容不超过哇哈哈哈",
-          created_time: "09-17 13:46",
-          update_time: "09-17 13:46"
-        }, {
-          avtar: "https://lionynn.cn/images/defaultAvtor.jpg",
-          username: "cckings",
-          title: "测试标题",
-          content: "文章内容不超过哇哈哈哈文章内容不超过哇哈哈哈文章内容不超过哇哈哈哈文章内容不超过哇哈哈哈",
-          created_time: "09-17 13:46",
-          update_time: "09-17 13:46"
-        }
-      ]
+      dynamicList: []
     }
+  },
+  created() {
+    let that = this
+    this.$http.get("/api/article/all").then(function (res) {
+      console.log(res);
+      that.dynamicList = res.data
+    })
   }
 }
 </script>

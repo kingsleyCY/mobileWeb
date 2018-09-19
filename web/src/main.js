@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import 'lib-flexible'
 import $ from 'jquery'
+import axios from 'axios'
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/display.css';
@@ -16,6 +17,15 @@ import store from './store'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
+
+axios.interceptors.response.use(function (response) {
+  return response.data
+}, function (error) {
+  // Do something with response error
+  return Promise.reject(error)
+})
+Vue.prototype.$http = axios
+
 
 router.beforeEach((to, from, next) => {
   // let fullPath = ['/forOurs', '/myIntroduce']

@@ -1,0 +1,2 @@
+webpackJsonp([1],{"+OhZ":function(e,t){},GHKu:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var i={render:function(){var e=this.$createElement;return(this._self._c||e)("div",{staticStyle:{"text-align":"center","line-height":"300%","font-weight":"bold","font-size":"80px"}},[this._v("\n  coming soon ~~\n")])},staticRenderFns:[]};var o=n("C7Lr")({name:"some-note",data:function(){return{}}},i,!1,function(e){n("+OhZ")},"data-v-5b7b2417",null);t.default=o.exports}});
+//# sourceMappingURL=1.3cb30e9d3fd62755c0b5.js.map
