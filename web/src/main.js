@@ -18,6 +18,7 @@ import store from './store'
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 
+
 axios.interceptors.response.use(function (response) {
   return response.data
 }, function (error) {

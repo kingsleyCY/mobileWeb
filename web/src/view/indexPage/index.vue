@@ -114,7 +114,7 @@ export default {
   },
   created() {
     let that = this
-    this.$http.get("/api/article/all").then(function (res) {
+    this.$http.get("https://lionynn.cn/api/article/all").then(function (res) {
       console.log(res);
       that.dynamicList = res.data
     })
