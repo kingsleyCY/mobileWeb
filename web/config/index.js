@@ -13,7 +13,7 @@ module.exports = {
     proxyTable: {
       '/apis': {
         // target: 'https://lionynn.cn',
-        target: 'http://192.168.1.195:8801',
+        target: 'http://localhost:8801',
         pathRewrite: {
           '^/apis': ''
         },

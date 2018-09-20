@@ -8,7 +8,7 @@
               <div slot="header" class="clearfix">
                 <span class="title">相关动态</span>
               </div>
-              <div style="position: relative; transition: all .5s;" ref="articleBox">
+              <div style="position: relative; transition: all .5s;min-height: 200px" ref="articleBox">
                 <transition name="slide-left">
                   <component :is="articleName" @addArticle="toAddArticle"
                              @articleList="toArticleList" @autoHeight="autoHeight"></component>
