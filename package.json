@@ -14,7 +14,8 @@
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
     "mongodb": "^2.2.33",
-    "morgan": "~1.9.0"
+    "morgan": "~1.9.0",
+    "vue-quill-editor": "^3.0.6"
   },
   "devDependencies": {
     "nodemon": "^1.18.3"

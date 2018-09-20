@@ -20,7 +20,14 @@ Vue.use(ElementUI);
 
 
 axios.interceptors.response.use(function (response) {
-  return response.data
+  if(response.data.code == 1) {
+    return response.data.date
+  }else {
+    ElementUI.Message({
+      message: response.data.mess,
+      type: 'warning'
+    })
+  }
 }, function (error) {
   // Do something with response error
   return Promise.reject(error)

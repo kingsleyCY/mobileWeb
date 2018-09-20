@@ -8,26 +8,11 @@
               <div slot="header" class="clearfix">
                 <span class="title">相关动态</span>
               </div>
-              <div>
-                <ul>
-                  <li v-for="(item, index) in dynamicList" :key="index" class="dynamic-item">
-                    <div class="left-base">
-                      <img :src="item.avtar?item.avtar:'https://lionynn.cn/images/defaultAvtor.jpg'" alt="用户头像">
-                      <p>
-                        <span>{{item.article_info.comment_num}}</span> /
-                        <span>{{item.article_info.look_num}}</span>
-                      </p>
-                    </div>
-                    <div class="article-con">
-                      <p class="article-title">{{item.title}}</p>
-                      <p class="article-content">{{item.content}}</p>
-                    </div>
-                    <div class="other-mess">
-                      <p>{{item.user_info.username}}</p>
-                      <p>{{item.created_time}}</p>
-                    </div>
-                  </li>
-                </ul>
+              <div style="position: relative; transition: all .5s;" ref="articleBox">
+                <transition name="slide-left">
+                  <component :is="articleName" @addArticle="toAddArticle"
+                             @articleList="toArticleList" @autoHeight="autoHeight"></component>
+                </transition>
               </div>
             </el-card>
           </div>
@@ -105,39 +90,49 @@
 </template>
 
 <script>
-export default {
-  name: 'index-page',
-  data () {
-    return {
-      dynamicList: []
+  import articleList from "./components/articleList"
+  import addArticle from "./components/addArticle"
+  export default {
+    name: 'index-page',
+    data() {
+      return {
+        articleName: 'articleList'
+      }
+    },
+    methods: {
+      toAddArticle(res) {
+        this.articleName = res
+        this.$refs.articleBox.style.height = '430px'
+      },
+      toArticleList(res) {
+        this.articleName = res
+      },
+      autoHeight(height) {
+        this.$refs.articleBox.style.height = height + 'px'
+      }
+    },
+    components: {
+      articleList, addArticle
     }
-  },
-  created() {
-    let that = this
-    this.$http.get("http://lionynn.cn/apis/api/article/all").then(function (res) {
-      console.log(res);
-      that.dynamicList = res.data
-    })
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped type="text/scss">
-  .container{
+  .container {
     padding-top: 20px;
-    .item-model{
+    .item-model {
       background-color: white;
       border-radius: 3px;
       overflow: hidden;
       font-size: 14px;
-      .box-card + .box-card{
+      .box-card + .box-card {
         margin-top: 15px;
       }
-      .title{
+      .title {
         font-weight: bold;
       }
-      .dynamic-item{
+      .dynamic-item {
         display: flex;
         justify-content: space-between;
         align-content: center;
@@ -145,38 +140,38 @@ export default {
         padding: 15px 0;
         border-bottom: 1px solid #ebeef5;
         cursor: pointer;
-        &:hover{
+        &:hover {
           background-color: #fdfdfd;
         }
-        &:last-child{
+        &:last-child {
           border-bottom: none;
         }
-        .left-base{
-          img{
+        .left-base {
+          img {
             display: block;
             width: 50px;
             height: 50px;
             border-radius: 25px;
           }
-          p{
+          p {
             font-family: "微软雅黑 Light";
             text-align: center;
             padding-top: 8px;
-            span:first-child{
+            span:first-child {
               color: #9e78c0;
               font-size: 14px;
             }
-            span:last-child{
+            span:last-child {
               color: #b4b4b4;
               font-size: 10px;
             }
           }
         }
-        .article-con{
+        .article-con {
           width: calc(100% - 130px);
           padding: 0 10px;
           box-sizing: border-box;
-          .article-content{
+          .article-content {
             color: #8a8a8a;
             display: -webkit-box;
             overflow: hidden;
@@ -185,8 +180,9 @@ export default {
             white-space: normal !important;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
+            max-height: 38px;
           }
-          .article-title{
+          .article-title {
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -194,45 +190,45 @@ export default {
             padding-bottom: 5px;
           }
         }
-        .other-mess{
+        .other-mess {
           width: 80px;
           text-align: center;
           color: #a9a9a9;
-          p:first-child{
+          p:first-child {
             padding-bottom: 5px;
           }
         }
       }
-      .public-notice{
-        .update-time{
+      .public-notice {
+        .update-time {
           padding: 10px 0;
         }
-        &.my-smallprogram{
+        &.my-smallprogram {
           font-size: 0px;
-          img{
+          img {
             display: inline-block;
             width: 50%;
             vertical-align: top;
           }
-          .smallgrogram-introduce{
+          .smallgrogram-introduce {
             display: inline-block;
             width: 50%;
             font-size: 14px;
             padding-left: 15px;
             box-sizing: border-box;
-            p{
+            p {
               padding: 5px 0;
             }
           }
         }
-        &.social-content{
+        &.social-content {
           display: flex;
           justify-content: center;
           align-self: center;
-          .social-contact{
+          .social-contact {
             width: 25%;
             display: inline-block;
-            img{
+            img {
               display: block;
               width: 40px;
               height: 40px;
@@ -244,8 +240,9 @@ export default {
       }
     }
   }
-  .el-tooltip__popper{
-    img{
+
+  .el-tooltip__popper {
+    img {
       display: block;
       height: 150px;
       width: 150px;
