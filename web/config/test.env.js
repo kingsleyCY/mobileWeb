@@ -4,5 +4,5 @@ const devEnv = require('./dev.env')
 
 module.exports = merge(devEnv, {
   NODE_ENV: '"testing"',
-  BASE_API: '"https://localhost"',
+  // BASE_API: '"https://localhost"',
 })

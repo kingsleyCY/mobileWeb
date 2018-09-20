@@ -19,7 +19,12 @@ Vue.config.productionTip = false
 Vue.use(ElementUI);
 
 
-axios.defaults.baseURL = process.env.BASE_API;
+// axios.defaults.baseURL = process.env.BASE_API;
+console.log(process.env.NODE_ENV);
+console.log(process.env);
+if(process.env.BASE_API) {
+  axios.defaults.baseURL = process.env.BASE_API;
+}
 axios.interceptors.response.use(function (response) {
   if(response.data.code == 1) {
     return response.data.date
