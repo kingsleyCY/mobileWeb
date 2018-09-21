@@ -1,7 +1,7 @@
 <template>
   <div class="child-view heigth" ref="childView">
     <ul>
-      <li v-for="(item, index) in dynamicList" :key="index" class="dynamic-item">
+      <li v-for="(item, index) in dynamicList" :key="index" class="dynamic-item" @click="todetail(item)">
         <div class="left-base">
           <img :src="item.avtar?item.avtar:'https://lionynn.cn/images/defaultAvtor.jpg'" alt="用户头像">
           <p>
@@ -11,7 +11,7 @@
         </div>
         <div class="article-con">
           <p class="article-title">{{item.title?item.title:"标题飞走啦！"}}</p>
-          <p class="article-content" v-html="item.content?item.content:'内容被吃辣'"></p>
+          <p class="article-content" v-html="item.content?delHtmlTag(item.content):'内容被吃辣'"></p>
         </div>
         <div class="other-mess">
           <p>{{item.user_info?item.user_info.username:"--"}}</p>
@@ -26,7 +26,7 @@
         :page-size="pageInfo.pre_page"
         layout="prev, pager, next" :total="pageInfo.total">
       </el-pagination>
-      <el-button type="text" @click="addArticle">添加文章</el-button>
+      <el-button type="text" @click="addArticle" style="font-size: 14px!important">添加文章</el-button>
     </div>
   </div>
 </template>
@@ -59,8 +59,17 @@
         // return Y + M + D + h + m + s;
         return M + D + h + ':' + m;
       },
+      delHtmlTag(str) {
+        str = str.replace(/<[^>]+>/g, "")
+        str = str.replace(/&nbsp;/ig, "")
+        return str;
+      },
       addArticle() {
         this.$emit('addArticle', "addArticle")
+      },
+      /* 查看详情 */
+      todetail(item) {
+        this.$emit("todetail", "articleDetail", item)
       }
     },
     mounted() {
@@ -144,8 +153,10 @@
       width: 80px;
       text-align: center;
       color: #a9a9a9;
+      font-size: 10px;
       p:first-child {
         padding-bottom: 5px;
+        font-size: 16px;
       }
     }
   }

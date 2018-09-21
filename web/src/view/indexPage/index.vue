@@ -7,11 +7,15 @@
             <el-card class="box-card">
               <div slot="header" class="clearfix">
                 <span class="title">相关动态</span>
+                <svg class="iconfont" aria-hidden="true" v-if="articleName != 'articleList'"
+                     style="float: right;cursor: pointer" @click="toArticleList('articleList')">
+                  <use xlink:href="#icon-fanhui"></use>
+                </svg>
               </div>
               <div style="position: relative; transition: all .5s;min-height: 200px" ref="articleBox">
                 <transition name="slide-left">
-                  <component :is="articleName" @addArticle="toAddArticle"
-                             @articleList="toArticleList" @autoHeight="autoHeight"></component>
+                  <component :is="articleName" @addArticle="toAddArticle" :articleInfo="articleInfo"
+                             @articleList="toArticleList" @autoHeight="autoHeight" @todetail="todetail"></component>
                 </transition>
               </div>
             </el-card>
@@ -92,11 +96,14 @@
 <script>
   import articleList from "./components/articleList"
   import addArticle from "./components/addArticle"
+  import articleDetail from "./components/articleDetail"
+
   export default {
     name: 'index-page',
     data() {
       return {
-        articleName: 'articleList'
+        articleName: 'articleList',
+        articleInfo: null
       }
     },
     methods: {
@@ -107,12 +114,16 @@
       toArticleList(res) {
         this.articleName = res
       },
+      todetail(res, item) {
+        this.articleInfo = item
+        this.articleName = res
+      },
       autoHeight(height) {
         this.$refs.articleBox.style.height = height + 'px'
       }
     },
     components: {
-      articleList, addArticle
+      articleList, addArticle, articleDetail
     }
   }
 </script>
