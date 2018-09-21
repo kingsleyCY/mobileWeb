@@ -1,7 +1,7 @@
 <template>
   <div :class="['main-content', allClient?'all-client':'not-all-client']" ref="mainContent">
     <transition :name="transitionName">
-      <router-view class="child-view"></router-view>
+      <router-view class="child-view scrollBar"></router-view>
     </transition>
     <!--<router-view></router-view>-->
   </div>
@@ -46,8 +46,10 @@
     left: 0;
     top: 0;
     width: 100%;
-    height: calc(100% - 60px);
-    transition: all .5s cubic-bezier(.55,0,.1,1);
+    // height: calc(100% - 60px);
+    height: 100%;
+    transition: all .5s cubic-bezier(.55, 0, .1, 1);
+    overflow-y: auto;
   }
   .slide-left-enter, .slide-right-leave-active {
     opacity: 0;

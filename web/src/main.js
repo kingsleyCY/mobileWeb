@@ -20,8 +20,6 @@ Vue.use(ElementUI);
 
 
 // axios.defaults.baseURL = process.env.BASE_API;
-console.log(process.env.NODE_ENV);
-console.log(process.env);
 if(process.env.BASE_API) {
   axios.defaults.baseURL = process.env.BASE_API;
 }

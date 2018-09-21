@@ -82,6 +82,9 @@
   /deep/ .w-e-toolbar{
     flex-wrap: wrap;
   }
+  /deep/ .w-e-text{
+    overflow-y: auto;
+  }
   .btn-grounp{
     text-align: right;
     padding-top: 15px;
