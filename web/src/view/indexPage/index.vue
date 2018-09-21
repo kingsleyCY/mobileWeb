@@ -117,6 +117,7 @@
       todetail(res, item) {
         this.articleInfo = item
         this.articleName = res
+        this.$refs.articleBox.style.height = 'auto'
       },
       autoHeight(height) {
         this.$refs.articleBox.style.height = height + 'px'
