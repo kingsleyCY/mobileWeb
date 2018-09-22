@@ -1,7 +1,7 @@
 <template>
   <div :class="['main-content', allClient?'all-client':'not-all-client']" ref="mainContent">
     <transition :name="transitionName">
-      <router-view class="child-view scrollBar"></router-view>
+      <router-view class="child-view scrollBar" id="mainContaniner"></router-view>
     </transition>
     <!--<router-view></router-view>-->
   </div>

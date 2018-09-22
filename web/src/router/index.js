@@ -26,6 +26,10 @@ export default new Router({
           path: 'myIntroduce',
           name: 'my-introduce',
           component: () => import('@/view/myIntroduce'),
+        },{
+          path: 'messTome',
+          name: 'mess-tome',
+          component: () => import('@/view/messTome'),
         }
       ]
     }

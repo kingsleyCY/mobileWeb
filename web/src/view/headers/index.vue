@@ -11,7 +11,7 @@
         <el-menu :default-active="activeIndex" class="el-menu-demo"
                  mode="horizontal" @select="menuSelect">
           <el-menu-item :index="item.index" v-for="(item, index) in menuArr"
-                        :key="index">{{item.name}}
+                        :key="index" v-if="item.isShow">{{item.name}}
           </el-menu-item>
         </el-menu>
         <div class="line"></div>
@@ -22,7 +22,8 @@
         <div>
           <img src="../../assets/images/logo.jpg"/>
         </div>
-        <li v-for="(item, index) in menuArr" :key="index" @click="menuSelect(index,[item.index])">
+        <li v-for="(item, index) in menuArr" :key="index" @click="menuSelect(index,[item.index])"
+            v-if="item.isShow">
           <svg class="iconfont" aria-hidden="true">
             <use :xlink:href="'#'+item.icon"></use>
           </svg>
@@ -45,22 +46,32 @@
             name: "朝花夕拾",
             index: "1",
             icon: 'icon-shuqian',
-            path: ''
+            path: '/indexPage',
+            isShow: 1
           }, {
             name: "四季豆花",
             index: "2",
             icon: 'icon-zhezhi',
-            path: ''
+            path: '/forOurs',
+            isShow: 0
           }, {
             name: "前端日记",
             icon: 'icon-wanjufengche',
             index: "3",
-            path: ''
+            path: '/someNote',
+            isShow: 1
           }, {
             name: "自我介绍",
             index: "4",
+            icon: 'icon-jinianpin',
+            path: '/myIntroduce',
+            isShow: 1
+          }, {
+            name: "给我留言",
+            index: "5",
             icon: 'icon-wenju',
-            path: ''
+            path: '/messTome',
+            isShow: 1
           }
         ]
       }
@@ -69,7 +80,7 @@
       if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
         this.isPc = true
       }
-      this.menuSelect(undefined, ["1"])
+      this.menuSelect(1, ["1"])
     },
     methods: {
       toggleMenu() {
@@ -85,26 +96,19 @@
         }.bind(this), 300)
       },
       menuSelect(index, indexPath) {
-        let routerPath = ''
-        switch (indexPath[0]) {
-          case "1":
-            routerPath = '/indexPage'
-            break;
-          case "2":
-            routerPath = '/forOurs'
-            break;
-          case "3":
-            routerPath = '/someNote'
-            break;
-          case "4":
-            routerPath = '/myIntroduce'
-            break;
-          default:
-            routerPath = '/indexPage'
-            break;
-        }
+        let routerPath = this.menuArr[index - 1].path
         this.$router.push({
           path: routerPath
+        })
+      }
+    },
+    watch: {
+      '$route'(to, from) {
+        var that = this
+        this.menuArr.forEach((item, index) => {
+          if(to.path.indexOf(item.path) == 0) {
+            that.activeIndex = String(index + 1)
+          }
         })
       }
     }
