@@ -9,6 +9,7 @@ export default new Router({
       path: '/',
       name: 'index',
       component: () => import('@/view/index'),
+      redirect: "/indexPage",
       children: [
         {
           path: 'indexPage',

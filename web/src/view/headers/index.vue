@@ -22,7 +22,7 @@
         <div>
           <img src="../../assets/images/logo.jpg"/>
         </div>
-        <li v-for="(item, index) in menuArr" :key="index" @click="menuSelect(index,[item.index])"
+        <li v-for="(item, index) in menuArr" :key="index" @click="menuSelect(index + 1,[item.index])"
             v-if="item.isShow">
           <svg class="iconfont" aria-hidden="true">
             <use :xlink:href="'#'+item.icon"></use>
@@ -80,7 +80,12 @@
       if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
         this.isPc = true
       }
-      this.menuSelect(1, ["1"])
+      var that = this
+      this.menuArr.forEach((item, index) => {
+        if(that.$route.path.indexOf(item.path) == 0) {
+          that.activeIndex = String(index + 1)
+        }
+      })
     },
     methods: {
       toggleMenu() {
@@ -111,7 +116,7 @@
           }
         })
       }
-    }
+    },
   }
 </script>
 

@@ -10,7 +10,7 @@
   export default {
     name: "article-detail",
     mounted() {
-      console.log(this.articleInfo);
+      //console.log(this.articleInfo);
     },
     props: ["articleInfo"]
   }
