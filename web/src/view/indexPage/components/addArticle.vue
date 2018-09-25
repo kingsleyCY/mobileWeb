@@ -1,5 +1,11 @@
 <template>
   <div class="child-view heigth">
+    <vueCropper
+      ref="cropper"
+      :img="option.img"
+      :outputSize="option.size"
+      :outputType="option.outputType"
+    ></vueCropper>
     <el-input
       placeholder="请输入文章标题"
       v-model="title"
@@ -16,6 +22,7 @@
 </template>
 
 <script>
+  import VueCropper from 'vue-cropper'
   var E = require('wangeditor')  // 使用 npm 安装
   export default {
     name: "add-article",
@@ -23,6 +30,11 @@
       return {
         editor: null,
         title: "",
+        option: {
+          img: '',
+          size: 1,
+          outputType: 'jpg',
+        }
       }
     },
     methods: {
@@ -84,6 +96,12 @@
   }
   /deep/ .w-e-text{
     overflow-y: auto;
+  }
+  /deep/ .w-e-droplist{
+    z-index: 20002 !important;
+    .w-e-dp-title{
+      z-index: 20003 !important;
+    }
   }
   .btn-grounp{
     text-align: right;
