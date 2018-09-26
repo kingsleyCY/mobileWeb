@@ -1,0 +1,2 @@
+webpackJsonp([5],{"6Ze8":function(e,t){},Fp9I:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var i={render:function(){var e=this.$createElement;return(this._self._c||e)("div",{staticStyle:{"text-align":"center","line-height":"300%","font-weight":"bold","font-size":"80px"}},[this._v("\n  coming soon ~~\n")])},staticRenderFns:[]};var r=n("C7Lr")({name:"for-ours",data:function(){return{}}},i,!1,function(e){n("6Ze8")},"data-v-024ec5ef",null);t.default=r.exports}});
+//# sourceMappingURL=5.c964a54752b8150177b4.js.map
