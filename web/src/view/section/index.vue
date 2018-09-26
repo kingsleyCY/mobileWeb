@@ -21,9 +21,6 @@
       ...mapState({
         allClient: state => state.baseStates.allClient
       })
-    },
-    watch: {
-
     }
   }
 </script>

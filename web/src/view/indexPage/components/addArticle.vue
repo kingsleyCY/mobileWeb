@@ -1,11 +1,7 @@
 <template>
   <div class="child-view heigth">
-    <vueCropper
-      ref="cropper"
-      :img="option.img"
-      :outputSize="option.size"
-      :outputType="option.outputType"
-    ></vueCropper>
+    <img-upload></img-upload>
+    <br>
     <el-input
       placeholder="请输入文章标题"
       v-model="title"
@@ -23,6 +19,8 @@
 
 <script>
   import VueCropper from 'vue-cropper'
+  import imgUpload from "@/components/imgUpload"
+
   var E = require('wangeditor')  // 使用 npm 安装
   export default {
     name: "add-article",
@@ -30,11 +28,6 @@
       return {
         editor: null,
         title: "",
-        option: {
-          img: '',
-          size: 1,
-          outputType: 'jpg',
-        }
       }
     },
     methods: {
@@ -42,7 +35,7 @@
         this.$emit("articleList", "articleList")
       },
       submitEditor() {
-        if(this.editor) {
+        if (this.editor) {
           let textContent = this.editor.txt.html()
           let that = this
           this.$http.post("/apis/api/article/addArticle", {
@@ -86,24 +79,30 @@
       editor.customConfig.uploadImgShowBase64 = true
       editor.create()
       this.editor = editor
+    },
+    components: {
+      imgUpload
     }
   }
 </script>
 
 <style lang="scss" scoped type="text/scss">
-  /deep/ .w-e-toolbar{
+  /deep/ .w-e-toolbar {
     flex-wrap: wrap;
   }
-  /deep/ .w-e-text{
+
+  /deep/ .w-e-text {
     overflow-y: auto;
   }
-  /deep/ .w-e-droplist{
+
+  /deep/ .w-e-droplist {
     z-index: 20002 !important;
-    .w-e-dp-title{
+    .w-e-dp-title {
       z-index: 20003 !important;
     }
   }
-  .btn-grounp{
+
+  .btn-grounp {
     text-align: right;
     padding-top: 15px;
   }

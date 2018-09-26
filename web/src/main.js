@@ -42,8 +42,12 @@ Vue.prototype.$http = axios
 router.beforeEach((to, from, next) => {
   // let fullPath = ['/forOurs', '/myIntroduce']
   let fullPath = []
+  let isPc
   if (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
-    var isPc = true
+    isPc = true
+    store.state.baseStates.isPc = true
+  }else {
+    store.state.baseStates.isPc = false
   }
   if(fullPath.indexOf(to.fullPath) >= 0 && isPc) {
     store.state.baseStates.allClient = true

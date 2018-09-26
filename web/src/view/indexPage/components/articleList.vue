@@ -26,7 +26,7 @@
         :page-size="pageInfo.pre_page"
         layout="prev, pager, next" :total="pageInfo.total">
       </el-pagination>
-      <!--<el-button type="text" @click="addArticle" style="font-size: 14px!important">添加文章</el-button>-->
+      <el-button type="text" @click="addArticle" style="font-size: 14px!important">添加文章</el-button>
     </div>
   </div>
 </template>

@@ -4,16 +4,6 @@
       <el-row :gutter="20">
         <el-col :xs="24" :sm="16">
           <div class="item-model">
-            <!--<el-card class="box-card swiper-box">
-              <div class="swiper-container" style="height: 300px;width: 100%;">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide" v-for="(item, index) in bannerImg" :key="index">
-                    <img :src="item" alt="">
-                  </div>
-                </div>
-                <div class="swiper-pagination"></div>
-              </div>
-            </el-card>-->
             <el-card class="box-card">
               <div slot="header" class="clearfix">
                 <span class="title">相关动态</span>
@@ -124,15 +114,6 @@
       }
     },
     mounted() {
-      /*var mySwiper = new Swiper('.swiper-container', {
-        pagination: {
-          el: '.swiper-pagination',
-          clickable :true,
-        },
-        autoplay: true,
-        mousewheel : true,
-        loop : true,
-      })*/
     },
     methods: {
       toAddArticle(res) {

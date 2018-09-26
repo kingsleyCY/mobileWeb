@@ -1,6 +1,7 @@
 const baseStates = {
   state: {
-    allClient: false
+    allClient: false,
+    isPc: null
   },
   mutations: {
     changeAllClient(state, flag) {
