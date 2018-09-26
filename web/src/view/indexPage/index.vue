@@ -114,7 +114,7 @@
     name: 'index-page',
     data() {
       return {
-        articleName: 'addArticle',
+        articleName: 'articleList',
         articleInfo: null,
         bannerImg: [
           "https://lionynn.cn/images/banner1.jpg",
