@@ -1,15 +1,19 @@
 <template>
   <div class="child-view heigth">
-    <img-upload></img-upload>
-    <br>
-    <el-input
-      placeholder="请输入文章标题"
-      v-model="title"
-      clearable>
-    </el-input>
-    <br>
-    <br>
-    <div id="editor"></div>
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+      <el-form-item label="文章封面" prop="cover">
+        <img-upload @uploadSuccess="uploadSuccess"></img-upload>
+      </el-form-item>
+      <el-form-item label="文章标题" prop="title">
+        <el-input
+          style="max-width: 300px"
+          placeholder="请输入文章标题"
+          v-model="ruleForm.title"
+          clearable>
+        </el-input>
+      </el-form-item>
+      <div id="editor"></div>
+    </el-form>
     <div class="btn-grounp">
       <el-button type="info" @click="articleList">取消</el-button>
       <el-button type="primary" @click="submitEditor">提交</el-button>
@@ -26,13 +30,25 @@
     name: "add-article",
     data() {
       return {
+        ruleForm: {
+          cover: "",
+          title: "",
+        },
+        rules: {
+          cover: [{ required: true }],
+          content: [{ required: true }],
+          title: [{ required: true, message: '请输入文章标题', trigger: 'blur' }],
+        },
         editor: null,
-        title: "",
       }
     },
     methods: {
       articleList() {
         this.$emit("articleList", "articleList")
+      },
+      uploadSuccess(url) {
+        console.log(url);
+        this.ruleForm.cover = url
       },
       submitEditor() {
         if (this.editor) {
@@ -54,6 +70,9 @@
       this.editor = null
       document.getElementById("editor").innerHTML = "";
       var editor = new E('#editor')
+      editor.customConfig.uploadImgServer = '/apis/api/upload'
+      editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024
+      editor.customConfig.uploadImgMaxLength = 1
       editor.customConfig.menus = [
         'head',  // 标题
         'bold',  // 粗体

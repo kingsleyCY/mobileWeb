@@ -22,10 +22,15 @@ Vue.use(ElementUI);
 // axios.defaults.baseURL = process.env.BASE_API;
 if(process.env.BASE_API) {
   axios.defaults.baseURL = process.env.BASE_API;
+  Vue.prototype.BASE_URL = process.env.BASE_API;
+}else {
+  Vue.prototype.BASE_URL = "http://localhost:8801";
 }
 axios.interceptors.response.use(function (response) {
   if(response.data.code == 1) {
     return response.data.date
+  }else if(response.data.errno == 0){
+    return response.data.data
   }else {
     ElementUI.Message({
       message: response.data.mess,

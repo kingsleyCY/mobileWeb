@@ -118,7 +118,7 @@
     methods: {
       toAddArticle(res) {
         this.articleName = res
-        this.$refs.articleBox.style.height = '450px'
+        this.$refs.articleBox.style.height = '550px'
       },
       toArticleList(res) {
         this.articleName = res

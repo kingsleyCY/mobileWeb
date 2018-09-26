@@ -1,9 +1,15 @@
 <template>
   <div>
     <div class="upload-box" ref="uploadBox">
-      <div class="base-content" @click="dialogVisible = true">
+      <div class="base-content" @click="openModel">
         <i class="el-icon-upload"></i>
         <p>点击上传图片</p>
+      </div>
+      <div class="uploadImg-back" @mouseenter="enterImgBack" @mouseleave="leaveImgBack"
+           :style='{"backgroundImage": "url(" + BASE_URL + uploadImgUrl + ")","display": uploadImgUrl?"block":"none"}'>
+        <div class="lighrGray-box" ref="lighrGrayBox">
+          <i class="el-icon-delete" @click="clearImgback"></i>
+        </div>
       </div>
     </div>
     <el-dialog title="上传图片" :visible.sync="dialogVisible" :width="isPc?'50%':'90%'"
@@ -42,8 +48,9 @@
       return {
         dialogVisible: false,
         partIndex: 1,
+        uploadImgUrl: null,
         option: {
-          img: 'https://qn-qn-kibey-static-cdn.app-echo.com/goodboy-weixin.PNG',
+          img: '',
           size: 1,
           full: false,
           outputType: 'png',
@@ -63,11 +70,11 @@
     methods: {
       openModel() {
         this.dialogVisible = true
+        this.uploadImgUrl = null
       },
       uploadImg(e, num) {
         // console.log('uploadImg');
         var _this = this;
-        _this.partIndex = 2
         //上传图片
         var file = e.target.files[0]
         _this.fileName = file.name;
@@ -85,15 +92,15 @@
           else {
             data = e.target.result
           }
-          console.log(data);
+          _this.partIndex = 2
           if (num === 1) {
             _this.option.img = data
           } else if (num === 2) {
             _this.example2.img = data
           }
         }
-        // 转化为base64
-        // reader.readAsDataURL(file)
+        /*转化为base64
+        reader.readAsDataURL(file)*/
         // 转化为blob
         reader.readAsArrayBuffer(file);
 
@@ -105,6 +112,17 @@
       },
       imgLoad(msg) {
         console.log(msg)
+      },
+      /* 鼠标悬浮、离开背景图 */
+      enterImgBack() {
+        $(this.$refs.lighrGrayBox).fadeIn(100)
+      },
+      leaveImgBack() {
+        $(this.$refs.lighrGrayBox).fadeOut(100)
+      },
+      /* 删除背景图 */
+      clearImgback() {
+        this.uploadImgUrl = null
       },
       beforeClose() {
         this.dialogVisible = false
@@ -127,6 +145,8 @@
                 message: '上传成功'
               });
               _this.beforeClose()
+              _this.uploadImgUrl = response[0]
+              _this.$emit('uploadSuccess', response[0])
             })
         })
       }
@@ -151,8 +171,9 @@
 
 <style lang="scss" scoped type="text/scss">
   .upload-box {
+    position: relative;
     display: inline-block;
-    border: 1px solid #bcbcbc;
+    border: 1px solid #dcdfe6;
     cursor: pointer;
     min-height: 110px;
     user-select: none;
@@ -167,6 +188,30 @@
       p {
         color: #409EFF;
         font-size: 12px;
+      }
+    }
+    .uploadImg-back{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100%;
+      .lighrGray-box{
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        display: none;
+        position: relative;
+        i{
+          font-size: 30px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translateX(-15px) translateY(-15px);
+          color: white;
+        }
       }
     }
   }
