@@ -6,7 +6,7 @@
         <p>点击上传图片</p>
       </div>
       <div class="uploadImg-back" @mouseenter="enterImgBack" @mouseleave="leaveImgBack" :style='{"display": uploadImgUrl?"block":"none"}'>
-        <img :src="uploadImgUrl">
+        <img :src="uploadImgUrl" v-if="uploadImgUrl">
         <div class="lighrGray-box" ref="lighrGrayBox">
           <i class="el-icon-delete" @click="clearImgback"></i>
         </div>
