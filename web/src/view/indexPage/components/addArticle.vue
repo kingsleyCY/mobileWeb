@@ -33,13 +33,13 @@
         ruleForm: {
           cover: "",
           title: "",
+          editor: null,
         },
         rules: {
           cover: [{ required: true }],
           content: [{ required: true }],
           title: [{ required: true, message: '请输入文章标题', trigger: 'blur' }],
         },
-        editor: null,
       }
     },
     methods: {
@@ -51,13 +51,18 @@
         this.ruleForm.cover = url
       },
       submitEditor() {
-        if (this.editor) {
-          let textContent = this.editor.txt.html()
-          let that = this
-          this.$http.post("/apis/api/article/addArticle", {
-            title: that.title,
+        let that = this
+        if (that.ruleForm.editor) {
+          let textContent = that.ruleForm.editor.txt.html()
+          if(textContent == '' || that.ruleForm.title == '' || that.ruleForm.cover == '') {
+            that.$message.info("请填写完整内容")
+            return
+          }
+          that.$http.post("/apis/api/article/addArticle", {
+            title: that.ruleForm.title,
             content: textContent,
-            username: 'kingsley'
+            cover: that.ruleForm.cover,
+            username: '游客12138',
           }).then(function (res) {
             that.$message.success("添加成功")
             that.$emit("articleList", "articleList")
@@ -97,7 +102,7 @@
       ]
       editor.customConfig.uploadImgShowBase64 = true
       editor.create()
-      this.editor = editor
+      this.ruleForm.editor = editor
     },
     components: {
       imgUpload
