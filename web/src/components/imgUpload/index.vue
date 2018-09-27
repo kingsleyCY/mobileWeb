@@ -5,8 +5,8 @@
         <i class="el-icon-upload"></i>
         <p>点击上传图片</p>
       </div>
-      <div class="uploadImg-back" @mouseenter="enterImgBack" @mouseleave="leaveImgBack"
-           :style='{"backgroundImage": "url(" + uploadImgUrl + ")","display": uploadImgUrl?"block":"none"}'>
+      <div class="uploadImg-back" @mouseenter="enterImgBack" @mouseleave="leaveImgBack" :style='{"display": uploadImgUrl?"block":"none"}'>
+        <img :src="uploadImgUrl">
         <div class="lighrGray-box" ref="lighrGrayBox">
           <i class="el-icon-delete" @click="clearImgback"></i>
         </div>
@@ -199,11 +199,20 @@
       background-repeat: no-repeat;
       background-position: center;
       background-size: 100%;
+      img{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 30;
+      }
       .lighrGray-box{
         height: 100%;
         background-color: rgba(0, 0, 0, 0.4);
         display: none;
         position: relative;
+        z-index: 50;
         i{
           font-size: 30px;
           position: absolute;
