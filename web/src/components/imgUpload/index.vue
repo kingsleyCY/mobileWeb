@@ -139,14 +139,16 @@
           formData.append("file", data, this.fileName);
           this.$http.post("/apis/api/upload", formData, {contentType: false, processData: false, headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
             .then((response)=>{
-              console.log(response);
+              const result = response[0]
+              console.log(result);
+              console.log('"'+require(result)+'"');
               _this.$message({
                 type: 'success',
                 message: '上传成功'
               });
               _this.beforeClose()
-              _this.uploadImgUrl = response[0]
-              _this.$emit('uploadSuccess', response[0])
+              _this.uploadImgUrl = result
+              _this.$emit('uploadSuccess', result)
             })
         })
       }
