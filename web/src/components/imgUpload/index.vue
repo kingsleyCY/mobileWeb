@@ -5,7 +5,8 @@
         <i class="el-icon-upload"></i>
         <p>点击上传图片</p>
       </div>
-      <div class="uploadImg-back" @mouseenter="enterImgBack" @mouseleave="leaveImgBack" :style='{"display": uploadImgUrl?"block":"none"}'>
+      <div class="uploadImg-back" @mouseenter="enterImgBack" @mouseleave="leaveImgBack"
+           :style='{"display": uploadImgUrl?"block":"none"}'>
         <img :src="uploadImgUrl" v-if="uploadImgUrl">
         <div class="lighrGray-box" ref="lighrGrayBox">
           <i class="el-icon-delete" @click="clearImgback"></i>
@@ -24,10 +25,13 @@
         </div>
         <div v-show="partIndex == 2">
           <vueCropper
-            ref="cropper" :img="option.img" :output-size="option.size" :output-type="option.outputType" :info="true" :full="option.full"
-            :can-move="option.canMove" :can-move-box="option.canMoveBox" :fixed-box="option.fixedBox" :original="option.original"
-            :auto-crop="option.autoCrop" :auto-crop-width="option.autoCropWidth" :auto-crop-height="option.autoCropHeight" :center-box="option.centerBox"
-            @real-time="realTime" :high="option.high" @img-load="imgLoad" ></vueCropper>
+            ref="cropper" :img="option.img" :output-size="option.size" :output-type="option.outputType" :info="true"
+            :full="option.full"
+            :can-move="option.canMove" :can-move-box="option.canMoveBox" :fixed-box="option.fixedBox"
+            :original="option.original"
+            :auto-crop="option.autoCrop" :auto-crop-width="option.autoCropWidth"
+            :auto-crop-height="option.autoCropHeight" :center-box="option.centerBox"
+            @real-time="realTime" :high="option.high" @img-load="imgLoad"></vueCropper>
         </div>
       </div>
       <span slot="footer" class="dialog-footer">
@@ -40,7 +44,7 @@
 
 <script>
   import VueCropper from 'vue-cropper'
-  import { mapState } from "vuex"
+  import {mapState} from "vuex"
 
   export default {
     name: "img-upload",
@@ -83,7 +87,7 @@
           return false
         }
         var reader = new FileReader();
-        reader.onload =(e) => {
+        reader.onload = (e) => {
           let data;
           if (typeof e.target.result === 'object') {
             // 把Array Buffer转化为blob 如果是base64不需要
@@ -137,11 +141,13 @@
           this.model = true;
           this.modelSrc = img;
           formData.append("file", data, this.fileName);
-          this.$http.post("/apis/api/upload", formData, {contentType: false, processData: false, headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
-            .then((response)=>{
+          this.$http.post("/apis/api/upload", formData, {
+            contentType: false,
+            processData: false,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          })
+            .then((response) => {
               const result = response[0]
-              console.log(result);
-              console.log('"'+require(result)+'"');
               _this.$message({
                 type: 'success',
                 message: '上传成功'
@@ -192,7 +198,7 @@
         font-size: 12px;
       }
     }
-    .uploadImg-back{
+    .uploadImg-back {
       position: absolute;
       top: 0;
       left: 0;
@@ -201,7 +207,7 @@
       background-repeat: no-repeat;
       background-position: center;
       background-size: 100%;
-      img{
+      img {
         position: absolute;
         width: 100%;
         height: 100%;
@@ -209,13 +215,13 @@
         left: 0;
         z-index: 30;
       }
-      .lighrGray-box{
+      .lighrGray-box {
         height: 100%;
         background-color: rgba(0, 0, 0, 0.4);
         display: none;
         position: relative;
         z-index: 50;
-        i{
+        i {
           font-size: 30px;
           position: absolute;
           top: 50%;
@@ -226,15 +232,16 @@
       }
     }
   }
-  .uploadImg-box{
+
+  .uploadImg-box {
     height: 300px;
-    >div{
+    > div {
       height: 100%;
     }
-    .step-one{
+    .step-one {
       background-color: #ededed;
       position: relative;
-      .base-content{
+      .base-content {
         height: 100%;
         text-align: center;
         i {
@@ -259,7 +266,8 @@
       }
     }
   }
-  .el-dialog__wrapper{
+
+  .el-dialog__wrapper {
     z-index: 100005 !important;
   }
 </style>

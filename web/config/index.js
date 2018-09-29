@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/apis': {
-        // target: 'https://lionynn.cn',
+        // target: 'http://lionynn.cn',
         target: 'http://localhost:8801',
         pathRewrite: {
           '^/apis': ''
