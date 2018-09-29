@@ -82,7 +82,7 @@
       timestampToTime(timestamp) {
         var date = new Date(Number(timestamp));//时间戳为10位需*1000，时间戳为13位的话不需乘1000
         var Y = date.getFullYear() + '-';
-        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '/';
+        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
         var D = date.getDate() + ' ';
         var h = date.getHours();
         Number(h) < 10 ? h = ('0' + h) : h = h
@@ -91,7 +91,7 @@
         Number(m) < 10 ? m = ('0' + m) : m = m
         var s = date.getSeconds();
         // return Y + M + D + h + m + s;
-        return M + D + h + ':' + m;
+        return Y + M + D + h + ':' + m;
       },
       delHtmlTag(str) {
         str = str.replace(/<[^>]+>/g, "")
@@ -107,7 +107,7 @@
       },
     },
     mounted() {
-      console.log(this.$route);
+      // console.log(this.$route);
       if (this.$route.query.admin == 1) {
         this.btnFlag = true
       }
@@ -139,7 +139,7 @@
           window.screenWidth = document.body.clientWidth
           that.screenWidth = window.screenWidth
           const liHeight = $(that.$refs.childView).find("li").height() + 30
-          console.log(liHeight);
+          // console.log(liHeight);
           var computedHeigth = computedHeigth = that.dynamicList.length * liHeight + 28
           that.$emit("autoHeight", that.$refs.childView ? computedHeigth : 0)
         })()
