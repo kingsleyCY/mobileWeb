@@ -156,7 +156,7 @@
                 _this.beforeClose()
                 _this.uploadImgUrl = result
                 _this.$emit('uploadSuccess', result)
-              }, 1500)
+              }, 1000)
             })
         })
       }
