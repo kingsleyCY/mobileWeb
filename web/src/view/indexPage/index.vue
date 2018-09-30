@@ -105,15 +105,11 @@
     data() {
       return {
         articleName: 'articleList',
-        articleInfo: null,
-        bannerImg: [
-          "https://lionynn.cn/images/banner1.jpg",
-          "https://lionynn.cn/images/banner3.jpg",
-          "https://lionynn.cn/images/banner2.jpg",
-        ]
+        articleInfo: null
       }
     },
     mounted() {
+      this.testArticle()
     },
     methods: {
       toAddArticle(res) {
@@ -131,6 +127,13 @@
       },
       autoHeight(height) {
         this.$refs.articleBox.style.height = height + 'px'
+      },
+      /* 判断query 的article */
+      testArticle() {
+        if(this.$route.query.article) {
+          console.log(this.$route);
+          this.todetail("articleDetail", {id: this.$route.query.id})
+        }
       }
     },
     components: {
@@ -148,8 +151,8 @@
       border-radius: 3px;
       overflow: hidden;
       font-size: 14px;
-      .box-card + .box-card {
-        margin-top: 15px;
+      .box-card {
+        margin-bottom: 15px;
       }
       .title {
         font-weight: bold;
