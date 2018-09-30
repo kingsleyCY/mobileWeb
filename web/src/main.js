@@ -15,10 +15,12 @@ import 'social-share.js/dist/css/share.min.css'
 import 'swiper/dist/css/swiper.css';
 import '@/style/index.scss'
 import store from './store'
+import commonBase from './common/index'
 
 
 
 Vue.config.productionTip = false
+Vue.prototype.common = new commonBase()
 Vue.use(Share)
 Vue.use(ElementUI);
 
