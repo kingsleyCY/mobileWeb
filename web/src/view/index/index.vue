@@ -11,6 +11,7 @@
         <div class="double-bounce2"></div>
       </div>
     </div>
+    <login></login>
   </div>
 </template>
 
@@ -18,6 +19,7 @@
   import headerModel from '@/view/headers'
   import sectionModel from '@/view/section'
   import footerModel from '@/view/footer'
+  import login from '@/components/login'
 
   import { mapState } from "vuex"
 
@@ -32,7 +34,7 @@
       })
     },
     components: {
-      headerModel, sectionModel, footerModel
+      headerModel, sectionModel, footerModel, login
     },
     mounted() {
       setTimeout(function () {

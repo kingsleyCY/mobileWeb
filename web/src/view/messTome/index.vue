@@ -4,7 +4,7 @@
       <el-row :gutter="20">
         <el-col :xs="24" :sm="16">
           <div class="item-model">
-            123
+            <el-button type="text" @click="login">登录</el-button>
           </div>
         </el-col>
         <el-col :xs="24" :sm="8">
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+  import { mapState, mapMutations } from "vuex"
+
   export default {
     name: "mess-tome",
     data() {
@@ -47,6 +49,15 @@
           }
         ]
       }
+    },
+    methods: {
+      login() {
+        //this.changeLoginModel(true)
+        /*this.$http.post('/apis/api/login/sendEmail', {email: "1504468447@qq.com"}).then(res => {
+          console.log(res);
+        })*/
+      },
+      ...mapMutations(['changeLoginModel'])
     }
   }
 </script>
