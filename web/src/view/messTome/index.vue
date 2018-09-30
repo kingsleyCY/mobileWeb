@@ -52,7 +52,7 @@
     },
     methods: {
       login() {
-        //this.changeLoginModel(true)
+        this.changeLoginModel(true)
         /*this.$http.post('/apis/api/login/sendEmail', {email: "1504468447@qq.com"}).then(res => {
           console.log(res);
         })*/
@@ -66,6 +66,7 @@
   .blog-message{
     background-color: white !important;
     border-top: 1px solid #ebeee6;
+    box-sizing: border-box;
     .container{
       padding-top: 15px;
       box-sizing: border-box;

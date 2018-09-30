@@ -131,7 +131,7 @@
       /* 判断query 的article */
       testArticle() {
         if(this.$route.query.article) {
-          console.log(this.$route);
+          // console.log(this.$route);
           this.todetail("articleDetail", {id: this.$route.query.id})
         }
       }
