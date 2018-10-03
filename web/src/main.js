@@ -34,14 +34,15 @@ if(process.env.BASE_API) {
 }
 axios.interceptors.response.use(function (response) {
   if(response.data.code == 1) {
-    return response.data.date
-  }else if(response.data.errno == 0){
-    return response.data.data
+    return response.data
+  }else if(response.data.code == 0){
+    return response.data
   }else {
     ElementUI.Message({
       message: response.data.mess,
       type: 'warning'
     })
+    return response.data
   }
 }, function (error) {
   // Do something with response error

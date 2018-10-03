@@ -45,7 +45,7 @@
       let that = this
       this.$http.post('/apis/api/article/findOne', {id: this.articleInfo.id, addLook: true})
         .then(res => {
-          that.article_info = res
+          that.article_info = res.date
           let BASE_URL
           if (location.origin.indexOf('localhost') >= 0) { //本地
             BASE_URL = 'http://localhost:8080/#/indexPage?article=true&id=' + that.articleInfo.id

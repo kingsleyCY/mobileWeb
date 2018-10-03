@@ -11,6 +11,9 @@
                      style="float: right;cursor: pointer" @click="toArticleList('articleList')">
                   <use xlink:href="#icon-fanhui"></use>
                 </svg>
+                <el-button style="float: right; padding: 3px 0" type="text" v-if="articleName == 'articleList'"
+                           @click="changeLoginModel(true)">登录
+                </el-button>
               </div>
               <div style="position: relative; transition: all .5s;min-height: 200px" ref="articleBox">
                 <transition name="slide-left">
@@ -98,6 +101,7 @@
   import articleList from "./components/articleList"
   import addArticle from "./components/addArticle"
   import articleDetail from "./components/articleDetail"
+  import {mapMutations} from "vuex"
   import Swiper from 'swiper'
 
   export default {
@@ -130,11 +134,12 @@
       },
       /* 判断query 的article */
       testArticle() {
-        if(this.$route.query.article) {
+        if (this.$route.query.article) {
           // console.log(this.$route);
           this.todetail("articleDetail", {id: this.$route.query.id})
         }
-      }
+      },
+      ...mapMutations(['changeLoginModel'])
     },
     components: {
       articleList, addArticle, articleDetail
@@ -273,18 +278,19 @@
       width: 150px;
     }
   }
-  .swiper-box.box-card{
-    /deep/ .el-card__body{
+
+  .swiper-box.box-card {
+    /deep/ .el-card__body {
       padding: 0 !important;
     }
-    .swiper-container{
+    .swiper-container {
       height: 100%;
-      /deep/ .swiper-pagination-bullet{
+      /deep/ .swiper-pagination-bullet {
         width: 20px !important;
         border-radius: 3px;
       }
-      /deep/ .swiper-slide{
-        img{
+      /deep/ .swiper-slide {
+        img {
           display: block;
           width: 100%;
           height: 100%;

@@ -4,47 +4,68 @@
     :visible.sync="loginModel" top="10vh" :show-close="false"
     :width="isPc?'400px':'320px'" @open="openModelMethod"
     :before-close="handleClose">
-    <div>
-      <el-form ref="form" :model="userForm" :rules="rules"
-               label-width="80px" class="form-list">
-        <h4>User Registration</h4>
-        <el-form-item label="Username：" prop="username">
-          <el-input v-model="userForm.username"></el-input>
-        </el-form-item>
-        <el-form-item label="Email：" prop="useremail">
-          <el-input v-model="userForm.useremail"></el-input>
-        </el-form-item>
-        <el-form-item label="Sex：" prop="sex">
-          <el-radio-group v-model="userForm.sex">
-            <el-radio label="1">
-              <svg class="iconfont" aria-hidden="true">
-                <use xlink:href="#icon-nvsheng"></use>
-              </svg>
-            </el-radio>
-            <el-radio label="2">
-              <svg class="iconfont" aria-hidden="true">
-                <use xlink:href="#icon-nansheng"></use>
-              </svg>
-            </el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="Password：" prop="password">
-          <el-input v-model="userForm.password" type="password"></el-input>
-        </el-form-item>
-        <el-form-item label="Confirm_Pass：" prop="confirm_password">
-          <el-input v-model="userForm.confirm_password" type="password"></el-input>
-        </el-form-item>
-        <el-form-item label="Avtor：" prop="avtor">
-          <img :src="userForm.avtor" class="selectAvtor">
-        </el-form-item>
-        <div class="avtor-select-box clearfix">
-          <img :src="'/static/avtor/avtor' + (index + 1) + '.jpg'" @click="chooseAvtor(index)"
-               v-for="(item, index) in 18" :key="index">
-        </div>
-        <div style="text-align: center;padding-top: 15px">
-          <el-button type="primary" @click="submitClick">确认</el-button>
-        </div>
-      </el-form>
+    <div style="transition: all .5s">
+      <div v-if="step == 'login'">
+        <el-form ref="loginForms" :model="loginForm" :rules="rulesLogin"
+                 label-width="80px" class="form-list">
+          <h4>Login</h4>
+          <el-form-item label="Username：" prop="usernames">
+            <el-input v-model="loginForm.usernames"></el-input>
+          </el-form-item>
+          <el-form-item label="Password：" prop="passwords">
+            <el-input v-model="loginForm.passwords"></el-input>
+          </el-form-item>
+          <div style="text-align: center;padding-top: 15px;position: relative;">
+            <el-button style="position: absolute;left: 5px;top: 15px;"
+                       type="text" @click="toRegist">注册账号</el-button>
+            <el-button @click="handleClose">取消</el-button>
+            <el-button type="primary" @click="submitLogin">确认</el-button>
+          </div>
+        </el-form>
+      </div>
+      <div v-if="step == 'regist'">
+        <el-form ref="form" :model="userForm" :rules="rules"
+                 label-width="80px" class="form-list">
+          <h4>Registered Account</h4>
+          <el-form-item label="Username：" prop="username">
+            <el-input v-model="userForm.username"></el-input>
+          </el-form-item>
+          <el-form-item label="Email：" prop="useremail">
+            <el-input v-model="userForm.useremail"></el-input>
+          </el-form-item>
+          <el-form-item label="Sex：" prop="sex">
+            <el-radio-group v-model="userForm.sex">
+              <el-radio label="1">
+                <svg class="iconfont" aria-hidden="true">
+                  <use xlink:href="#icon-nvsheng"></use>
+                </svg>
+              </el-radio>
+              <el-radio label="2">
+                <svg class="iconfont" aria-hidden="true">
+                  <use xlink:href="#icon-nansheng"></use>
+                </svg>
+              </el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="Password：" prop="password">
+            <el-input v-model="userForm.password" type="password"></el-input>
+          </el-form-item>
+          <el-form-item label="Confirm_Pass：" prop="confirm_password">
+            <el-input v-model="userForm.confirm_password" type="password"></el-input>
+          </el-form-item>
+          <el-form-item label="Avtor：" prop="avtor" style="margin-bottom: 0px;padding-top: 10px">
+            <img :src="userForm.avtor" class="selectAvtor">
+          </el-form-item>
+          <div class="avtor-select-box clearfix">
+            <img :src="'/static/avtor/avtor' + (index + 1) + '.jpg'" @click="chooseAvtor(index)"
+                 v-for="(item, index) in 18" :key="index">
+          </div>
+          <div style="text-align: center;padding-top: 15px">
+            <el-button @click="handleClose">取消</el-button>
+            <el-button type="primary" @click="submitClick">确认</el-button>
+          </div>
+        </el-form>
+      </div>
     </div>
   </el-dialog>
 </template>
@@ -77,6 +98,7 @@
         }
       };
       return {
+        step: "login",
         userForm: {
           username: '',
           useremail: '',
@@ -91,7 +113,7 @@
           ],
           useremail: [
             {required: true, trigger: 'blur'},
-            {type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}
+            {type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur'}
           ],
           sex: [
             {required: true, trigger: 'blur'}
@@ -105,38 +127,94 @@
           avtor: [
             {required: true}
           ]
+        },
+        loginForm: {
+          usernames: '',
+          passwords: '',
+        },
+        rulesLogin: {
+          usernames: [
+            {required: true, trigger: 'blur'}
+          ],
+          passwords: [
+            {required: true, trigger: 'blur'}
+          ]
         }
       }
     },
     methods: {
       handleClose() {
-        // console.log(this.isPc);
+        /*
+        * this.$refs.form.clearValidate()
+        * this.$refs.loginForms.clearValidate()
+        * */
+        if(this.$refs.form) {
+          this.$refs.form.clearValidate()
+        }else if(this.$refs.loginForms) {
+          this.$refs.loginForms.clearValidate()
+        }
         this.changeLoginModel(false)
       },
       openModelMethod() {
-        this.userForm = {
-          username: '',
-          useremail: '',
-          sex: '',
-          password: '',
-          confirm_password: '',
-          avtor: '/static/avtor/avtor1.jpg'
-        }
+        console.log(1);
+        this.step = 'login'
       },
+      toRegist() {
+        this.$refs.loginForms.clearValidate()
+        setTimeout(function () {
+          this.step = 'regist'
+          this.userForm = {
+            username: '',
+            useremail: '',
+            sex: '',
+            password: '',
+            confirm_password: '',
+            avtor: '/static/avtor/avtor18.jpg'
+          }
+          this.$nextTick(() => {
+            this.$refs.form.clearValidate()
+          })
+        }.bind(this), 500)
+      },
+      /* 选择头像 */
       chooseAvtor(index) {
         this.userForm.avtor = "/static/avtor/avtor" + (index + 1) + ".jpg"
       },
+      /* 注册请求提交 */
       submitClick() {
         this.$nextTick(() => {
           this.$refs['form'].validate((valid) => {
             if (valid) {
-              console.log(this.userForm);
               this.$http.post('/apis/api/users/addUser', this.userForm)
                 .then(res => {
-                  console.log(res);
+                  // console.log(res);
+                  if (res.code == 1) {
+                    this.$message.success("注册成功")
+                    let param = {
+                      username: this.userForm.username,
+                      password: this.userForm.password,
+                    }
+                    this.$store.dispach('login', param, function (result) {
+                      console.log(result);
+                      this.$message.success("已自动登录，welcome " + res.date.username)
+                      this.changeLoginModel(false)
+                    })
+                  }
                 })
             }
           });
+        })
+      },
+      /* 登录提交 */
+      submitLogin() {
+        let param = {
+          username: this.loginForm.usernames,
+          password: this.loginForm.passwords,
+        }
+        this.$store.dispatch('login', param, function (result) {
+          console.log(result);
+          this.$message.success("登陆成功，welcome ")
+          this.changeLoginModel(false)
         })
       },
       ...mapMutations(['changeLoginModel'])
@@ -153,12 +231,16 @@
 
 <style lang="scss" scoped type="text/scss">
   .form-list {
-    padding: 0 10px 0 0;
+    padding: 0 !important;
     box-sizing: border-box;
     h4 {
       text-align: center;
       padding-bottom: 30px;
       font-size: 20px;
+    }
+    /deep/ .el-form-item{
+      padding-right: 15px;
+      box-sizing: border-box;
     }
   }
 

@@ -145,19 +145,18 @@
             contentType: false,
             processData: false,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          }).then((response) => {
+            setTimeout(function () {
+              const result = response.date[0]
+              _this.$message({
+                type: 'success',
+                message: '上传成功'
+              });
+              _this.beforeClose()
+              _this.uploadImgUrl = result
+              _this.$emit('uploadSuccess', result)
+            }, 1000)
           })
-            .then((response) => {
-              setTimeout(function () {
-                const result = response[0]
-                _this.$message({
-                  type: 'success',
-                  message: '上传成功'
-                });
-                _this.beforeClose()
-                _this.uploadImgUrl = result
-                _this.$emit('uploadSuccess', result)
-              }, 1000)
-            })
         })
       }
     },
