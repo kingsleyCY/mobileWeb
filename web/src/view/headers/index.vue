@@ -4,7 +4,7 @@
       <i class="el-icon-menu hidden-sm-and-up" @click="toggleMenu"></i>
       <span class="header-title hidden-sm-and-up">Some OF Myself</span>
       <span class="my-logo">
-        <img src="../../assets/images/logo.jpg" class="left-avator"/>
+        <img :src="avtor?avtor:defaultLogo" class="left-avator"/>
         <span class="webfont hidden-xs-only">Cheng丶C ' s Blog</span>
       </span>
       <div class="right-tab hidden-xs-only">
@@ -35,10 +35,14 @@
 </template>
 
 <script>
+  import defaultLogo from "./../../assets/images/logo.jpg"
+  import {mapState, mapMutations} from "vuex"
+
   export default {
     name: 'header-model',
     data() {
       return {
+        defaultLogo,
         activeIndex: "1",
         isPc: false,
         menuArr: [
@@ -86,6 +90,8 @@
           that.activeIndex = String(index + 1)
         }
       })
+      /* 获取localstorage数据存储在Vuex */
+      this.getVuexData()
     },
     methods: {
       toggleMenu() {
@@ -105,7 +111,27 @@
         this.$router.push({
           path: routerPath
         })
-      }
+      },
+      getVuexData() {
+        if(localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo"))) {
+          const userIfo = JSON.parse(localStorage.getItem("userInfo"))
+          console.log(userIfo);
+          this.SET_USERINFO(["username", userIfo.username])
+          this.SET_USERINFO(["useremail", userIfo.useremail])
+          this.SET_USERINFO(["avtor", userIfo.avtor])
+          this.SET_USERINFO(["sex", userIfo.sex])
+          this.SET_USERINFO(["root", userIfo.root])
+        }
+      },
+      ...mapMutations(['SET_USERINFO'])
+    },
+    computed: {
+      ...mapState({
+        avtor: function (state) {
+          console.log(state.userInfor);
+          return state.userInfor.avtor
+        }
+      })
     },
     watch: {
       '$route'(to, from) {

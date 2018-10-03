@@ -17,7 +17,8 @@
           </el-form-item>
           <div style="text-align: center;padding-top: 15px;position: relative;">
             <el-button style="position: absolute;left: 5px;top: 15px;"
-                       type="text" @click="toRegist">注册账号</el-button>
+                       type="text" @click="toRegist">注册账号
+            </el-button>
             <el-button @click="handleClose">取消</el-button>
             <el-button type="primary" @click="submitLogin">确认</el-button>
           </div>
@@ -148,16 +149,20 @@
         * this.$refs.form.clearValidate()
         * this.$refs.loginForms.clearValidate()
         * */
-        if(this.$refs.form) {
+        if (this.$refs.form) {
           this.$refs.form.clearValidate()
-        }else if(this.$refs.loginForms) {
+        } else if (this.$refs.loginForms) {
           this.$refs.loginForms.clearValidate()
         }
         this.changeLoginModel(false)
       },
       openModelMethod() {
-        console.log(1);
+        // console.log(1);
         this.step = 'login'
+        this.loginForm = {
+          usernames: '',
+          passwords: '',
+        }
       },
       toRegist() {
         this.$refs.loginForms.clearValidate()
@@ -240,7 +245,7 @@
       padding-bottom: 30px;
       font-size: 20px;
     }
-    /deep/ .el-form-item{
+    /deep/ .el-form-item {
       padding-right: 15px;
       box-sizing: border-box;
     }

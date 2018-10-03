@@ -11,8 +11,8 @@
                      style="float: right;cursor: pointer" @click="toArticleList('articleList')">
                   <use xlink:href="#icon-fanhui"></use>
                 </svg>
-                <el-button style="float: right; padding: 3px 0" type="text" v-if="articleName == 'articleList'"
-                           @click="changeLoginModel(true)">登录
+                <el-button style="float: right; padding: 3px 0" type="text" @click="changeLoginModel(true)"
+                           v-if="articleName == 'articleList' && !username">登录
                 </el-button>
                 <!--<span style="float: right; padding: 3px 0" v-if="articleName == 'articleList'">已登录</span>-->
               </div>
@@ -102,7 +102,7 @@
   import articleList from "./components/articleList"
   import addArticle from "./components/addArticle"
   import articleDetail from "./components/articleDetail"
-  import {mapMutations} from "vuex"
+  import {mapState, mapMutations} from "vuex"
   import Swiper from 'swiper'
 
   export default {
@@ -141,6 +141,14 @@
         }
       },
       ...mapMutations(['changeLoginModel'])
+    },
+    computed: {
+      ...mapState({
+        username: function (state) {
+          console.log(state.userInfor.username);
+          return state.userInfor.username
+        }
+      })
     },
     components: {
       articleList, addArticle, articleDetail
