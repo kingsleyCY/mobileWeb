@@ -189,14 +189,16 @@
                 .then(res => {
                   // console.log(res);
                   if (res.code == 1) {
-                    this.$message.success("注册成功")
+                    // this.$message.success("注册成功")
                     let param = {
                       username: this.userForm.username,
                       password: this.userForm.password,
                     }
-                    this.$store.dispach('login', param, function (result) {
+                    this.$store.dispatch('login', param, function (result) {
                       console.log(result);
-                      this.$message.success("已自动登录，welcome " + res.date.username)
+                      this.$messchangeLoginModelage.success(
+                        "注册成功, 已自动登录，welcome " + res.date.username
+                      )
                       this.changeLoginModel(false)
                     })
                   }

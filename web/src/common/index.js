@@ -1,3 +1,5 @@
+import { Message } from 'element-ui'
+
 class commonBase {
   timestampToTime(timestamp) {
     var date = new Date(Number(timestamp));//时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -13,5 +15,12 @@ class commonBase {
     // return Y + M + D + h + m + s;
     return Y + M + D + h + ':' + m;
   }
+  shoeMessege(type, mess) {
+    Message({
+      message: mess,
+      type: type,
+    })
+  }
 }
+
 export default commonBase

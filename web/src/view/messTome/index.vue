@@ -5,16 +5,6 @@
         <el-col :xs="24" :sm="16">
           <div class="item-model">
             <el-button type="text" @click="login">注册</el-button>
-            <el-form ref="form" :model="loginForm"
-                     label-width="80px" class="form-list">
-              <el-form-item label="username：" prop="username">
-                <el-input v-model="loginForm.username"></el-input>
-              </el-form-item>
-              <el-form-item label="password：" prop="password">
-                <el-input v-model="loginForm.password"></el-input>
-              </el-form-item>
-              <el-button type="text" @click="logins">登录</el-button>
-            </el-form>
           </div>
         </el-col>
         <el-col :xs="24" :sm="8">
@@ -57,11 +47,7 @@
             link: "http://jspang.com/",
             des: "学习网站，很多博主录得学习视频"
           }
-        ],
-        loginForm: {
-          username: "",
-          password: ""
-        }
+        ]
       }
     },
     methods: {
@@ -70,9 +56,6 @@
         /*this.$http.post('/apis/api/login/sendEmail', {email: "1504468447@qq.com"}).then(res => {
           console.log(res);
         })*/
-      },
-      logins() {
-        this.$store.dispatch('login',this.loginForm)
       },
       ...mapMutations(['changeLoginModel'])
     }

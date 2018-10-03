@@ -1,4 +1,6 @@
 import axios from 'axios'
+import commonBase from './../../common/index'
+const common = new commonBase()
 
 const userInfo = {
   state: {
@@ -8,22 +10,24 @@ const userInfo = {
 
   },
   actions: {
-    login(state, param, callback) {
+    login({commit}, param) {
       axios.post('/apis/api/status/login', param).then(res => {
         if (res.code == 1) {
+          console.log(res);
           localStorage.setItem("sessionId", res.date.sessionId)
-          console.log(callback);
-          callback && callback(res)
+          localStorage.setItem("userInfo", JSON.stringify(res.date.userInfo))
+          common.shoeMessege('success', "登录成功，welcome " + param.username)
+          commit("changeLoginModel", false)
         }else {
           localStorage.setItem("sessionId", "")
         }
       })
     },
-    layout(state, param, callback) {
+    layout({commit}, param) {
       axios.post('/apis/api/status/layout', param).then(res => {
         if (res.code == 1) {
           localStorage.setItem("sessionId", "")
-          callback && callback()
+          localStorage.setItem("userInfo", "")
         }
       })
     }

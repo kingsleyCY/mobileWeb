@@ -14,6 +14,7 @@
                 <el-button style="float: right; padding: 3px 0" type="text" v-if="articleName == 'articleList'"
                            @click="changeLoginModel(true)">登录
                 </el-button>
+                <!--<span style="float: right; padding: 3px 0" v-if="articleName == 'articleList'">已登录</span>-->
               </div>
               <div style="position: relative; transition: all .5s;min-height: 200px" ref="articleBox">
                 <transition name="slide-left">
