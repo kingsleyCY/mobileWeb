@@ -71,6 +71,7 @@
       }
     },
     mounted() {
+      console.log(this.articleEditInfo);
       // 创建编辑器
       this.editor = null
       document.getElementById("editor").innerHTML = "";
@@ -106,7 +107,9 @@
     },
     components: {
       imgUpload
-    }
+    },
+    props: ['articleEditInfo']
+
   }
 </script>
 

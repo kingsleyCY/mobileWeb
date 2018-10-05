@@ -115,7 +115,7 @@
       getVuexData() {
         if(localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo"))) {
           const userIfo = JSON.parse(localStorage.getItem("userInfo"))
-          console.log(userIfo);
+          // console.log(userIfo);
           this.SET_USERINFO(["username", userIfo.username])
           this.SET_USERINFO(["useremail", userIfo.useremail])
           this.SET_USERINFO(["avtor", userIfo.avtor])
@@ -128,7 +128,7 @@
     computed: {
       ...mapState({
         avtor: function (state) {
-          console.log(state.userInfor);
+          // console.log(state.userInfor);
           return state.userInfor.avtor
         }
       })

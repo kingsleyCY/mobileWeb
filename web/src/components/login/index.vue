@@ -200,7 +200,7 @@
                       password: this.userForm.password,
                     }
                     this.$store.dispatch('login', param, function (result) {
-                      console.log(result);
+                      // console.log(result);
                       this.$messchangeLoginModelage.success(
                         "注册成功, 已自动登录，welcome " + res.date.username
                       )
@@ -219,7 +219,7 @@
           password: this.loginForm.passwords,
         }
         this.$store.dispatch('login', param, function (result) {
-          console.log(result);
+          // console.log(result);
           this.$message.success("登陆成功，welcome ")
           this.changeLoginModel(false)
         })

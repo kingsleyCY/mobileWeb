@@ -112,10 +112,10 @@
       // 实时预览函数
       realTime(data) {
         this.previews = data
-        console.log(data)
+        // console.log(data)
       },
       imgLoad(msg) {
-        console.log(msg)
+        // console.log(msg)
       },
       /* 鼠标悬浮、离开背景图 */
       enterImgBack() {

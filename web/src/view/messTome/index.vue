@@ -9,6 +9,10 @@
         </el-col>
         <el-col :xs="24" :sm="8">
           <div class="item-model">
+            <!--Customer-->
+            <el-card class="box-card" v-if="username">
+
+            </el-card>
             <!--消息-->
             <el-card class="box-card">
               <div slot="header" class="clearfix">
@@ -58,13 +62,21 @@
         })*/
       },
       ...mapMutations(['changeLoginModel'])
-    }
+    },
+    computed: {
+      ...mapState({
+        username: function (state) {
+          // console.log(state.userInfor.username);
+          return state.userInfor.username
+        }
+      })
+    },
   }
 </script>
 
 <style lang="scss" scoped type="text/scss">
   .blog-message{
-    background-color: white !important;
+    /*background-color: white !important;*/
     border-top: 1px solid #ebeee6;
     box-sizing: border-box;
     .container{
@@ -74,6 +86,9 @@
         border-radius: 3px;
         overflow: hidden;
         font-size: 14px;
+        .box-card {
+          margin-bottom: 15px;
+        }
         .title {
           font-weight: bold;
         }

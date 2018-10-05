@@ -19,7 +19,7 @@ const userInfo = {
     login({commit}, param) {
       axios.post('/apis/api/status/login', param).then(res => {
         if (res.code == 1) {
-          console.log(res);
+          // console.log(res);
           localStorage.setItem("sessionId", res.date.sessionId)
           localStorage.setItem("userInfo", JSON.stringify(res.date.userInfo))
           /* 登录信息存储在Vuex */

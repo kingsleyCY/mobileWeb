@@ -18,8 +18,10 @@
               </div>
               <div style="position: relative; transition: all .5s;min-height: 200px" ref="articleBox">
                 <transition name="slide-left">
-                  <component :is="articleName" @addArticle="toAddArticle" :articleInfo="articleInfo"
-                             @articleList="toArticleList" @autoHeight="autoHeight" @todetail="todetail"></component>
+                  <component :is="articleName" @addArticle="toAddArticle" @toedit="toedit"
+                             :articleEditInfo="articleEdit_info" :articleInfo="articleInfo"
+                             @articleList="toArticleList" @autoHeight="autoHeight"
+                             @todetail="todetail"></component>
                 </transition>
               </div>
             </el-card>
@@ -110,7 +112,8 @@
     data() {
       return {
         articleName: 'articleList',
-        articleInfo: null
+        articleInfo: null,
+        articleEdit_info: null
       }
     },
     mounted() {
@@ -121,10 +124,17 @@
         this.articleName = res
         this.$refs.articleBox.style.height = '550px'
       },
+      toedit(article_info) {
+        // console.log(article_info);
+        this.articleEdit_info = article_info
+        this.articleName = "addArticle"
+        this.$refs.articleBox.style.height = '550px'
+      },
       toArticleList(res) {
         this.articleName = res
       },
       todetail(res, item) {
+        this.articleEdit_info = null
         this.articleInfo = item
         this.articleName = res
         document.getElementById("mainContaniner").scrollTop = "0"
@@ -145,7 +155,7 @@
     computed: {
       ...mapState({
         username: function (state) {
-          console.log(state.userInfor.username);
+          // console.log(state.userInfor.username);
           return state.userInfor.username
         }
       })

@@ -22,6 +22,10 @@
       分享：
       <share :config="config" :class="['share-btn-box', isPc?'pcScreen':'']"></share>
     </div>
+    <div v-if="">
+      <br>
+      <el-button v-if="btnFlag" type="text" @click="toEdit" style="font-size: 14px!important">编辑文章</el-button>
+    </div>
   </div>
 </template>
 
@@ -32,6 +36,7 @@
     name: "article-detail",
     data() {
       return {
+        btnFlag: false,
         config: {
           url: '',
           sites: ['weibo', 'qzone', 'qq', 'wechat'], // 启用的站点
@@ -41,7 +46,15 @@
         article_info: null
       }
     },
+    methods: {
+      toEdit() {
+        this.$emit('toedit', this.article_info)
+      }
+    },
     mounted() {
+      if (this.$route.query.admin == 1) {
+        this.btnFlag = true
+      }
       let that = this
       this.$http.post('/apis/api/article/findOne', {id: this.articleInfo.id, addLook: true})
         .then(res => {
