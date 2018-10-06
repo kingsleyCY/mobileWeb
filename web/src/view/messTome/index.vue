@@ -11,7 +11,24 @@
           <div class="item-model">
             <!--Customer-->
             <el-card class="box-card" v-if="username">
-
+              <div slot="header" class="clearfix">
+                <span class="title">个人信息</span>
+              </div>
+              <div class="public-notice" v-if="userInfo">
+                <div class="user-infor">
+                  <img :src="userInfo.avtor">
+                  <span class="user-name">{{userInfo.username}}</span>
+                  <svg class="iconfont" aria-hidden="true" v-if="userInfo.sex == 1">
+                    <use xlink:href="#icon-nvsheng"></use>
+                  </svg>
+                  <svg class="iconfont" aria-hidden="true" v-else-if="userInfo.sex == 1">
+                    <use xlink:href="#icon-nansheng"></use>
+                  </svg>
+                </div>
+                <div style="font-style: italic;padding-top: 10px">
+                  "这个人很懒，什么都没有留下"
+                </div>
+              </div>
             </el-card>
             <!--消息-->
             <el-card class="box-card">
@@ -51,7 +68,15 @@
             link: "http://jspang.com/",
             des: "学习网站，很多博主录得学习视频"
           }
-        ]
+        ],
+        userInfo: null
+      }
+    },
+    mounted() {
+      if (localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo"))) {
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+        // console.log(userInfo);
+        this.userInfo = userInfo
       }
     },
     methods: {
@@ -75,14 +100,14 @@
 </script>
 
 <style lang="scss" scoped type="text/scss">
-  .blog-message{
+  .blog-message {
     /*background-color: white !important;*/
     border-top: 1px solid #ebeee6;
     box-sizing: border-box;
-    .container{
+    .container {
       padding-top: 15px;
       box-sizing: border-box;
-      .item-model{
+      .item-model {
         border-radius: 3px;
         overflow: hidden;
         font-size: 14px;
@@ -92,17 +117,36 @@
         .title {
           font-weight: bold;
         }
-        .public-notice{
-          a{
+        .public-notice {
+          a {
             text-decoration: none;
             color: black;
             font-size: 16px;
             padding: 5px 0;
             display: inline-block;
           }
-          .link-desciption{
+          .link-desciption {
             color: #929292;
             font-size: 12px;
+          }
+          .user-infor {
+            display: flex;
+            width: 100%;
+            justify-content: left;
+            align-items: center;
+            img {
+              display: inline-block;
+              width: 50px;
+              height: 50px;
+            }
+            span {
+              padding-left: 15px;
+            }
+            .iconfont{
+              padding-left: 10px;
+              width: 15px;
+              height: 15px;
+            }
           }
         }
       }
