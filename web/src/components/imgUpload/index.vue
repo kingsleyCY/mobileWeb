@@ -25,13 +25,11 @@
         </div>
         <div v-show="partIndex == 2">
           <vueCropper
-            ref="cropper" :img="option.img" :output-size="option.size" :output-type="option.outputType" :info="true"
-            :full="option.full"
-            :can-move="option.canMove" :can-move-box="option.canMoveBox" :fixed-box="option.fixedBox"
-            :original="option.original"
-            :auto-crop="option.autoCrop" :auto-crop-width="option.autoCropWidth"
-            :auto-crop-height="option.autoCropHeight" :center-box="option.centerBox"
-            @real-time="realTime" :high="option.high" @img-load="imgLoad"></vueCropper>
+            ref="cropper" :img="option.img" :output-size="option.size" :output-type="option.outputType"
+            :info="true" :full="option.full" :can-move="option.canMove" :can-move-box="option.canMoveBox"
+            :fixed-box="option.fixedBox" :original="option.original" :auto-crop="option.autoCrop"
+            :auto-crop-width="option.autoCropWidth" :auto-crop-height="option.autoCropHeight"
+            :center-box="option.centerBox" @real-time="realTime" :high="option.high" @img-load="imgLoad"></vueCropper>
         </div>
       </div>
       <span slot="footer" class="dialog-footer">
@@ -169,9 +167,13 @@
       this.$nextTick(() => {
         this.$refs.uploadBox.style.width = this.width ? this.width : "180px"
         this.$refs.uploadBox.style.height = this.height ? this.height : "110px"
+        console.log(this.initImg);
+        if(this.initImg) {
+          this.uploadImgUrl = this.initImg
+        }
       })
     },
-    props: ['width', 'height'],
+    props: ['width', 'height', 'initImg'],
     components: {
       VueCropper
     }

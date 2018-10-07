@@ -121,7 +121,8 @@
     },
     methods: {
       toAddArticle(res) {
-        this.articleName = res
+        this.articleEdit_info = null
+        this.articleName = "addArticle"
         this.$refs.articleBox.style.height = '550px'
       },
       toedit(article_info) {

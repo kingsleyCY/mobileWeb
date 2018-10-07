@@ -2,7 +2,7 @@
   <div class="child-view heigth">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="文章封面" prop="cover">
-        <img-upload @uploadSuccess="uploadSuccess"></img-upload>
+        <img-upload @uploadSuccess="uploadSuccess" :initImg="this.ruleForm.cover"></img-upload>
       </el-form-item>
       <el-form-item label="文章标题" prop="title">
         <el-input
@@ -40,6 +40,7 @@
           content: [{ required: true }],
           title: [{ required: true, message: '请输入文章标题', trigger: 'blur' }],
         },
+        isAdd: true
       }
     },
     methods: {
@@ -58,20 +59,33 @@
             that.$message.info("请填写完整内容")
             return
           }
-          that.$http.post("/apis/api/article/addArticle", {
-            title: that.ruleForm.title,
-            content: textContent,
-            cover: that.ruleForm.cover,
-            username: '游客12138',
-          }).then(function (res) {
-            that.$message.success("添加成功")
-            that.$emit("articleList", "articleList")
-          })
+          if(this.isAdd) {
+            that.$http.post("/apis/api/article/addArticle", {
+              title: that.ruleForm.title,
+              content: textContent,
+              cover: that.ruleForm.cover,
+              username: '游客12138',
+            }).then(function (res) {
+              that.$message.success("添加成功")
+              that.$emit("articleList", "articleList")
+            })
+          }else {
+            that.$http.post("/apis/api/article/updateArticle", {
+              title: that.ruleForm.title,
+              content: textContent,
+              cover: that.ruleForm.cover,
+              username: '游客12138',
+              id: that.articleEditInfo.id
+            }).then(function (res) {
+              that.$message.success("编辑成功")
+              that.$emit("articleList", "articleList")
+            })
+          }
         }
       }
     },
     mounted() {
-      console.log(this.articleEditInfo);
+      console.log(this.articleEditInfo)
       // 创建编辑器
       this.editor = null
       document.getElementById("editor").innerHTML = "";
@@ -103,6 +117,17 @@
       ]
       editor.customConfig.uploadImgShowBase64 = true
       editor.create()
+      /*判断添加/编辑*/
+      if(this.articleEditInfo) {
+        /* 编辑文章 */
+        this.isAdd = false
+        this.ruleForm.cover = this.articleEditInfo.cover
+        this.ruleForm.title = this.articleEditInfo.title
+        editor.txt.html(this.articleEditInfo.content)
+      }else [
+        /* 添加文章 */
+        this.isAdd = true
+      ]
       this.ruleForm.editor = editor
     },
     components: {
