@@ -130,12 +130,12 @@ function AnalyticEmotion(s) {
 		}
 		function showCategorys(){
 			var page = arguments[0]?arguments[0]:0;
-			if(page < 0 || page >= categorys.length / 5){
+			if(page < 0 || page >= categorys.length / 6){
 				return;
 			}
 			$('#emotions .categorys').html('');
 			cat_page = page;
-			for(var i = page * 5; i < (page + 1) * 5 && i < categorys.length; ++i){
+			for(var i = page * 6; i < (page + 1) * 6 && i < categorys.length; ++i){
 				$('#emotions .categorys').append($('<a href="javascript:void(0);">' + categorys[i] + '</a>'));
 			}
 			$('#emotions .categorys a').click(function(){

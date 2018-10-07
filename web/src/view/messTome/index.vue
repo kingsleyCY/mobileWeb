@@ -4,25 +4,21 @@
       <el-row :gutter="20">
         <el-col :xs="24" :sm="16">
           <div class="item-model">
-            <div id="content" style="width: 100%; height: auto;">
+            <div id="content">
               <div class="wrap">
-                <div class="comment">
+                <div class="comment clearfix">
                   <div class="head-face">
                     <img src="../../assets/comment/images/1.jpg">
-                    <p>我是鸟</p>
                   </div>
                   <div class="content">
                     <div class="cont-box">
-                      <textarea class="text" placeholder="请输入..."></textarea>
+                      <textarea class="text" placeholder="来说两句吧..."></textarea>
                     </div>
                     <div class="tools-box">
                       <div class="operator-box-btn"><span class="face-icon">☺</span></div>
                       <div class="submit-btn"><input type="button" onClick="out()" value="提交评论"/></div>
                     </div>
                   </div>
-                </div>
-                <div id="info-show">
-                  <ul></ul>
                 </div>
               </div>
             </div>
@@ -82,7 +78,7 @@
 </template>
 
 <script>
-  import { mapState, mapMutations } from "vuex"
+  import {mapState, mapMutations} from "vuex"
 
   export default {
     name: "mess-tome",
@@ -136,7 +132,7 @@
         if (localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo"))) {
           const userInfo = JSON.parse(localStorage.getItem("userInfo"))
           this.userInfo = userInfo
-        }else {
+        } else {
           this.userInfo = null
         }
       },
@@ -210,7 +206,7 @@
             span {
               padding-left: 10px;
             }
-            .iconfont{
+            .iconfont {
               width: 15px;
               height: 15px;
             }
@@ -218,5 +214,10 @@
         }
       }
     }
+  }
+  #content {
+    width: 100%;
+    height: auto;
+    margin-top: 40px;
   }
 </style>
