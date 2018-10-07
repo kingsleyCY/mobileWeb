@@ -17,8 +17,8 @@ import '@/style/index.scss'
 import store from './store'
 import commonBase from './common/index'
 
-require("./assets/comment/js/main")
-require("./assets/comment/js/sinaFaceAndEffec")
+require("../static/comment/js/main")
+require("../static/comment/js/sinaFaceAndEffec")
 
 
 

@@ -4,7 +4,7 @@
       <i class="el-icon-menu hidden-sm-and-up" @click="toggleMenu"></i>
       <span class="header-title hidden-sm-and-up">Some OF Myself</span>
       <span class="my-logo">
-        <img :src="avtor?avtor:defaultLogo" class="left-avator"/>
+        <img v-if="!avtor" :src="avtor?avtor:defaultLogo" class="left-avator"/>
         <span class="webfont hidden-xs-only">Cheng丶C ' s Blog</span>
       </span>
       <div class="right-tab hidden-xs-only">
@@ -36,7 +36,7 @@
 
 <script>
   import defaultLogo from "./../../assets/images/logo.jpg"
-  import {mapState, mapMutations} from "vuex"
+  import { mapState, mapMutations } from "vuex"
 
   export default {
     name: 'header-model',
@@ -86,7 +86,7 @@
       }
       var that = this
       this.menuArr.forEach((item, index) => {
-        if(that.$route.path.indexOf(item.path) == 0) {
+        if (that.$route.path.indexOf(item.path) == 0) {
           that.activeIndex = String(index + 1)
         }
       })
@@ -113,7 +113,7 @@
         })
       },
       getVuexData() {
-        if(localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo"))) {
+        if (localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo"))) {
           const userIfo = JSON.parse(localStorage.getItem("userInfo"))
           // console.log(userIfo);
           this.SET_USERINFO(["username", userIfo.username])
@@ -137,7 +137,7 @@
       '$route'(to, from) {
         var that = this
         this.menuArr.forEach((item, index) => {
-          if(to.path.indexOf(item.path) == 0) {
+          if (to.path.indexOf(item.path) == 0) {
             that.activeIndex = String(index + 1)
           }
         })
@@ -169,11 +169,11 @@
         font-size: 16px;
         font-weight: bold;
       }
-      .my-logo{
+      .my-logo {
         display: flex;
         align-content: center;
         justify-content: center;
-        span{
+        span {
           display: inline-block;
           padding-left: 15px;
           line-height: 45px;
@@ -225,10 +225,10 @@
           vertical-align: -6px;
         }
       }
-      li:last-child{
+      li:last-child {
         border-bottom: 1px solid #c8d0dc;
       }
-      img{
+      img {
         display: block;
         margin: 15px auto;
         width: 50px;

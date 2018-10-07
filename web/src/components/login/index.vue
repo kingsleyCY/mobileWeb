@@ -2,7 +2,7 @@
   <el-dialog
     title="" append-to-body modal-append-to-body
     :visible.sync="loginModel" top="10vh" :show-close="false"
-    :width="isPc?'400px':'320px'" @open="openModelMethod"
+    :width="isPc?'410px':'320px'" @open="openModelMethod"
     :before-close="handleClose">
     <div style="transition: all .5s">
       <div v-if="step == 'login'">
@@ -13,21 +13,23 @@
             <el-input v-model="loginForm.usernames"></el-input>
           </el-form-item>
           <el-form-item label="Password：" prop="passwords">
-            <el-input v-model="loginForm.passwords"></el-input>
+            <el-input type="password" v-model="loginForm.passwords"></el-input>
           </el-form-item>
-          <div style="text-align: center;padding-top: 15px;position: relative;">
-            <div style="position: absolute;left: 5px;top: 15px;">
+          <div class="login-btn-box">
+            <div>
               <el-button type="text" @click="toRegist">注册账号</el-button> /
               <el-button type="text" @click="toinit" style="margin: 0">重置密码</el-button>
             </div>
-            <el-button @click="handleClose">取消</el-button>
-            <el-button type="primary" @click="submitLogin">确认</el-button>
+            <div>
+              <el-button @click="handleClose">取消</el-button>
+              <el-button type="primary" @click="submitLogin">确认</el-button>
+            </div>
           </div>
         </el-form>
       </div>
       <div v-if="step == 'regist'">
         <el-form ref="form" :model="userForm" :rules="rules"
-                 label-width="80px" class="form-list">
+                 label-width="90px" class="form-list">
           <h4>Registered Account</h4>
           <el-form-item label="Username：" prop="username">
             <el-input v-model="userForm.username"></el-input>
@@ -114,7 +116,8 @@
         },
         rules: {
           username: [
-            {required: true, trigger: 'blur'}
+            {required: true, trigger: 'blur'},
+            { min: 6, message: 'The minimum user name is 6.', trigger: 'blur' }
           ],
           useremail: [
             {required: true, trigger: 'blur'},
@@ -261,6 +264,12 @@
     /deep/ .el-form-item {
       padding-right: 15px;
       box-sizing: border-box;
+    }
+    .login-btn-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;padding-top: 15px;
     }
   }
 

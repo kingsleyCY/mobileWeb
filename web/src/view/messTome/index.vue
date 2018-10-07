@@ -3,20 +3,23 @@
     <div class="container">
       <el-row :gutter="20">
         <el-col :xs="24" :sm="16">
-          <div class="item-model">
+          <div class="item-model" style="background-color: white">
             <div id="content">
               <div class="wrap">
                 <div class="comment clearfix">
                   <div class="head-face">
-                    <img src="../../assets/comment/images/1.jpg">
+                    <img v-if="userInfo" :src="userInfo.avtor">
+                    <p v-else class="login" @click="changeLoginModel(true)">登录</p>
                   </div>
                   <div class="content">
                     <div class="cont-box">
-                      <textarea class="text" placeholder="来说两句吧..."></textarea>
+                      <textarea class="text scrollBar" placeholder="来说两句吧..." maxlength="250"></textarea>
                     </div>
                     <div class="tools-box">
-                      <div class="operator-box-btn"><span class="face-icon">☺</span></div>
-                      <div class="submit-btn"><input type="button" onClick="out()" value="提交评论"/></div>
+                      <div class="operator-box-btn">
+                        <span class="face-icon">☺</span>
+                      </div>
+                      <div class="submit-btn" @click="submitMess"></div>
                     </div>
                   </div>
                 </div>
@@ -52,8 +55,7 @@
                 </div>
               </div>
               <div class="public-notice" v-else>
-                暂未登陆、点击
-                <span style="color: #409EFF;cursor: pointer" @click="changeLoginModel(true)">登录</span>
+                暂未登陆
               </div>
             </el-card>
             <!--消息-->
@@ -78,7 +80,7 @@
 </template>
 
 <script>
-  import {mapState, mapMutations} from "vuex"
+  import { mapState, mapMutations } from "vuex"
 
   export default {
     name: "mess-tome",
@@ -100,32 +102,8 @@
     },
     mounted() {
       this.getVuexData()
-
       // 绑定表情
       $('.face-icon').SinaEmotion($('.text'));
-
-      // 测试本地解析
-      function out() {
-        var inputText = $('.text').val();
-        $('#info-show ul').append(reply(AnalyticEmotion(inputText)));
-      }
-
-      var html;
-
-      function reply(content) {
-        console.log(content);
-        html = '<li>';
-        html += '<div class="head-face">';
-        html += '<img src="images/1.jpg" / >';
-        html += '</div>';
-        html += '<div class="reply-cont">';
-        html += '<p class="username">小小红色飞机</p>';
-        html += '<p class="comment-body">' + content + '</p>';
-        html += '<p class="comment-footer">2016年10月5日　回复　点赞54　转发12</p>';
-        html += '</div>';
-        html += '</li>';
-        return html;
-      }
     },
     methods: {
       getVuexData() {
@@ -143,6 +121,23 @@
           localStorage.removeItem("sessionId")
           localStorage.removeItem("userInfo")
           this.REMOVE_USERINFO()
+        })
+      },
+      /* 提交评论 */
+      submitMess() {
+        /* 未登录必须先登录 */
+        if (!this.username) {
+          this.changeLoginModel(true)
+          return
+        }else if($('.text').val() == '') {
+          return
+        }
+        this.$http.post('/apis/api/comments/add', {
+          username: this.username,
+          content: $.AnalyticEmotion($('.text').val()),
+        }).then(res => {
+          this.$message.success(res.mess)
+          $('.text').val("")
         })
       },
       ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO'])
@@ -175,6 +170,7 @@
         border-radius: 3px;
         overflow: hidden;
         font-size: 14px;
+        margin-bottom: 15px;
         .box-card {
           margin-bottom: 15px;
         }
@@ -218,6 +214,6 @@
   #content {
     width: 100%;
     height: auto;
-    margin-top: 40px;
+    margin: 50px 0 20px;
   }
 </style>

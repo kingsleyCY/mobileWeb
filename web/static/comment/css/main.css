@@ -1,0 +1,133 @@
+/* 评论框 */
+.comment {
+  width: 90%;
+  height: auto;
+  position: relative;
+  margin: 0 auto;
+}
+.comment .head-face {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  position: absolute;
+  top: -35px;
+  left: 30px;
+  border: 1px solid #e74851;
+  box-sizing: border-box;
+  overflow: hidden;
+  font-size: 0px;
+  background-color: white;
+}
+.comment .head-face img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.comment .head-face .login{
+  height: 100%;
+  font-size: 16px;
+  color: #e74851;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+}
+
+.comment .content {
+  width: 100%;
+}
+.cont-box {
+  width: 100%;
+  height: 180px;
+  border: 1px solid #e74851;
+  border-radius: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.cont-box .text {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 30px 20px 10px;
+  color: #333;
+  font-family: "微软雅黑";
+  font-size: 14px !important;
+  resize: none;
+  border: none;
+  outline: none;
+}
+.tools-box {
+  width: 100%;
+  height: 40px;
+  margin-top: 5px;
+  float: left;
+}
+.tools-box .operator-box-btn {
+  height: 100%;
+  float: left;
+}
+.tools-box .operator-box-btn .face-icon {
+  display: block;
+  float: left;
+  height: 100%;
+  font-family: "微软雅黑";
+  font-size: 26px;
+  color: #e74851;
+  cursor: pointer;
+}
+.tools-box .submit-btn {
+  width: 90px;
+  height: 100%;
+  float: right;
+  background: url("../images/post-btn-hover.png") no-repeat center;
+  background-size: 100%;
+  cursor: pointer;
+}
+/* 回复信息 */
+#info-show {
+  float: left;
+  width: 100%;
+  margin-top: 20px;
+}
+#info-show li {
+  width: 100%;
+  height: auto;
+  padding: 10px 0 20px 0;
+  border-bottom: 1px dashed #c0c0c0;
+  float: left;
+}
+#info-show .head-face {
+  width: 10%;
+  float: left;
+  text-align: center;
+}
+#info-show .head-face img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #c0c0c0;
+}
+#info-show .reply-cont {
+  width: 89%;
+  padding-right: 1%;
+  float: right;
+}
+#info-show .reply-cont p {
+  min-height: 20px;
+  line-height: 20px;
+  font-family: "微软雅黑";
+  font-size: 14px;
+}
+#info-show .reply-cont .username {
+  color: #e74851;
+  margin-bottom: 5px;
+}
+#info-show .reply-cont .comment-body {
+  color: #999;
+  max-height: auto;
+}
+#info-show .reply-cont .comment-footer {
+  font-size: 12px;
+  color: #c0c0c0;
+  margin-top: 10px;
+}
