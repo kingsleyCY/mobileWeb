@@ -1,4 +1,8 @@
 @import "base.scss";
+/* 评论模板CSS */
+@import "../assets/comment/css/main.css";
+@import "../assets/comment/css/sinaFaceAndEffec.css";
+
 .iconfont {
   width: 30px;
   height: 30px;
@@ -24,8 +28,8 @@
   top: 0;
   width: 100%;
   height: calc(100% - 60px);
-  transition: all .5s cubic-bezier(.55,0,.1,1);
-  &.heigth{
+  transition: all .5s cubic-bezier(.55, 0, .1, 1);
+  &.heigth {
     height: auto;
   }
 }
@@ -39,7 +43,6 @@
   -webkit-transform: translate(-30px, 0);
   transform: translate(-30px, 0);
 }
-
 /* scrollbar 样式 */
 .scrollBar::-webkit-scrollbar {
   width: 12px;
@@ -47,15 +50,14 @@
 }
 .scrollBar::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
   background-color: #555;
 }
 .scrollBar::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   background-color: #F5F5F5;
 }
-
 /* 懒加载动画 */
 .spinner-circular {
   width: 80px;
@@ -79,18 +81,21 @@
     animation-delay: -1.0s;
   }
 }
-
 @-webkit-keyframes bounce {
-  0%, 100% { -webkit-transform: scale(0.0) }
-  50% { -webkit-transform: scale(1.0) }
+  0%, 100% {
+    -webkit-transform: scale(0.0)
+  }
+  50% {
+    -webkit-transform: scale(1.0)
+  }
 }
-
 @keyframes bounce {
   0%, 100% {
     transform: scale(0.0);
     -webkit-transform: scale(0.0);
-  } 50% {
-      transform: scale(1.0);
-      -webkit-transform: scale(1.0);
-    }
+  }
+  50% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
 }

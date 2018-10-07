@@ -48,7 +48,7 @@
         this.$emit("articleList", "articleList")
       },
       uploadSuccess(url) {
-        console.log(url);
+        // console.log(url);
         this.ruleForm.cover = url
       },
       submitEditor() {
@@ -85,7 +85,7 @@
       }
     },
     mounted() {
-      console.log(this.articleEditInfo)
+      // console.log(this.articleEditInfo)
       // 创建编辑器
       this.editor = null
       document.getElementById("editor").innerHTML = "";

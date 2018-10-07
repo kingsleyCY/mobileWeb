@@ -16,9 +16,10 @@
             <el-input v-model="loginForm.passwords"></el-input>
           </el-form-item>
           <div style="text-align: center;padding-top: 15px;position: relative;">
-            <el-button style="position: absolute;left: 5px;top: 15px;"
-                       type="text" @click="toRegist">注册账号
-            </el-button>
+            <div style="position: absolute;left: 5px;top: 15px;">
+              <el-button type="text" @click="toRegist">注册账号</el-button> /
+              <el-button type="text" @click="toinit" style="margin: 0">重置密码</el-button>
+            </div>
             <el-button @click="handleClose">取消</el-button>
             <el-button type="primary" @click="submitLogin">确认</el-button>
           </div>
@@ -66,6 +67,9 @@
             <el-button type="primary" @click="submitClick">确认</el-button>
           </div>
         </el-form>
+      </div>
+      <div v-if="step == 'initpass'">
+        不着急
       </div>
     </div>
   </el-dialog>
@@ -178,6 +182,15 @@
           }
           this.$nextTick(() => {
             this.$refs.form.clearValidate()
+          })
+        }.bind(this), 500)
+      },
+      toinit() {
+        this.$refs.loginForms.clearValidate()
+        setTimeout(function () {
+          this.step = 'initpass'
+          this.$nextTick(() => {
+
           })
         }.bind(this), 500)
       },

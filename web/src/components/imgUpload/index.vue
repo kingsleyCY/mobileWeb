@@ -167,7 +167,7 @@
       this.$nextTick(() => {
         this.$refs.uploadBox.style.width = this.width ? this.width : "180px"
         this.$refs.uploadBox.style.height = this.height ? this.height : "110px"
-        console.log(this.initImg);
+        //console.log(this.initImg);
         if(this.initImg) {
           this.uploadImgUrl = this.initImg
         }

@@ -13,6 +13,13 @@ const userInfo = {
   mutations: {
     SET_USERINFO: function(state, param) {
       state[param[0]] = param[1]
+    },
+    REMOVE_USERINFO: function (state) {
+      state.username = null
+      state.usereamil = null
+      state.avtor = null
+      state.sex = null
+      state.root = null
     }
   },
   actions: {

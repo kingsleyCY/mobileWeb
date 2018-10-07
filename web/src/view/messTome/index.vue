@@ -4,30 +4,60 @@
       <el-row :gutter="20">
         <el-col :xs="24" :sm="16">
           <div class="item-model">
-            <el-button type="text" @click="login">注册</el-button>
+            <div id="content" style="width: 100%; height: auto;">
+              <div class="wrap">
+                <div class="comment">
+                  <div class="head-face">
+                    <img src="../../assets/comment/images/1.jpg">
+                    <p>我是鸟</p>
+                  </div>
+                  <div class="content">
+                    <div class="cont-box">
+                      <textarea class="text" placeholder="请输入..."></textarea>
+                    </div>
+                    <div class="tools-box">
+                      <div class="operator-box-btn"><span class="face-icon">☺</span></div>
+                      <div class="submit-btn"><input type="button" onClick="out()" value="提交评论"/></div>
+                    </div>
+                  </div>
+                </div>
+                <div id="info-show">
+                  <ul></ul>
+                </div>
+              </div>
+            </div>
           </div>
         </el-col>
         <el-col :xs="24" :sm="8">
           <div class="item-model">
             <!--Customer-->
-            <el-card class="box-card" v-if="username">
+            <el-card class="box-card">
               <div slot="header" class="clearfix">
                 <span class="title">个人信息</span>
               </div>
               <div class="public-notice" v-if="userInfo">
                 <div class="user-infor">
                   <img :src="userInfo.avtor">
-                  <span class="user-name">{{userInfo.username}}</span>
-                  <svg class="iconfont" aria-hidden="true" v-if="userInfo.sex == 1">
-                    <use xlink:href="#icon-nvsheng"></use>
-                  </svg>
-                  <svg class="iconfont" aria-hidden="true" v-else-if="userInfo.sex == 1">
-                    <use xlink:href="#icon-nansheng"></use>
-                  </svg>
+                  <div>
+                    <span class="user-name">{{userInfo.username}}</span>
+                    <svg class="iconfont" aria-hidden="true" v-if="userInfo.sex == 1">
+                      <use xlink:href="#icon-nvsheng"></use>
+                    </svg>
+                    <svg class="iconfont" aria-hidden="true" v-else-if="userInfo.sex == 2">
+                      <use xlink:href="#icon-nansheng"></use>
+                    </svg>
+                    <div style="padding: 3px 10px;box-sizing: border-box">
+                      <el-button style="padding: 0" type="text" @click="layoutSubmit">注销</el-button>
+                    </div>
+                  </div>
                 </div>
                 <div style="font-style: italic;padding-top: 10px">
                   "这个人很懒，什么都没有留下"
                 </div>
+              </div>
+              <div class="public-notice" v-else>
+                暂未登陆、点击
+                <span style="color: #409EFF;cursor: pointer" @click="changeLoginModel(true)">登录</span>
               </div>
             </el-card>
             <!--消息-->
@@ -73,20 +103,53 @@
       }
     },
     mounted() {
-      if (localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo"))) {
-        const userInfo = JSON.parse(localStorage.getItem("userInfo"))
-        // console.log(userInfo);
-        this.userInfo = userInfo
+      this.getVuexData()
+
+      // 绑定表情
+      $('.face-icon').SinaEmotion($('.text'));
+
+      // 测试本地解析
+      function out() {
+        var inputText = $('.text').val();
+        $('#info-show ul').append(reply(AnalyticEmotion(inputText)));
+      }
+
+      var html;
+
+      function reply(content) {
+        console.log(content);
+        html = '<li>';
+        html += '<div class="head-face">';
+        html += '<img src="images/1.jpg" / >';
+        html += '</div>';
+        html += '<div class="reply-cont">';
+        html += '<p class="username">小小红色飞机</p>';
+        html += '<p class="comment-body">' + content + '</p>';
+        html += '<p class="comment-footer">2016年10月5日　回复　点赞54　转发12</p>';
+        html += '</div>';
+        html += '</li>';
+        return html;
       }
     },
     methods: {
-      login() {
-        this.changeLoginModel(true)
-        /*this.$http.post('/apis/api/login/sendEmail', {email: "1504468447@qq.com"}).then(res => {
-          console.log(res);
-        })*/
+      getVuexData() {
+        if (localStorage.getItem("userInfo") && JSON.parse(localStorage.getItem("userInfo"))) {
+          const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+          this.userInfo = userInfo
+        }else {
+          this.userInfo = null
+        }
       },
-      ...mapMutations(['changeLoginModel'])
+      /* 注销 */
+      layoutSubmit() {
+        this.$http.post("/apis/api/status/layout", {}).then(res => {
+          this.$message.success("注销成功")
+          localStorage.removeItem("sessionId")
+          localStorage.removeItem("userInfo")
+          this.REMOVE_USERINFO()
+        })
+      },
+      ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO'])
     },
     computed: {
       ...mapState({
@@ -96,6 +159,11 @@
         }
       })
     },
+    watch: {
+      username(newV, oldV) {
+        this.getVuexData()
+      }
+    }
   }
 </script>
 
@@ -140,10 +208,9 @@
               height: 50px;
             }
             span {
-              padding-left: 15px;
+              padding-left: 10px;
             }
             .iconfont{
-              padding-left: 10px;
               width: 15px;
               height: 15px;
             }

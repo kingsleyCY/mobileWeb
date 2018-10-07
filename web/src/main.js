@@ -17,6 +17,9 @@ import '@/style/index.scss'
 import store from './store'
 import commonBase from './common/index'
 
+require("./assets/comment/js/main")
+require("./assets/comment/js/sinaFaceAndEffec")
+
 
 
 Vue.config.productionTip = false
