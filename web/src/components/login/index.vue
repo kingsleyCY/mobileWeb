@@ -230,14 +230,20 @@
       },
       /* 登录提交 */
       submitLogin() {
-        let param = {
-          username: this.loginForm.usernames,
-          password: this.loginForm.passwords,
-        }
-        this.$store.dispatch('login', param, function (result) {
-          // console.log(result);
-          this.$message.success("登陆成功，welcome ")
-          this.changeLoginModel(false)
+        this.$nextTick(() => {
+          this.$refs['loginForms'].validate((valid) => {
+            if (valid) {
+              let param = {
+                username: this.loginForm.usernames,
+                password: this.loginForm.passwords,
+              }
+              this.$store.dispatch('login', param, function (result) {
+                // console.log(result);
+                this.$message.success("登陆成功，welcome ")
+                this.changeLoginModel(false)
+              })
+            }
+          });
         })
       },
       ...mapMutations(['changeLoginModel'])

@@ -25,6 +25,27 @@
                 </div>
               </div>
             </div>
+            <div class="reply-box">
+              <div class="reply-title">
+                <span>评论</span>
+                <div>
+                  <span>12</span>条评论
+                </div>
+              </div>
+              <ul v-if="commentsData.list">
+                <li v-for="(item, index) in commentsData.list" :key="index">
+                  <div class="base-info clearfix">
+                    <img :src="item.userInfo.avtor" alt="">
+                    <div class="comments-content">
+                      <p>{{item.username}}</p>
+                      <p v-html="item.content"></p>
+                    </div>
+                    <span class="comments-time">{{common.timestampToTime(item.create_time)}}</span>
+                  </div>
+                  <div></div>
+                </li>
+              </ul>
+            </div>
           </div>
         </el-col>
         <el-col :xs="24" :sm="8">
@@ -80,7 +101,7 @@
 </template>
 
 <script>
-  import { mapState, mapMutations } from "vuex"
+  import {mapState, mapMutations} from "vuex"
 
   export default {
     name: "mess-tome",
@@ -97,11 +118,17 @@
             des: "学习网站，很多博主录得学习视频"
           }
         ],
-        userInfo: null
+        userInfo: null,
+        commentsData: {
+          list: null,
+          page: 1,
+          pre_page: 20
+        }
       }
     },
     mounted() {
       this.getVuexData()
+      this.getCommentsList()
       // 绑定表情
       $('.face-icon').SinaEmotion($('.text'));
     },
@@ -129,7 +156,7 @@
         if (!this.username) {
           this.changeLoginModel(true)
           return
-        }else if($('.text').val() == '') {
+        } else if ($('.text').val() == '') {
           return
         }
         this.$http.post('/apis/api/comments/add', {
@@ -138,6 +165,19 @@
         }).then(res => {
           this.$message.success(res.mess)
           $('.text').val("")
+          this.commentsData.page = 1
+          this.commentsData.pre_page = 20
+          this.getCommentsList()
+        })
+      },
+      /* 获取评论列表 */
+      getCommentsList() {
+        this.$http.post('/apis/api/comments/all', {
+          page: this.commentsData.page,
+          pre_page: this.commentsData.pre_page,
+        }).then(res => {
+          // console.log(res);
+          this.commentsData.list = res.date
         })
       },
       ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO'])
@@ -215,5 +255,73 @@
     width: 100%;
     height: auto;
     margin: 50px 0 20px;
+  }
+  .reply-box {
+    .reply-title{
+      display: flex;
+      width: 90%;
+      height: 30px;
+      margin: 0  auto;
+      margin-bottom: 10px;
+      color: #e74851;
+      >span{
+        border: 1.5px solid #e74851;
+        border-bottom: none;
+        line-height: 30px;
+        text-align: center;
+        width: 50px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+      >div{
+        width: calc(100% - 50px);
+        border-bottom: 1.5px solid #e74851;
+        text-align: right;
+        span{
+          font-family: Impact;
+          font-size: 20px;
+        }
+      }
+    }
+    ul {
+      width: 90%;
+      margin: 0 auto;
+      li {
+        padding: 15px 0;
+        border-bottom: 1px dashed #e5e5e5;;
+        .base-info {
+          position: relative;
+          min-height: 50px;
+          img {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            border-radius: 45px;
+          }
+          .comments-content {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 15% 0 60px;
+            p:first-child{
+              color: #e74851;
+            }
+            P:last-child {
+              padding-top: 10px;
+            }
+          }
+          span {
+            position: absolute;
+            text-align: center;
+            width: 15%;
+            right: 0;
+            top: 0;
+            font-family: Arial;
+            color: silver;
+            font-size: 12px;
+            font-family: "微软雅黑";
+          }
+        }
+      }
+    }
   }
 </style>

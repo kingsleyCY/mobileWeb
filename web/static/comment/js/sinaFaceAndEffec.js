@@ -110,7 +110,7 @@ function AnalyticEmotion(s) {
       $('#emotions').click(function (event) {
         event.stopPropagation();
       });
-      $('#emotions').html('<div style="display: none"><a href="javascript:void(0);" id="prev">&laquo;</a><a href="javascript:void(0);" id="next">&raquo;</a></div><div class="categorys"></div><div class="container"></div>');
+      $('#emotions').html('<div style="display: none"><a href="javascript:void(0);" id="prev">&laquo;</a><a href="javascript:void(0);" id="next">&raquo;</a></div><div class="categorys"></div><div class="container scrollBar"></div>');
       $('#emotions #prev').click(function () {
         showCategorys(cat_page - 1);
       });

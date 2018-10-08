@@ -266,9 +266,10 @@
         word-wrap: break-word;
         white-space: normal !important;
         line-clamp: 2;
-        -webkit-line-clamp: 2;
+        /*-webkit-line-clamp: 2;*/
         -webkit-box-orient: vertical;
-        max-height: 38px;
+        max-height: 40px;
+        min-height: 40px;
       }
       .article-info {
         padding-top: 10px;
