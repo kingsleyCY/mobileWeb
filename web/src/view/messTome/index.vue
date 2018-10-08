@@ -29,7 +29,7 @@
               <div class="reply-title">
                 <span>评论</span>
                 <div>
-                  <span>12</span>条评论
+                  <span>{{commentsData.total}}</span>&nbsp;条评论
                 </div>
               </div>
               <ul v-if="commentsData.list">
@@ -42,7 +42,13 @@
                     </div>
                     <span class="comments-time">{{common.timestampToTime(item.create_time)}}</span>
                   </div>
-                  <div></div>
+                  <div class="operation-box">
+                    <span>回复</span>
+                    <svg class="iconfont" aria-hidden="true" @click="clickZan">
+                      <use xlink:href="#icon-dianzan-xian"></use> <!-- icon-dianzan -->
+                    </svg>
+                    <span class="yin" @click="">印</span>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -122,7 +128,8 @@
         commentsData: {
           list: null,
           page: 1,
-          pre_page: 20
+          pre_page: 20,
+          total: 0
         }
       }
     },
@@ -177,8 +184,16 @@
           pre_page: this.commentsData.pre_page,
         }).then(res => {
           // console.log(res);
-          this.commentsData.list = res.date
+          this.commentsData.list = res.date.resuletList
+          this.commentsData.total = res.date.commentsInfo.count
         })
+      },
+      /* 点赞 */
+      clickZan() {
+        if (!this.username) {
+          this.changeLoginModel(true)
+          return
+        }
       },
       ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO'])
     },
@@ -251,20 +266,22 @@
       }
     }
   }
+
   #content {
     width: 100%;
     height: auto;
     margin: 50px 0 20px;
   }
+
   .reply-box {
-    .reply-title{
+    .reply-title {
       display: flex;
       width: 90%;
       height: 30px;
-      margin: 0  auto;
+      margin: 0 auto;
       margin-bottom: 10px;
       color: #e74851;
-      >span{
+      > span {
         border: 1.5px solid #e74851;
         border-bottom: none;
         line-height: 30px;
@@ -273,11 +290,11 @@
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
       }
-      >div{
+      > div {
         width: calc(100% - 50px);
         border-bottom: 1.5px solid #e74851;
         text-align: right;
-        span{
+        span {
           font-family: Impact;
           font-size: 20px;
         }
@@ -288,7 +305,7 @@
       margin: 0 auto;
       li {
         padding: 15px 0;
-        border-bottom: 1px dashed #e5e5e5;;
+        border-bottom: 1px dashed #e5e5e5;
         .base-info {
           position: relative;
           min-height: 50px;
@@ -302,7 +319,7 @@
             width: 100%;
             box-sizing: border-box;
             padding: 0 15% 0 60px;
-            p:first-child{
+            p:first-child {
               color: #e74851;
             }
             P:last-child {
@@ -319,6 +336,37 @@
             color: silver;
             font-size: 12px;
             font-family: "微软雅黑";
+          }
+        }
+        .operation-box {
+          display: flex;
+          width: 100%;
+          padding-right: 5px;
+          box-sizing: border-box;
+          justify-content: flex-end;
+          align-items: center;
+          span:first-child {
+            color: #8d8d8a;
+            cursor: pointer;
+          }
+          .iconfont {
+            width: 15px;
+            height: 15px;
+            margin: 0 12px;
+            cursor: pointer;
+            color: #8d8d8a;
+          }
+          span.yin {
+            width: 18px;
+            height: 18px;
+            line-height: 18px;
+            text-align: center;
+            color: #e74851;
+            border: 1px solid #e74851;
+            border-radius: 20px;
+            font-size: 12px;
+            transform: rotate(30deg);
+            cursor: pointer;
           }
         }
       }
