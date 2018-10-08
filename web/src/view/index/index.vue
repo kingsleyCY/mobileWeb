@@ -12,6 +12,7 @@
       </div>
     </div>
     <login></login>
+    <to-top></to-top>
   </div>
 </template>
 
@@ -20,6 +21,7 @@
   import sectionModel from '@/view/section'
   import footerModel from '@/view/footer'
   import login from '@/components/login'
+  import toTop from '@/components/toTop'
 
   import { mapState } from "vuex"
 
@@ -34,7 +36,7 @@
       })
     },
     components: {
-      headerModel, sectionModel, footerModel, login
+      headerModel, sectionModel, footerModel, login, toTop
     },
     mounted() {
       setTimeout(function () {
