@@ -27,9 +27,9 @@
             </div>
             <div class="reply-box">
               <div class="reply-title">
-                <span>评论</span>
+                <span>足迹</span>
                 <div>
-                  <span>{{commentsData.total}}</span>&nbsp;条评论
+                  <span>{{commentsData.total}}</span>&nbsp;条留言
                 </div>
               </div>
               <ul v-if="commentsData.list">
@@ -51,6 +51,13 @@
                   </div>
                 </li>
               </ul>
+              <div class="loading-more" @click="loadingMore"
+                   v-if="commentsData.list && (commentsData.list.length < commentsData.total)">
+                查看更多
+                <svg class="iconfont" aria-hidden="true">
+                  <use xlink:href="#icon-xiangxia"></use>
+                </svg>
+              </div>
             </div>
           </div>
         </el-col>
@@ -164,6 +171,7 @@
           this.changeLoginModel(true)
           return
         } else if ($('.text').val() == '') {
+          this.$message.info('请输入内容')
           return
         }
         this.$http.post('/apis/api/comments/add', {
@@ -173,7 +181,6 @@
           this.$message.success(res.mess)
           $('.text').val("")
           this.commentsData.page = 1
-          this.commentsData.pre_page = 20
           this.getCommentsList()
         })
       },
@@ -183,10 +190,17 @@
           page: this.commentsData.page,
           pre_page: this.commentsData.pre_page,
         }).then(res => {
-          // console.log(res);
-          this.commentsData.list = res.date.resuletList
+          if(this.commentsData.page == 1) {
+            this.commentsData.list = res.date.resuletList
+          }else {
+            this.commentsData.list = this.commentsData.list.concat(res.date.resuletList)
+          }
           this.commentsData.total = res.date.commentsInfo.count
         })
+      },
+      loadingMore() {
+        ++this.commentsData.page
+        this.getCommentsList()
       },
       /* 点赞 */
       clickZan() {
@@ -194,6 +208,7 @@
           this.changeLoginModel(true)
           return
         }
+
       },
       ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO'])
     },
@@ -274,6 +289,7 @@
   }
 
   .reply-box {
+    user-select: none;
     .reply-title {
       display: flex;
       width: 90%;
@@ -369,6 +385,24 @@
             cursor: pointer;
           }
         }
+      }
+    }
+    .loading-more {
+      width: 90%;
+      margin: 10px auto;
+      border-radius: 5px;
+      text-align: center;
+      line-height: 30px;
+      cursor: pointer;
+      background-color: #f0f0f0;
+      &:hover {
+        color: #e74851;
+        background-color: #fef6f6;
+      }
+      .iconfont {
+        width: 15px;
+        height: 15px;
+        font-size: 16px;
       }
     }
   }
