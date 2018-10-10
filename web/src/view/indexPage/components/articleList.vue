@@ -93,31 +93,26 @@
       },
     },
     mounted() {
-      // console.log(this.$route);
-      if (this.$route.query.admin == 1) {
+      if (localStorage.getItem('userInfo') && JSON.parse(localStorage.getItem('userInfo')).root == 2) {
         this.btnFlag = true
       }
       let that = this
-      this.$http.get("/apis/api/article/all", {
-        params: {
-          page: that.pageInfo.page,
-          pre_page: that.pageInfo.pre_page,
-        }
-      }).then(function (res) {
-        that.dynamicList = res.date.article_list
-        that.pageInfo.total = res.date.page_info.count
-        that.$nextTick(() => {
-          var liHeight = 0
-          if (that.screenWidth > 768) {
-            liHeight = 131
-          } else {
-            /* 手机端 */
-            liHeight = 130 + $(that.$refs.childView).width() * 150 / 240
-          }
-          var computedHeigth = computedHeigth = res.date.article_list.length * liHeight + 28
-          that.$emit("autoHeight", that.$refs.childView ? computedHeigth : 0)
+      this.$http.get("/apis/api/article/all", {params: {page: that.pageInfo.page, pre_page: that.pageInfo.pre_page,}})
+        .then(function (res) {
+          that.dynamicList = res.date.article_list
+          that.pageInfo.total = res.date.page_info.count
+          that.$nextTick(() => {
+            var liHeight = 0
+            if (that.screenWidth > 768) {
+              liHeight = 131
+            } else {
+              /* 手机端 */
+              liHeight = 130 + $(that.$refs.childView).width() * 150 / 240
+            }
+            var computedHeigth = computedHeigth = res.date.article_list.length * liHeight + 28
+            that.$emit("autoHeight", that.$refs.childView ? computedHeigth : 0)
+          })
         })
-      })
       /* 监听屏幕宽度 */
       window.onresize = () => {
         return (() => {
@@ -137,7 +132,6 @@
   .child-view.xs-screen {
     min-height: 355px;
   }
-
   .dynamic-item {
     display: flex;
     justify-content: space-between;
@@ -207,7 +201,6 @@
       }
     }
   }
-
   .another-item {
     /*display: flex;
     justify-content: space-between;
@@ -290,7 +283,6 @@
       }
     }
   }
-
   .pagination-box {
     display: flex;
     justify-content: space-between;

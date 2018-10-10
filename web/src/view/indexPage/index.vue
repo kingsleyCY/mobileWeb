@@ -50,7 +50,7 @@
               <div class="public-notice" style="text-indent: 2em">
                 <p>博客以后会在每两周的星期天晚上12:00更新迭代，希望大家多多支持。</p>
                 <p>后续会加入更多的功能，例如基本的登录注册、权限模块，如果经费及精力条件允许下会尝试的接入一些第三方功能。</p>
-                <p class="update-time">下次更新：2018-10-21</p>
+                <p class="update-time">下次更新：{{update_time}}</p>
               </div>
             </el-card>
             <!--社交-->
@@ -112,23 +112,25 @@
       return {
         articleName: 'articleList',
         articleInfo: null,
-        articleEdit_info: null
+        articleEdit_info: null,
+        update_time: null
       }
     },
     mounted() {
       this.testArticle()
+      this.getConfiguration()
     },
     methods: {
       toAddArticle(res) {
         this.articleEdit_info = null
         this.articleName = "addArticle"
-        this.$refs.articleBox.style.height = '580px'
+        this.$refs.articleBox.style.height = '700px'
       },
       toedit(article_info) {
         // console.log(article_info);
         this.articleEdit_info = article_info
         this.articleName = "addArticle"
-        this.$refs.articleBox.style.height = '580px'
+        this.$refs.articleBox.style.height = '700px'
       },
       toArticleList(res) {
         this.articleName = res
@@ -149,6 +151,14 @@
           // console.log(this.$route);
           this.todetail("articleDetail", {id: this.$route.query.id})
         }
+      },
+      /* 获取配置参数 */
+      getConfiguration() {
+        this.$http.post('/apis/api/status/baseText', {
+          datatype: ['nextTime']
+        }).then(res => {
+          this.update_time = res.date.nextTime
+        })
       },
       ...mapMutations(['changeLoginModel'])
     },

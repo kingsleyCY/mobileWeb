@@ -52,7 +52,7 @@
       }
     },
     mounted() {
-      if (this.$route.query.admin == 1) {
+      if (localStorage.getItem('userInfo') && JSON.parse(localStorage.getItem('userInfo')).root == 2) {
         this.btnFlag = true
       }
       let that = this
