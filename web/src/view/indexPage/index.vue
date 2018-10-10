@@ -104,7 +104,7 @@
   import articleList from "./components/articleList"
   import addArticle from "./components/addArticle"
   import articleDetail from "./components/articleDetail"
-  import {mapState, mapMutations} from "vuex"
+  import { mapState, mapMutations } from "vuex"
 
   export default {
     name: 'index-page',

@@ -311,7 +311,7 @@
         border-bottom: 1.5px solid #e74851;
         text-align: right;
         span {
-          font-family: Impact;
+          font-family: Impact !important;
           font-size: 20px;
         }
       }

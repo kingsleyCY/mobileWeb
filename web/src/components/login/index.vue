@@ -7,7 +7,7 @@
     <div style="transition: all .5s">
       <div v-if="step == 'login'">
         <el-form ref="loginForms" :model="loginForm" :rules="rulesLogin"
-                 label-width="80px" class="form-list">
+                 label-width="80px" class="form-list" size="small">
           <h4>Login</h4>
           <el-form-item label="Username：" prop="usernames">
             <el-input v-model="loginForm.usernames"></el-input>
@@ -17,8 +17,7 @@
           </el-form-item>
           <div class="login-btn-box">
             <div>
-              <el-button type="text" @click="toRegist">注册账号</el-button> /
-              <el-button type="text" @click="toinit" style="margin: 0">重置密码</el-button>
+              <el-button type="text" @click="toRegist">注册账号</el-button>/<el-button type="text" @click="toinit" style="margin: 0">重置密码</el-button>
             </div>
             <div>
               <el-button @click="handleClose" size="small">取消</el-button>
@@ -29,7 +28,7 @@
       </div>
       <div v-if="step == 'regist'">
         <el-form ref="form" :model="userForm" :rules="rules"
-                 label-width="90px" class="form-list">
+                 label-width="90px" class="form-list" size="small">
           <h4>Registered Account</h4>
           <el-form-item label="Username：" prop="username">
             <el-input v-model="userForm.username"></el-input>
@@ -270,12 +269,13 @@
     /deep/ .el-form-item {
       padding-right: 15px;
       box-sizing: border-box;
+      margin-bottom: 16px !important;
       .el-form-item__label {
         font-size: 12px;
       }
       .el-input__inner {
-        height: 32px;
-        line-height: 32px;
+        /*height: 32px;
+        line-height: 32px;*/
       }
     }
     .login-btn-box {
