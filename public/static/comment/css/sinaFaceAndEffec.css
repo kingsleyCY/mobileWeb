@@ -1,7 +1,7 @@
 #emotions {
   left: 0;
   margin-top: 34px;
-  width: 395px;
+  width: 375px;
   font-size: 12px;
   background: #fff;
   border-radius: 5px;
@@ -9,6 +9,9 @@
   padding: 10px 0;
   position: absolute;
   border: 1px solid #E8E8E8;
+}
+#emotions.xs-screen {
+  width: 340px;
 }
 #emotions a {
   color: #9ABBC8;

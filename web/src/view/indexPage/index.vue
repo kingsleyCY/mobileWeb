@@ -105,7 +105,6 @@
   import addArticle from "./components/addArticle"
   import articleDetail from "./components/articleDetail"
   import {mapState, mapMutations} from "vuex"
-  import Swiper from 'swiper'
 
   export default {
     name: 'index-page',
