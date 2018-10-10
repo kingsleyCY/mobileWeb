@@ -104,7 +104,11 @@ function AnalyticEmotion(s) {
         $('#emotions').toggle();
         return;
       }
-      $('body').append('<div id="emotions"></div>');
+      if($('body').width() < 768) {
+        $('body').append('<div id="emotions" class="xs-screen"></div>');
+      }else {
+        $('body').append('<div id="emotions"></div>');
+      }
       $('#emotions').css({top: eTop, left: eLeft});
       $('#emotions').html('<div>正在加载，请稍候...</div>');
       $('#emotions').click(function (event) {
@@ -178,7 +182,7 @@ function AnalyticEmotion(s) {
       }
       $('#emotions .container a').click(function () {
         target.insertText($(this).attr('title'));
-        $('#emotions').remove();
+        /*$('#emotions').remove();*/
       });
 
       $('#emotions .categorys a.current').removeClass('current');
