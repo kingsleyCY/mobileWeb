@@ -9,8 +9,11 @@
 .container {
   margin: 0 auto;
 }
+* {
+  font-family: "kaiti" !important;
+}
 .webfont{
-  font-family: "webfonts";
+  font-family: "webfonts" !important;
   font-size: 42px;
 }
 @media only screen and (max-width: 768px) {
@@ -48,7 +51,7 @@ html, body {
   height: 100%;
   background-color: #F6F6F6;
   font-size: 14px;
-  font-family: "kaiti";
+  font-family: "kaiti" !important;
   overflow-x: hidden;
   box-sizing: border-box;
   position: relative;

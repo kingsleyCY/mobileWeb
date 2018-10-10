@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import 'lib-flexible'
-import $ from 'jquery'
+const $ = require("jquery") // 分离打包
 import axios from 'axios'
 import Share from 'vue-social-share'
 
