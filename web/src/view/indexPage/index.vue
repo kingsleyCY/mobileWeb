@@ -11,7 +11,7 @@
                      style="float: right;cursor: pointer" @click="toArticleList('articleList')">
                   <use xlink:href="#icon-fanhui"></use>
                 </svg>
-                <el-button style="float: right; padding: 3px 0" type="text" @click="changeLoginModel(true)"
+                <el-button style="float: right; padding: 0" type="text" @click="changeLoginModel(true)"
                            v-if="articleName == 'articleList' && !username">登录
                 </el-button>
                 <!--<span style="float: right; padding: 3px 0" v-if="articleName == 'articleList'">已登录</span>-->
@@ -122,13 +122,13 @@
       toAddArticle(res) {
         this.articleEdit_info = null
         this.articleName = "addArticle"
-        this.$refs.articleBox.style.height = '550px'
+        this.$refs.articleBox.style.height = '580px'
       },
       toedit(article_info) {
         // console.log(article_info);
         this.articleEdit_info = article_info
         this.articleName = "addArticle"
-        this.$refs.articleBox.style.height = '550px'
+        this.$refs.articleBox.style.height = '580px'
       },
       toArticleList(res) {
         this.articleName = res

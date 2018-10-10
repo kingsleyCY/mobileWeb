@@ -140,7 +140,7 @@
         text-align: center;
         &:before {
           position: absolute;
-          top: 7px;
+          top: 0px;
           left: 7px;
           display: inline-block;
         }
@@ -148,7 +148,7 @@
       &.pcScreen {
         /deep/ a {
           &:before {
-            top: 4px;
+            top: 0px;
             left: 7px;
           }
         }

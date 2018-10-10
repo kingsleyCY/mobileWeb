@@ -21,8 +21,8 @@
               <el-button type="text" @click="toinit" style="margin: 0">重置密码</el-button>
             </div>
             <div>
-              <el-button @click="handleClose">取消</el-button>
-              <el-button type="primary" @click="submitLogin">确认</el-button>
+              <el-button @click="handleClose" size="small">取消</el-button>
+              <el-button type="primary" @click="submitLogin" size="small">确认</el-button>
             </div>
           </div>
         </el-form>
@@ -65,8 +65,8 @@
                  v-for="(item, index) in 18" :key="index">
           </div>
           <div style="text-align: center;padding-top: 15px">
-            <el-button @click="handleClose">取消</el-button>
-            <el-button type="primary" @click="submitClick">确认</el-button>
+            <el-button @click="handleClose" size="small">取消</el-button>
+            <el-button type="primary" @click="submitClick" size="small">确认</el-button>
           </div>
         </el-form>
       </div>
@@ -270,6 +270,13 @@
     /deep/ .el-form-item {
       padding-right: 15px;
       box-sizing: border-box;
+      .el-form-item__label {
+        font-size: 12px;
+      }
+      .el-input__inner {
+        height: 32px;
+        line-height: 32px;
+      }
     }
     .login-btn-box {
       display: flex;

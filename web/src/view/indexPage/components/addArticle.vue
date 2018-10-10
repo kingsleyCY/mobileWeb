@@ -6,6 +6,7 @@
       </el-form-item>
       <el-form-item label="文章标题" prop="title">
         <el-input
+          size="small"
           style="max-width: 300px"
           placeholder="请输入文章标题"
           v-model="ruleForm.title"
@@ -15,8 +16,8 @@
       <div id="editor"></div>
     </el-form>
     <div class="btn-grounp">
-      <el-button type="info" @click="articleList">取消</el-button>
-      <el-button type="primary" @click="submitEditor">提交</el-button>
+      <el-button type="info" @click="articleList" size="small">取消</el-button>
+      <el-button type="primary" @click="submitEditor" size="small">提交</el-button>
     </div>
   </div>
 </template>
