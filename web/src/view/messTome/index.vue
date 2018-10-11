@@ -34,6 +34,10 @@
               </div>
               <ul v-if="commentsData.list">
                 <li v-for="(item, index) in commentsData.list" :key="index">
+                  <div class="background-yin" :ref="'everyComments' + index">
+                    <img :src="computedYin(items.type)" :style="{left:items.positionDate.left,top:items.positionDate.top}"
+                         v-for="(items, indexs) in item.yinArr" :key="indexs">
+                  </div>
                   <div class="base-info clearfix">
                     <img :src="item.userInfo.avtor" alt="">
                     <div class="comments-content">
@@ -43,7 +47,7 @@
                     <span class="comments-time">{{common.timestampToTime(item.create_time)}}</span>
                   </div>
                   <div class="operation-box">
-                    <span>回复</span>
+                    <!--<span>回复</span>-->
                     <svg class="iconfont" aria-hidden="true" @click="clickZan">
                       <use xlink:href="#icon-dianzan-xian"></use> <!-- icon-dianzan -->
                     </svg>
@@ -53,18 +57,14 @@
                       width="230" trigger="click">
                       <div class="dianyin-select">
                         <ul>
-                          <li @click="addImprint(1, item)"><img :src="dou"></li>
-                          <li @click="addImprint(2, item)"><img :src="geili"></li>
-                          <li @click="addImprint(3, item)"><img :src="pei"></li>
-                          <li @click="addImprint(4, item)"><img :src="penzi"></li>
+                          <li @click="addImprint(1, item, index)"><img :src="dou"></li>
+                          <li @click="addImprint(2, item, index)"><img :src="geili"></li>
+                          <li @click="addImprint(3, item, index)"><img :src="pei"></li>
+                          <li @click="addImprint(4, item, index)"><img :src="penzi"></li>
                         </ul>
                       </div>
                       <span slot="reference">印</span>
                     </el-popover>
-                  </div>
-                  <div class="background-yin" :ref="'everyComments' + index">
-                    <img :src="computedYin(items.type)" v-for="(items, indexs) in item.yinArr" :alt="indexs"
-                         :key="indexs" :style="computedYinPosition('everyComments' + index)">
                   </div>
                 </li>
               </ul>
@@ -218,9 +218,6 @@
             this.commentsData.list = this.commentsData.list.concat(res.date.resuletList)
           }
           this.commentsData.total = res.date.commentsInfo.count
-          this.$nextTick(() => {
-
-          })
         })
       },
       loadingMore() {
@@ -229,17 +226,19 @@
       },
       /* 点赞 */
       clickZan() {
+        console.log(1);
         if (!this.username) {
           this.changeLoginModel(true)
           return
         }
       },
       /* 点印 */
-      addImprint(type, item) {
+      addImprint(type, item, index) {
         this.$http.post('/apis/api/comments/addImprint', {
           type: type,
           username: this.username,
-          commentId: item.id
+          commentId: item.id,
+          positionDate: this.computedYinPosition(index)
         }).then(res => {
           // console.log(res);
           this.$message.success(res.mess)
@@ -264,20 +263,15 @@
             break;
         }
       },
-      computedYinPosition(data) {
-        this.$nextTick(() => {
-          const thatComments = this.$refs[data][0]
-          const maxLeft = thatComments.clientWidth - 60 - 50
-          const maxTop = thatComments.clientHeight - 30
-          console.log({
-            left: Math.floor(Math.random() * maxLeft) + 'px',
-            top: Math.floor(Math.random()) * maxTop + 'px',
-          });
-          return {
-            left: Math.floor(Math.random() * maxLeft) + 'px',
-            top: Math.floor(Math.random()) * maxTop + 'px',
-          }
-        })
+      /* 计算点印位置 */
+      computedYinPosition(index) {
+        const commentsBox = this.$refs['everyComments' + index][0]
+        const maxLeft = commentsBox.clientWidth - 60 - 80
+        const maxTop = commentsBox.clientHeight - 50
+        return {
+          left: 60 + Math.floor(Math.random() * maxLeft) + 'px',
+          top: Math.floor(Math.random() * maxTop) + 'px',
+        }
       },
       ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO'])
     },
@@ -439,6 +433,7 @@
             margin-left: 8px;
             cursor: pointer;
             color: #8d8d8a;
+            transform: rotate(0deg);
           }
           .yin-btn {
             width: 17px !important;
