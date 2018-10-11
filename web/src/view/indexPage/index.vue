@@ -4,7 +4,7 @@
       <el-row :gutter="20">
         <el-col :xs="24" :sm="16">
           <div class="item-model">
-            <el-card class="box-card">
+            <el-card :class="['box-card', screenWidth<768?'xs-screen':'']">
               <div slot="header" class="clearfix">
                 <span class="title">相关动态</span>
                 <svg class="iconfont" aria-hidden="true" v-if="articleName != 'articleList'"
@@ -21,7 +21,7 @@
                   <component :is="articleName" @addArticle="toAddArticle" @toedit="toedit"
                              :articleEditInfo="articleEdit_info" :articleInfo="articleInfo"
                              @articleList="toArticleList" @autoHeight="autoHeight"
-                             @todetail="todetail"></component>
+                             @todetail="todetail" :typeArr="selectArr.type" :labelArr="selectArr.label"></component>
                 </transition>
               </div>
             </el-card>
@@ -110,10 +110,15 @@
     name: 'index-page',
     data() {
       return {
+        screenWidth: document.body.clientWidth, // 屏幕尺寸
         articleName: 'articleList',
         articleInfo: null,
         articleEdit_info: null,
-        update_time: null
+        update_time: null,
+        selectArr: {
+          type: [],
+          label: []
+        }
       }
     },
     mounted() {
@@ -155,9 +160,11 @@
       /* 获取配置参数 */
       getConfiguration() {
         this.$http.post('/apis/api/status/baseText', {
-          datatype: ['nextTime']
+          datatype: ['nextTime', 'articleType', 'articleLabel']
         }).then(res => {
           this.update_time = res.date.nextTime
+          this.selectArr.type = res.date.articleType
+          this.selectArr.label = res.date.articleLabel
         })
       },
       ...mapMutations(['changeLoginModel'])
@@ -187,6 +194,11 @@
       font-size: 14px;
       .box-card {
         margin-bottom: 15px;
+        &.xs-screen {
+          /deep/ .el-card__body{
+            padding: 10px 5px !important;
+          }
+        }
       }
       .title {
         font-weight: bold;

@@ -1,23 +1,6 @@
 <template>
   <div :class="['child-view', 'heigth', screenWidth<768?'xs-screen':'']" ref="childView">
     <ul>
-      <!--<li v-for="(item, index) in dynamicList" :key="index" class="dynamic-item" @click="todetail(item)">
-        <div class="left-base">
-          <img :src="item.avtar?item.avtar:'https://lionynn.cn/images/defaultAvtor.jpg'" alt="用户头像">
-          <p>
-            <span>{{item.article_info?item.article_info.comment_num:0}}</span> /
-            <span>{{item.article_info?item.article_info.look_num:0}}</span>
-          </p>
-        </div>
-        <div class="article-con">
-          <p class="article-title">{{item.title?item.title:"标题飞走啦！"}}</p>
-          <p class="article-content" v-html="item.content?delHtmlTag(item.content):'内容被吃辣'"></p>
-        </div>
-        <div class="other-mess">
-          <p>{{item.user_info?item.user_info.username:"&#45;&#45;"}}</p>
-          <p>{{item.created_time?timestampToTime(item.created_time):""}}</p>
-        </div>
-      </li>-->
       <li v-for="(item, index) in dynamicList" :key="index" class="another-item clearfix" @click="todetail(item)">
         <div :class="['left-img', screenWidth<768?'xs-screen':'']">
           <img :src="item.cover" alt="">
@@ -26,7 +9,13 @@
           <div class="title">{{item.title?item.title:"标题飞走啦！"}}</div>
           <div class="article" v-html="item.content?delHtmlTag(item.content):'内容被吃辣'"></div>
           <div class="article-info">
-            <div>
+            <div style="line-height: 16px;">
+              <span style="padding-right: 5px;color: #3a8ee6" v-if="screenWidth>992">
+                <svg class="iconfont" aria-hidden="true">
+                  <use xlink:href="#icon-biaoqian"></use>
+                </svg>
+                {{labelArr.filter((items, index) => item.labelArr == items.id)[0].name}}
+              </span>
               <span>
                 <svg class="iconfont" aria-hidden="true">
                   <use xlink:href="#icon-shijian"></use>
@@ -75,7 +64,7 @@
           pre_page: 20,
           total: 3
         },
-        btnFlag: false
+        btnFlag: false,
       }
     },
     methods: {
@@ -124,7 +113,8 @@
           that.$emit("autoHeight", that.$refs.childView ? computedHeigth : 0)
         })()
       }
-    }
+    },
+    props: ['labelArr']
   }
 </script>
 
@@ -132,6 +122,7 @@
   .child-view.xs-screen {
     min-height: 355px;
   }
+
   .dynamic-item {
     display: flex;
     justify-content: space-between;
@@ -201,6 +192,7 @@
       }
     }
   }
+
   .another-item {
     /*display: flex;
     justify-content: space-between;
@@ -283,6 +275,7 @@
       }
     }
   }
+
   .pagination-box {
     display: flex;
     justify-content: space-between;

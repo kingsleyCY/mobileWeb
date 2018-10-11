@@ -1,6 +1,6 @@
 <template>
   <div class="child-view heigth">
-    <el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+    <el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm" size="small">
       <el-form-item label="文章封面">
         <img-upload @uploadSuccess="uploadSuccess" :initImg="this.ruleForm.cover"></img-upload>
       </el-form-item>
@@ -11,18 +11,15 @@
         </el-select>
       </el-form-item>
       <el-form-item label="文章标贴" prop="type">
-        <el-checkbox-group v-model="ruleForm.label">
-          <el-checkbox :label="item.id" name="type" :key="index"
-                       v-for="(item, index) in selectArr.label">{{item.name}}</el-checkbox>
-        </el-checkbox-group>
+        <el-radio :label="item.id" :key="index" v-model="ruleForm.label"
+                  v-for="(item, index) in selectArr.label">{{item.name}}</el-radio>
       </el-form-item>
       <el-form-item label="文章标题">
         <el-input
-          size="small"
-          style="max-width: 300px"
+          size="small" style="max-width: 300px"
           placeholder="请输入文章标题"
           v-model="ruleForm.title"
-          clearable>
+          clearable maxlength="50">
         </el-input>
       </el-form-item>
       <div id="editor"></div>
@@ -47,7 +44,7 @@
           cover: "",
           title: "",
           type: '',
-          label: [],
+          label: '',
           editor: null,
         },
         isAdd: true,
@@ -69,7 +66,7 @@
         let that = this
         if (that.ruleForm.editor) {
           let textContent = that.ruleForm.editor.txt.html()
-          if (textContent == '' || that.ruleForm.type == '' || that.ruleForm.label.length <= 0 || that.ruleForm.title == '' || that.ruleForm.cover == '') {
+          if (textContent == '' || that.ruleForm.type == '' || that.ruleForm.label == '' || that.ruleForm.title == '' || that.ruleForm.cover == '') {
             that.$message.info("请填写完整内容")
             return
           }
@@ -77,8 +74,8 @@
             title: that.ruleForm.title,
             content: textContent,
             cover: that.ruleForm.cover,
-            type: that.ruleForm.type,
-            label: that.ruleForm.label,
+            articleType: that.ruleForm.type,
+            labelArr: that.ruleForm.label,
             username: JSON.parse(localStorage.getItem('userInfo')).username,
           }
           if (this.isAdd) {
@@ -94,15 +91,6 @@
             })
           }
         }
-      },
-      /* 获取配置参数 */
-      getConfiguration() {
-        this.$http.post('/apis/api/status/baseText', {
-          datatype: ['articleType', 'articleLabel']
-        }).then(res => {
-          this.selectArr.type = res.date.articleType
-          this.selectArr.label = res.date.articleLabel
-        })
       }
     },
     mounted() {
@@ -144,18 +132,21 @@
         this.isAdd = false
         this.ruleForm.cover = this.articleEditInfo.cover
         this.ruleForm.title = this.articleEditInfo.title
+        this.ruleForm.type = this.articleEditInfo.articleType?this.articleEditInfo.articleType:''
+        this.ruleForm.label = this.articleEditInfo.labelArr?this.articleEditInfo.labelArr:[]
         editor.txt.html(this.articleEditInfo.content)
       } else [
         /* 添加文章 */
         this.isAdd = true
       ]
       this.ruleForm.editor = editor
-      this.getConfiguration()
+      this.selectArr.type = this.typeArr
+      this.selectArr.label = this.labelArr
     },
     components: {
       imgUpload
     },
-    props: ['articleEditInfo']
+    props: ['articleEditInfo', 'typeArr', 'labelArr']
 
   }
 </script>
