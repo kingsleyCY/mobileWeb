@@ -47,7 +47,24 @@
                     <svg class="iconfont" aria-hidden="true" @click="clickZan">
                       <use xlink:href="#icon-dianzan-xian"></use> <!-- icon-dianzan -->
                     </svg>
-                    <span class="yin" @click="">印</span>
+                    <el-popover
+                      v-if="item.username !== username"
+                      class="yin-btn" placement="top"
+                      width="230" trigger="click">
+                      <div class="dianyin-select">
+                        <ul>
+                          <li @click="addImprint(1, item)"><img :src="dou"></li>
+                          <li @click="addImprint(2, item)"><img :src="geili"></li>
+                          <li @click="addImprint(3, item)"><img :src="pei"></li>
+                          <li @click="addImprint(4, item)"><img :src="penzi"></li>
+                        </ul>
+                      </div>
+                      <span slot="reference">印</span>
+                    </el-popover>
+                  </div>
+                  <div class="background-yin" :ref="'everyComments' + index">
+                    <img :src="computedYin(items.type)" v-for="(items, indexs) in item.yinArr" :alt="indexs"
+                         :key="indexs" :style="computedYinPosition('everyComments' + index)">
                   </div>
                 </li>
               </ul>
@@ -114,12 +131,17 @@
 </template>
 
 <script>
-  import {mapState, mapMutations} from "vuex"
+  import dou from "@/assets/images/stamp/dou.png"
+  import geili from "@/assets/images/stamp/geili.png"
+  import pei from "@/assets/images/stamp/pei.png"
+  import penzi from "@/assets/images/stamp/penzi.png"
+  import { mapState, mapMutations } from "vuex"
 
   export default {
     name: "mess-tome",
     data() {
       return {
+        dou, geili, pei, penzi,
         friendLink: [
           {
             name: "源泉-79px",
@@ -190,12 +212,15 @@
           page: this.commentsData.page,
           pre_page: this.commentsData.pre_page,
         }).then(res => {
-          if(this.commentsData.page == 1) {
+          if (this.commentsData.page == 1) {
             this.commentsData.list = res.date.resuletList
-          }else {
+          } else {
             this.commentsData.list = this.commentsData.list.concat(res.date.resuletList)
           }
           this.commentsData.total = res.date.commentsInfo.count
+          this.$nextTick(() => {
+
+          })
         })
       },
       loadingMore() {
@@ -208,7 +233,51 @@
           this.changeLoginModel(true)
           return
         }
-
+      },
+      /* 点印 */
+      addImprint(type, item) {
+        this.$http.post('/apis/api/comments/addImprint', {
+          type: type,
+          username: this.username,
+          commentId: item.id
+        }).then(res => {
+          // console.log(res);
+          this.$message.success(res.mess)
+          this.commentsData.page = 1
+          this.getCommentsList()
+        })
+      },
+      /* 计算点印背景图 */
+      computedYin(type) {
+        switch (type) {
+          case 1:
+            return dou;
+            break;
+          case 2:
+            return geili;
+            break;
+          case 3:
+            return pei;
+            break;
+          case 4:
+            return penzi;
+            break;
+        }
+      },
+      computedYinPosition(data) {
+        this.$nextTick(() => {
+          const thatComments = this.$refs[data][0]
+          const maxLeft = thatComments.clientWidth - 60 - 50
+          const maxTop = thatComments.clientHeight - 30
+          console.log({
+            left: Math.floor(Math.random() * maxLeft) + 'px',
+            top: Math.floor(Math.random()) * maxTop + 'px',
+          });
+          return {
+            left: Math.floor(Math.random() * maxLeft) + 'px',
+            top: Math.floor(Math.random()) * maxTop + 'px',
+          }
+        })
       },
       ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO'])
     },
@@ -281,13 +350,11 @@
       }
     }
   }
-
   #content {
     width: 100%;
     height: auto;
     margin: 50px 0 20px;
   }
-
   .reply-box {
     user-select: none;
     .reply-title {
@@ -322,6 +389,7 @@
       li {
         padding: 15px 0;
         border-bottom: 1px dashed #e5e5e5;
+        position: relative;
         .base-info {
           position: relative;
           min-height: 50px;
@@ -361,20 +429,20 @@
           box-sizing: border-box;
           justify-content: flex-end;
           align-items: center;
-          span:first-child {
+          > span:first-child {
             color: #8d8d8a;
             cursor: pointer;
           }
-          .iconfont {
+          > .iconfont {
             width: 15px;
             height: 15px;
-            margin: 0 12px;
+            margin-left: 8px;
             cursor: pointer;
             color: #8d8d8a;
           }
-          span.yin {
-            width: 18px;
-            height: 18px;
+          .yin-btn {
+            width: 17px !important;
+            height: 17px !important;
             line-height: 18px;
             text-align: center;
             color: #e74851;
@@ -383,6 +451,19 @@
             font-size: 12px;
             transform: rotate(30deg);
             cursor: pointer;
+            margin-left: 8px;
+          }
+        }
+        .background-yin {
+          position: absolute;
+          width: 100%;
+          height: 100px;
+          left: 0;
+          top: 0;
+          padding-left: 60px;
+          box-sizing: border-box;
+          img {
+            position: absolute;
           }
         }
       }
@@ -403,6 +484,17 @@
         width: 15px;
         height: 15px;
         font-size: 16px;
+      }
+    }
+  }
+  .dianyin-select {
+    ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      li {
+        margin: 0 5px;
+        cursor: pointer;
       }
     }
   }
