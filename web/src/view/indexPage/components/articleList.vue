@@ -10,7 +10,7 @@
           <div class="article" v-html="item.content?delHtmlTag(item.content):'内容被吃辣'"></div>
           <div class="article-info">
             <div style="line-height: 16px;">
-              <span style="padding-right: 5px;color: #3a8ee6" v-if="screenWidth>992">
+              <span style="padding-right: 5px;color: #3a8ee6" v-if="screenWidth>992 && item.labelArr">
                 <svg class="iconfont" aria-hidden="true">
                   <use xlink:href="#icon-biaoqian"></use>
                 </svg>

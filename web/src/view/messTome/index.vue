@@ -34,9 +34,8 @@
               </div>
               <ul v-if="commentsData.list">
                 <li v-for="(item, index) in commentsData.list" :key="index">
-                  <div class="background-yin" :ref="'everyComments' + index">
-                    <img :src="computedYin(items.type)" :style="{left:items.positionDate.left,top:items.positionDate.top}"
-                         v-for="(items, indexs) in item.yinArr" :key="indexs">
+                  <div :class="['background-yin',screenWidth<768?'xs-screen':'']" :ref="'everyComments' + index">
+                    <img :src="computedYin(items.type)" v-for="(items, indexs) in item.yinArr" :key="indexs">
                   </div>
                   <div class="base-info clearfix">
                     <img :src="item.userInfo.avtor" alt="">
@@ -142,6 +141,7 @@
     data() {
       return {
         dou, geili, pei, penzi,
+        screenWidth: document.body.clientWidth, // 屏幕尺寸
         friendLink: [
           {
             name: "源泉-79px",
@@ -208,16 +208,33 @@
       },
       /* 获取评论列表 */
       getCommentsList() {
+        let that = this
         this.$http.post('/apis/api/comments/all', {
           page: this.commentsData.page,
           pre_page: this.commentsData.pre_page,
         }).then(res => {
+          var baseLength = 0
           if (this.commentsData.page == 1) {
             this.commentsData.list = res.date.resuletList
           } else {
+            baseLength = this.commentsData.list.length - 1
             this.commentsData.list = this.commentsData.list.concat(res.date.resuletList)
           }
           this.commentsData.total = res.date.commentsInfo.count
+          this.$nextTick(() => {
+            for (var i = baseLength; i < that.commentsData.list.length; i++) {
+              if (that.$refs['everyComments' + i][0].querySelectorAll('img').length > 0) {
+                const imgList = that.$refs['everyComments' + i][0].querySelectorAll('img')
+                for (var j = 0; j < imgList.length; j++) {
+                  var screenWidth = that.$refs['everyComments' + i][0].clientWidth * 0.9 - 60
+                  var screenHeigth = that.$refs['everyComments' + i][0].clientHeight - 30
+                  var positionData = that.commentsData.list[i].yinArr[j].positionData
+                  imgList[j].style.left = 60 + positionData.left * screenWidth + 'px'
+                  imgList[j].style.top = positionData.left * screenHeigth + 'px'
+                }
+              }
+            }
+          })
         })
       },
       loadingMore() {
@@ -226,11 +243,10 @@
       },
       /* 点赞 */
       clickZan() {
-        console.log(1);
-        if (!this.username) {
-          this.changeLoginModel(true)
-          return
-        }
+        this.$notify({
+          message: '功能暂未开放',
+          type: 'warning'
+        });
       },
       /* 点印 */
       addImprint(type, item, index) {
@@ -238,7 +254,10 @@
           type: type,
           username: this.username,
           commentId: item.id,
-          positionDate: this.computedYinPosition(index)
+          positionData: {
+            left: Math.random(),
+            top: Math.random(),
+          }
         }).then(res => {
           // console.log(res);
           this.$message.success(res.mess)
@@ -264,13 +283,19 @@
         }
       },
       /* 计算点印位置 */
-      computedYinPosition(index) {
-        const commentsBox = this.$refs['everyComments' + index][0]
+      computedYinPosition(positionData, index) {
+        const commentsBox = this.$refs['everyComments' + index]
+        console.log(commentsBox);
+        /*const commentsBox = this.$refs['everyComments' + index][0]
         const maxLeft = commentsBox.clientWidth - 60 - 80
         const maxTop = commentsBox.clientHeight - 50
         return {
           left: 60 + Math.floor(Math.random() * maxLeft) + 'px',
           top: Math.floor(Math.random() * maxTop) + 'px',
+        }*/
+        return {
+          left: Math.random(),
+          top: Math.random(),
         }
       },
       ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO'])
@@ -351,6 +376,7 @@
   }
   .reply-box {
     user-select: none;
+    padding-bottom: 20px;
     .reply-title {
       display: flex;
       width: 90%;
@@ -452,13 +478,19 @@
         .background-yin {
           position: absolute;
           width: 100%;
-          height: 100px;
+          height: 100%;
           left: 0;
           top: 0;
           padding-left: 60px;
           box-sizing: border-box;
           img {
             position: absolute;
+          }
+          &.xs-screen {
+            img {
+              width: 26px;
+              height: 26px;
+            }
           }
         }
       }
