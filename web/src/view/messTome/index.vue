@@ -163,6 +163,7 @@
       }
     },
     mounted() {
+      this.changeLoginModel(true)
       this.getVuexData()
       this.getCommentsList()
       // 绑定表情
@@ -285,14 +286,6 @@
       /* 计算点印位置 */
       computedYinPosition(positionData, index) {
         const commentsBox = this.$refs['everyComments' + index]
-        console.log(commentsBox);
-        /*const commentsBox = this.$refs['everyComments' + index][0]
-        const maxLeft = commentsBox.clientWidth - 60 - 80
-        const maxTop = commentsBox.clientHeight - 50
-        return {
-          left: 60 + Math.floor(Math.random() * maxLeft) + 'px',
-          top: Math.floor(Math.random() * maxTop) + 'px',
-        }*/
         return {
           left: Math.random(),
           top: Math.random(),
