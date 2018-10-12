@@ -163,7 +163,6 @@
       }
     },
     mounted() {
-      this.changeLoginModel(true)
       this.getVuexData()
       this.getCommentsList()
       // 绑定表情
