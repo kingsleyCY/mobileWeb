@@ -1,11 +1,12 @@
 <template>
   <el-dialog
+    :custom-class="screenWidth<768?'xs-screen':''"
     title="" append-to-body modal-append-to-body
     :visible.sync="loginModel" top="10vh" :show-close="false"
     @open="openModelMethod" :before-close="handleClose">
-    <div style="position: absolute;width: 100%;height: 100%;">
-      <div class="cont_centrar">
-        <div class="cont_login">
+    <div class="clearfix">
+      <div class="cont_centrar clearfix" v-if="screenWidth>768">
+        <div class="cont_login clearfix">
           <div class="cont_info_log_sign_up">
             <div class="col_md_login">
               <div class="cont_ba_opcitiy">
@@ -86,6 +87,20 @@
           </div>
         </div>
       </div>
+      <div class="xs-screen" v-else>
+        <div class="cont_info_log_sign_up">
+          <div class="col_md_login">
+            <div class="cont_ba_opcitiy">
+              <h2>LOGIN</h2>
+              <p>You need more time to work hard.</p>
+              <button class="btn_login" @click="">LOGIN</button>
+            </div>
+          </div>
+        </div>
+        <div class="cont_back_info">
+          <div class="cont_img_back_grey"><img :src="poJpg" alt=""/></div>
+        </div>
+      </div>
     </div>
   </el-dialog>
 </template>
@@ -119,7 +134,7 @@
       };
       return {
         poJpg,
-        step: "login",
+        screenWidth: document.body.clientWidth, // 屏幕尺寸
         userForm: {
           username: '',
           useremail: '',
@@ -179,7 +194,11 @@
       },
       openModelMethod() {
         this.$nextTick(() => {
-          this.ocultar_login_sign_up()
+          if(this.screenWidth > 768) {
+            this.ocultar_login_sign_up()
+          }else {
+
+          }
         })
       },
       /* 选择头像 */
@@ -291,49 +310,57 @@
 
 <style lang="scss" scoped type="text/scss">
   @import "../../style/login";
-  /deep/ .el-dialog__header {
-    padding: 0;
-  }
-  /deep/ .el-dialog__body {
-    padding: 0;
-    .el-form-item {
-      margin-bottom: 15px;
-      .el-input__inner {
-        width: 200px;
-        background-color: rgba(235, 235, 219, 0.38);
-        border-color: white;
-        text-align: center;
-        outline: none;
-        transition: all 0.5s;
-        &:focus {
+  /deep/ .el-dialog {
+    background-color: transparent;
+    box-shadow: none;
+    width: 640px;
+    .el-dialog__header {
+      padding: 0;
+    }
+    .el-dialog__body {
+      padding: 0;
+      .el-form-item {
+        margin-bottom: 15px;
+        .el-input__inner {
+          width: 200px;
+          background-color: rgba(235, 235, 219, 0.38);
           border-color: white;
-          width: 220px;
-          background-color: white;
+          text-align: center;
+          outline: none;
+          transition: all 0.5s;
+          &:focus {
+            border-color: white;
+            width: 220px;
+            background-color: white;
+          }
+        }
+        .el-form-item__error {
+          left: 20%;
+          padding-top: 0;
+        }
+        .selectAvtor {
+          display: inline-block;
+          width: 75px;
+          height: 75px;
+          border-radius: 75px;
         }
       }
-      .el-form-item__error {
-        left: 20%;
-        padding-top: 0;
-      }
-      .selectAvtor {
-        display: inline-block;
-        width: 75px;
-        height: 75px;
-        border-radius: 75px;
+      .avtor-select-box {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        img {
+          width: 9%;
+          height: auto;
+          margin: 5px 1%;
+          cursor: pointer;
+          border-radius: 75px;
+        }
       }
     }
-    .avtor-select-box {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      align-items: center;
-      img {
-        width: 9%;
-        height: auto;
-        margin: 5px 1%;
-        cursor: pointer;
-        border-radius: 75px;
-      }
+    &.xs-screen{
+      width: 80%;
     }
   }
 </style>

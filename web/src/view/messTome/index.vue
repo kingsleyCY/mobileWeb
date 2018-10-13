@@ -167,6 +167,7 @@
       this.getCommentsList()
       // 绑定表情
       $('.face-icon').SinaEmotion($('.text'));
+      this.changeLoginModel(true)
     },
     methods: {
       getVuexData() {
@@ -480,8 +481,8 @@
           }
           &.xs-screen {
             img {
-              width: 26px;
-              height: 26px;
+              width: 40px;
+              height: 40px;
             }
           }
         }
