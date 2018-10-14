@@ -5,6 +5,7 @@
     :visible.sync="loginModel" top="10vh" :show-close="false"
     @open="openModelMethod" :before-close="handleClose">
     <div class="clearfix">
+      <!--PC-->
       <div class="cont_centrar clearfix" v-if="screenWidth>768">
         <div class="cont_login clearfix">
           <div class="cont_info_log_sign_up">
@@ -87,18 +88,70 @@
           </div>
         </div>
       </div>
+      <!--移动端-->
       <div class="xs-screen" v-else>
-        <div class="cont_info_log_sign_up">
-          <div class="col_md_login">
-            <div class="cont_ba_opcitiy">
-              <h2>LOGIN</h2>
-              <p>You need more time to work hard.</p>
-              <button class="btn_login" @click="">LOGIN</button>
-            </div>
+        <div class="cont_forms"
+             ref="contForms"
+             @touchstart="touchStartMethods"
+             @touchmove="touchMoveMethods"
+             @touchend="touchEndMethods">
+          <div class="cont_img_back_"><img :src="poJpg" alt=""/></div>
+          <div ref="contLogin" class="cont_form_login">
+            <a href="#" @click="ocultar_login_sign_up"><i class="el-icon-back"></i></a>
+            <h2>LOGIN</h2>
+            <el-form ref="loginForms" :model="loginForm" :rules="rulesLogin"
+                     label-width="0" class="form-list">
+              <el-form-item label="" prop="usernames">
+                <el-input v-model="loginForm.usernames" placeholder="Username"></el-input>
+              </el-form-item>
+              <el-form-item label="" prop="passwords">
+                <el-input type="password" v-model="loginForm.passwords" placeholder="Password"></el-input>
+              </el-form-item>
+            </el-form>
+            <button class="btn_login" @click="submitLogin">LOGIN</button>
           </div>
-        </div>
-        <div class="cont_back_info">
-          <div class="cont_img_back_grey"><img :src="poJpg" alt=""/></div>
+          <div ref="contSign" class="cont_form_sign_up">
+            <a href="#" @click="ocultar_login_sign_up"><i class="el-icon-back"></i></a>
+            <h2>SIGN UP</h2>
+            <el-form ref="form" :model="userForm" :rules="rules"
+                     label-width="0" class="form-list" size="small">
+              <el-form-item label="" prop="username">
+                <el-input v-model="userForm.username" placeholder="Username"></el-input>
+              </el-form-item>
+              <el-form-item label="" prop="useremail">
+                <el-input v-model="userForm.useremail" placeholder="Useremail"></el-input>
+              </el-form-item>
+              <el-form-item label="" prop="sex">
+                <el-radio-group v-model="userForm.sex">
+                  <el-radio label="1">
+                    <svg class="iconfont" aria-hidden="true">
+                      <use xlink:href="#icon-nvsheng"></use>
+                    </svg>
+                  </el-radio>
+                  <el-radio label="2">
+                    <svg class="iconfont" aria-hidden="true">
+                      <use xlink:href="#icon-nansheng"></use>
+                    </svg>
+                  </el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item label="" prop="password">
+                <el-input v-model="userForm.password" type="password" placeholder="Password"></el-input>
+              </el-form-item>
+              <el-form-item label="" prop="confirm_password">
+                <el-input v-model="userForm.confirm_password" type="password"
+                          placeholder="Confirm_password"></el-input>
+              </el-form-item>
+              <el-form-item label="" prop="avtor" style="margin-bottom: 0px;padding-top: 10px">
+                <img :src="userForm.avtor" class="selectAvtor">
+              </el-form-item>
+              <div class="avtor-select-box clearfix">
+                <img :src="'/static/avtor/avtor' + (index + 1) + '.jpg'" @click="chooseAvtor(index)"
+                     v-for="(item, index) in 18" :key="index">
+              </div>
+            </el-form>
+            <button class="btn_sign_up" @click="submitClick">SIGN UP</button>
+          </div>
         </div>
       </div>
     </div>
@@ -132,6 +185,7 @@
           callback();
         }
       };
+      let coefficient = 0.75
       return {
         poJpg,
         screenWidth: document.body.clientWidth, // 屏幕尺寸
@@ -176,6 +230,15 @@
           passwords: [
             {required: true, trigger: 'blur'}
           ]
+        },
+        contForms: null,
+        touchData: {
+          startX: 0,
+          movingX: 0,
+          differX: 0,
+          coefficient: coefficient,
+          criticalAngle: 45 / coefficient,
+          isLogin: true
         }
       }
     },
@@ -194,9 +257,9 @@
       },
       openModelMethod() {
         this.$nextTick(() => {
-          if(this.screenWidth > 768) {
+          if (this.screenWidth > 768) {
             this.ocultar_login_sign_up()
-          }else {
+          } else {
 
           }
         })
@@ -296,6 +359,52 @@
           document.querySelector('.cont_form_login').style.display = "none";
         }, 500);
       },
+      /* 移动端滑动面板 */
+      touchStartMethods(e) {
+        this.contForms = this.$refs.contForms
+        this.touchData.startX = e.touches[0].clientX
+        this.touchData.differX = 0
+      },
+      touchMoveMethods(e) {
+        this.touchData.movingX = e.touches[0].clientX
+        let differX = (this.touchData.movingX - this.touchData.startX) * this.touchData.coefficient
+        this.touchData.differX = differX
+        if (differX > 180) {
+          differX = 180
+        } else if (differX < -180) {
+          differX = -180
+        }
+        if (this.touchData.isLogin && differX < 0) { /*现在是login*/
+          this.contForms.style.transform = 'rotateY(' + differX + 'deg)'
+        } else if (!this.touchData.isLogin && differX > 0) { /*现在是注册*/
+          this.contForms.style.transform = 'rotateY(' + (-differX) + 'deg)'
+        }
+      },
+      touchEndMethods(e) {
+        if(this.touchData.isLogin) {
+          if(this.touchData.differX < -this.touchData.criticalAngle) {
+            this.touchData.differX = -180
+            this.contForms.style.transform = 'rotateY(-180deg)'
+          }else if(this.touchData.differX > -this.touchData.criticalAngle){
+            this.touchData.differX = 0
+            this.contForms.style.transform = 'rotateY(0deg)'
+          }
+        }else {
+          if(this.touchData.differX < this.touchData.criticalAngle) {
+            this.touchData.differX = 0
+            this.contForms.style.transform = 'rotateY(-180deg)'
+          }else if(this.touchData.differX > this.touchData.criticalAngle){
+            this.touchData.differX = 180
+            this.contForms.style.transform = 'rotateY(0deg)'
+          }
+        }
+        /* 位置判断 */
+        if(this.contForms.style.transform == 'rotateY(0deg)') {
+          this.touchData.isLogin = true
+        }else {
+          this.touchData.isLogin = false
+        }
+      },
       ...mapMutations(['changeLoginModel'])
     },
     computed: {
@@ -359,7 +468,7 @@
         }
       }
     }
-    &.xs-screen{
+    &.xs-screen {
       width: 80%;
     }
   }
