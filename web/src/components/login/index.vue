@@ -191,7 +191,7 @@
           callback();
         }
       };
-      let coefficient = 0.75
+      let coefficient = 1.25
       return {
         poJpg,
         screenWidth: document.body.clientWidth, // 屏幕尺寸

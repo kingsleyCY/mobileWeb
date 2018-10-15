@@ -91,7 +91,7 @@
           params: {
             page: that.pageInfo.page,
             pre_page: that.pageInfo.pre_page,
-            articleType: 1
+            articleType: 2
           }
         }
       ).then(function (res) {
