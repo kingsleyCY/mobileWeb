@@ -167,7 +167,6 @@
       this.getCommentsList()
       // 绑定表情
       $('.face-icon').SinaEmotion($('.text'));
-      this.changeLoginModel(true)
     },
     methods: {
       getVuexData() {

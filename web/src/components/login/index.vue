@@ -97,7 +97,7 @@
              @touchend="touchEndMethods">
           <div class="cont_img_back_"><img :src="poJpg" alt=""/></div>
           <div ref="contLogin" class="cont_form_login">
-            <a href="#" @click="ocultar_login_sign_up"><i class="el-icon-back"></i></a>
+            <a href="#" @click="handleClose"><i class="el-icon-close"></i></a>
             <h2>LOGIN</h2>
             <el-form ref="loginForms" :model="loginForm" :rules="rulesLogin"
                      label-width="0" class="form-list">
@@ -111,7 +111,7 @@
             <button class="btn_login" @click="submitLogin">LOGIN</button>
           </div>
           <div ref="contSign" class="cont_form_sign_up">
-            <a href="#" @click="ocultar_login_sign_up"><i class="el-icon-back"></i></a>
+            <a href="#" @click="handleClose"><i class="el-icon-close"></i></a>
             <h2>SIGN UP</h2>
             <el-form ref="form" :model="userForm" :rules="rules"
                      label-width="0" class="form-list" size="small">
@@ -244,15 +244,13 @@
     },
     methods: {
       handleClose() {
-        /*
-        * this.$refs.form.clearValidate()
-        * this.$refs.loginForms.clearValidate()
-        * */
         if (this.$refs.form) {
           this.$refs.form.clearValidate()
         } else if (this.$refs.loginForms) {
           this.$refs.loginForms.clearValidate()
         }
+        this.initLogin()
+        this.initSign()
         this.changeLoginModel(false)
       },
       openModelMethod() {
@@ -260,7 +258,9 @@
           if (this.screenWidth > 768) {
             this.ocultar_login_sign_up()
           } else {
-
+            this.contForms = this.$refs.contForms
+            this.touchData.isLogin = true
+            this.mobileToLogin()
           }
         })
       },
@@ -315,10 +315,7 @@
       },
       /* 动画JS */
       cambiar_login() {
-        this.loginForm = {
-          usernames: '',
-          passwords: '',
-        }
+        this.initLogin()
         this.$refs.loginForms.clearValidate()
         document.querySelector('.cont_forms').className = "cont_forms cont_forms_active_login";
         document.querySelector('.cont_form_login').style.display = "block";
@@ -331,14 +328,7 @@
         }, 200);
       },
       cambiar_sign_up(at) {
-        this.userForm = {
-          username: '',
-          useremail: '',
-          sex: '',
-          password: '',
-          confirm_password: '',
-          avtor: '/static/avtor/avtor1.jpg'
-        }
+        this.initSign()
         this.$refs.form.clearValidate()
         document.querySelector('.cont_forms').className = "cont_forms cont_forms_active_sign_up";
         document.querySelector('.cont_form_sign_up').style.display = "block";
@@ -381,29 +371,68 @@
         }
       },
       touchEndMethods(e) {
-        if(this.touchData.isLogin) {
-          if(this.touchData.differX < -this.touchData.criticalAngle) {
+        /* contLogin, contSign */
+        if (this.touchData.isLogin) {
+          if (this.touchData.differX < -this.touchData.criticalAngle) {
+            /* 手动翻转到注册 */
             this.touchData.differX = -180
-            this.contForms.style.transform = 'rotateY(-180deg)'
-          }else if(this.touchData.differX > -this.touchData.criticalAngle){
+            this.mobileToSign()
+          } else if (this.touchData.differX > -this.touchData.criticalAngle) {
             this.touchData.differX = 0
             this.contForms.style.transform = 'rotateY(0deg)'
           }
-        }else {
-          if(this.touchData.differX < this.touchData.criticalAngle) {
+        } else {
+          if (this.touchData.differX < this.touchData.criticalAngle) {
             this.touchData.differX = 0
             this.contForms.style.transform = 'rotateY(-180deg)'
-          }else if(this.touchData.differX > this.touchData.criticalAngle){
+          } else if (this.touchData.differX > this.touchData.criticalAngle) {
+            /* 手动翻转到登录 */
             this.touchData.differX = 180
-            this.contForms.style.transform = 'rotateY(0deg)'
+            this.mobileToLogin()
           }
         }
         /* 位置判断 */
-        if(this.contForms.style.transform == 'rotateY(0deg)') {
+        if (this.contForms.style.transform == 'rotateY(0deg)') {
           this.touchData.isLogin = true
-        }else {
+        } else {
           this.touchData.isLogin = false
         }
+      },
+      /* 初始化表单 */
+      initLogin() {
+        this.loginForm = {
+          usernames: '',
+          passwords: '',
+        }
+      },
+      initSign() {
+        this.userForm = {
+          username: '',
+          useremail: '',
+          sex: '',
+          password: '',
+          confirm_password: '',
+          avtor: '/static/avtor/avtor1.jpg'
+        }
+      },
+      /* 移动端ToLogin/ToSign */
+      mobileToLogin() {
+        this.$refs.loginForms.clearValidate()
+        this.contForms.style.transform = 'rotateY(0deg)'
+        this.$refs.contLogin.style.zIndex = 2
+        this.$refs.contLogin.style.opacity = 1
+        this.$refs.contSign.style.zIndex = 1
+        this.$refs.contSign.style.opacity = 0
+        this.$refs.contForms.style.height = '350px'
+      },
+      mobileToSign() {
+        this.$refs.form.clearValidate()
+        this.contForms.style.transform = 'rotateY(-180deg)'
+        this.$refs.contLogin.style.zIndex = 1
+        this.$refs.contLogin.style.opacity = 0
+        this.$refs.contSign.style.zIndex = 2
+        this.$refs.contSign.style.opacity = 1
+        this.$refs.contForms.style.height = '550px'
       },
       ...mapMutations(['changeLoginModel'])
     },
