@@ -109,6 +109,12 @@
               </el-form-item>
             </el-form>
             <button class="btn_login" @click="submitLogin">LOGIN</button>
+            <div class="go-sign">
+              <svg class="iconfont" aria-hidden="true">
+                <use xlink:href="#icon-Hdonghua-xiangzuofeiru"></use>
+              </svg>
+              <span>左滑注册</span>
+            </div>
           </div>
           <div ref="contSign" class="cont_form_sign_up">
             <a href="#" @click="handleClose"><i class="el-icon-close"></i></a>

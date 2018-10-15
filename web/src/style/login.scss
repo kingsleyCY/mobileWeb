@@ -378,6 +378,20 @@
         padding: 60px 0 15px 0;
         margin: 0;
       }
+      .go-sign{
+        padding-top: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .iconfont {
+          width: 30px;
+          height: 30px;
+          margin: 0;
+        }
+        span {
+          margin: 0;
+        }
+      }
     }
     .cont_form_sign_up {
       display: block;
