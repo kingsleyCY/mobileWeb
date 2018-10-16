@@ -64,9 +64,9 @@
         that.article_info = res.date
         let BASE_URL
         if (location.origin.indexOf('localhost') >= 0) { //本地
-          BASE_URL = 'http://localhost:8080/#/indexPage?article=true&id=' + that.articleInfo.id
+          BASE_URL = 'http://localhost:8080/indexPage?article=true&id=' + that.articleInfo.id
         } else {
-          BASE_URL = 'http://lioncc.cn/#/indexPage?article=true&id=' + that.articleInfo.id
+          BASE_URL = 'http://lioncc.cn/indexPage?article=true&id=' + that.articleInfo.id
         }
         // console.log(BASE_URL);
         that.config.url = BASE_URL
