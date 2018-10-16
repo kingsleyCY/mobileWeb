@@ -12,7 +12,8 @@
         <svg class="iconfont" aria-hidden="true">
           <use xlink:href="#icon-rili"></use>
         </svg>
-        <span class="item-info-text">{{article_info.created_time?common.timestampToTime(article_info.created_time):""}}</span>
+        <span
+          class="item-info-text">{{article_info.created_time?common.timestampToTime(article_info.created_time):""}}</span>
       </span>
     </div>
     <div class="article-content" v-html="article_info.content"></div>
@@ -56,23 +57,28 @@
         this.btnFlag = true
       }
       let that = this
-      this.$http.post('/apis/api/article/findOne', {id: this.articleInfo.id, addLook: true})
-        .then(res => {
-          that.article_info = res.date
-          let BASE_URL
-          if (location.origin.indexOf('localhost') >= 0) { //本地
-            BASE_URL = 'http://localhost:8080/#/indexPage?article=true&id=' + that.articleInfo.id
-          } else {
-            BASE_URL = 'http://lioncc.cn/#/indexPage?article=true&id=' + that.articleInfo.id
-          }
-          // console.log(BASE_URL);
-          that.config.url = BASE_URL
-        })
+      this.$http.post('/apis/api/article/findOne', {
+        id: this.articleInfo.id,
+        addLook: this.userroot != 2 ? true : false
+      }).then(res => {
+        that.article_info = res.date
+        let BASE_URL
+        if (location.origin.indexOf('localhost') >= 0) { //本地
+          BASE_URL = 'http://localhost:8080/#/indexPage?article=true&id=' + that.articleInfo.id
+        } else {
+          BASE_URL = 'http://lioncc.cn/#/indexPage?article=true&id=' + that.articleInfo.id
+        }
+        // console.log(BASE_URL);
+        that.config.url = BASE_URL
+      })
     },
     computed: {
       ...mapState({
         isPc: function (state) {
           return state.baseStates.isPc
+        },
+        userroot: function (state) {
+          return state.userInfor.root
         }
       })
     },
@@ -103,7 +109,7 @@
         float: left;
         font-size: 12px;
         font-family: "微软雅黑";
-        .item-info-text{
+        .item-info-text {
           margin-left: 5px;
         }
         .iconfont {
@@ -120,7 +126,7 @@
         max-width: 100%;
       }
     }
-    .cover-img{
+    .cover-img {
       margin: 20px auto;
       margin-bottom: 0;
       max-width: 100%;
