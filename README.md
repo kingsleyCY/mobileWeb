@@ -1,2 +1,4 @@
 # mobileWeb
-个人移动端网站
+个人网站 - Cheng丶C
+
+[http://lioncc.cn](http://lioncc.cn)
