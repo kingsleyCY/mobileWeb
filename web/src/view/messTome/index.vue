@@ -159,7 +159,8 @@
           page: 1,
           pre_page: 20,
           total: 0
-        }
+        },
+        messBtn: false
       }
     },
     mounted() {
@@ -188,23 +189,27 @@
       },
       /* 提交评论 */
       submitMess() {
-        /* 未登录必须先登录 */
-        if (!this.username) {
-          this.changeLoginModel(true)
-          return
-        } else if ($('.text').val() == '') {
-          this.$message.info('请输入内容')
-          return
+        if(!this.messBtn) {
+          this.messBtn = true
+          /* 未登录必须先登录 */
+          if (!this.username) {
+            this.changeLoginModel(true)
+            return
+          } else if ($('.text').val() == '') {
+            this.$message.info('请输入内容')
+            return
+          }
+          this.$http.post('/apis/api/comments/add', {
+            username: this.username,
+            content: $.AnalyticEmotion($('.text').val()),
+          }).then(res => {
+            this.messBtn = false
+            this.$message.success(res.mess)
+            $('.text').val("")
+            this.commentsData.page = 1
+            this.getCommentsList()
+          })
         }
-        this.$http.post('/apis/api/comments/add', {
-          username: this.username,
-          content: $.AnalyticEmotion($('.text').val()),
-        }).then(res => {
-          this.$message.success(res.mess)
-          $('.text').val("")
-          this.commentsData.page = 1
-          this.getCommentsList()
-        })
       },
       /* 获取评论列表 */
       getCommentsList() {
@@ -250,6 +255,13 @@
       },
       /* 点印 */
       addImprint(type, item, index) {
+        if(!this.username) {
+          this.$notify({
+            message: '您还未登录',
+            type: 'warning'
+          });
+          return
+        }
         this.$http.post('/apis/api/comments/addImprint', {
           type: type,
           username: this.username,

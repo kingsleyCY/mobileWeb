@@ -125,6 +125,9 @@
       img {
         max-width: 100%;
       }
+      p {
+        margin: 5px 0 !important;
+      }
     }
     .cover-img {
       margin: 20px auto;

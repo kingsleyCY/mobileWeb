@@ -86,7 +86,7 @@
   }
 </script>
 
-<style lang="scss" scoped type="text/scss">
+<style lang="scss" type="text/scss" scoped>
   .article-box {
     overflow-x: hidden;
     padding: 0 15px 30px;
@@ -124,6 +124,9 @@
     .article-content {
       img {
         max-width: 100%;
+      }
+      p {
+        color: #3a8ee6;
       }
     }
     .cover-img {

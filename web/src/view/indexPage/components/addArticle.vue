@@ -181,6 +181,9 @@
   }
   /deep/ .w-e-text {
     overflow-y: auto;
+    p {
+      margin: 5px 0 !important;
+    }
   }
   /deep/ .w-e-droplist {
     z-index: 20002 !important;
