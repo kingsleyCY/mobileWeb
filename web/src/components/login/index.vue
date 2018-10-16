@@ -92,9 +92,9 @@
       <div class="xs-screen" v-else>
         <div class="cont_forms"
              ref="contForms"
-             @touchstart="touchStartMethods"
-             @touchmove="touchMoveMethods"
-             @touchend="touchEndMethods">
+             @touchstart="touchStartMethod"
+             @touchmove="touchMoveMethod"
+             @touchend="touchEndMethod">
           <div class="cont_img_back_"><img :src="poJpg" alt=""/></div>
           <div ref="contLogin" class="cont_form_login">
             <a href="#" @click="handleClose"><i class="el-icon-close"></i></a>
@@ -240,11 +240,14 @@
         contForms: null,
         touchData: {
           startX: 0,
+          startY: 0,
           movingX: 0,
+          movingY: 0,
           differX: 0,
+          differY: 0,
           coefficient: coefficient,
           criticalAngle: 45 / coefficient,
-          isLogin: true
+          isLogin: true,
         }
       }
     },
@@ -356,10 +359,34 @@
         }, 500);
       },
       /* 移动端滑动面板 */
+      touchStartMethod(e) {
+        this.contForms = this.$refs.contForms
+        this.touchData.startY = e.touches[0].clientY
+        this.touchData.differY = 0
+      },
+      touchMoveMethod(e) {
+        this.touchData.movingY = e.touches[0].clientY
+        let differY = (this.touchData.movingY - this.touchData.startY) * this.touchData.coefficient
+        this.touchData.differY = differY
+        if (differY > 350) {
+          differY = 350
+        } else if (differY < -350) {
+          differY = -350
+        }
+        if (this.touchData.isLogin && differY < 0) { /*现在是login*/
+
+        } else if (!this.touchData.isLogin && differY > 0) { /*现在是注册*/
+
+        }
+      },
+      touchEndMethod() {
+
+      },
+      /* 老的 */
       touchStartMethods(e) {
         this.contForms = this.$refs.contForms
-        this.touchData.startX = e.touches[0].clientX
-        this.touchData.differX = 0
+        this.touchData.startX = e.touches[0].clientY
+        this.touchData.differY = 0
       },
       touchMoveMethods(e) {
         this.touchData.movingX = e.touches[0].clientX

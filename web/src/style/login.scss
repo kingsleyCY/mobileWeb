@@ -397,7 +397,8 @@
       display: block;
       opacity: 0;
       width: 100%;
-      transform: rotateY(-180deg);
+      top: 350px;
+      /*transform: rotateY(-180deg);*/
       height: 500px;
       z-index: 1;
       h2 {
