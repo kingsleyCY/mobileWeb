@@ -29,7 +29,7 @@
           </div>
           <div class="cont_forms">
             <div class="cont_img_back_"><img :src="poJpg" alt=""/></div>
-            <div class="cont_form_login">
+            <div ref="contFormLogin" class="cont_form_login">
               <a href="#" @click="ocultar_login_sign_up"><i class="el-icon-back"></i></a>
               <h2>LOGIN</h2>
               <el-form ref="loginForms" :model="loginForm" :rules="rulesLogin"
@@ -43,7 +43,7 @@
               </el-form>
               <button class="btn_login" @click="submitLogin">LOGIN</button>
             </div>
-            <div class="cont_form_sign_up">
+            <div ref="contFormSign" class="cont_form_sign_up">
               <a href="#" @click="ocultar_login_sign_up"><i class="el-icon-back"></i></a>
               <h2>SIGN UP</h2>
               <el-form ref="form" :model="userForm" :rules="rules"
@@ -95,8 +95,8 @@
              @touchstart="touchStartMethod"
              @touchmove="touchMoveMethod"
              @touchend="touchEndMethod">
-          <div class="cont_img_back_"><img :src="poJpg" alt=""/></div>
           <div ref="contLogin" class="cont_form_login">
+            <div class="cont_img_back_"><img :src="poJpg" alt=""/></div>
             <a href="#" @click="handleClose"><i class="el-icon-close"></i></a>
             <h2>LOGIN</h2>
             <el-form ref="loginForms" :model="loginForm" :rules="rulesLogin"
@@ -109,14 +109,9 @@
               </el-form-item>
             </el-form>
             <button class="btn_login" @click="submitLogin">LOGIN</button>
-            <div class="go-sign">
-              <svg class="iconfont" aria-hidden="true">
-                <use xlink:href="#icon-Hdonghua-xiangzuofeiru"></use>
-              </svg>
-              <span>左滑注册</span>
-            </div>
           </div>
           <div ref="contSign" class="cont_form_sign_up">
+            <div class="cont_img_back_"><img :src="poJpg" alt=""/></div>
             <a href="#" @click="handleClose"><i class="el-icon-close"></i></a>
             <h2>SIGN UP</h2>
             <el-form ref="form" :model="userForm" :rules="rules"
@@ -191,7 +186,7 @@
           callback();
         }
       };
-      let coefficient = 1.25
+      let coefficient = 1
       return {
         poJpg,
         screenWidth: document.body.clientWidth, // 屏幕尺寸
@@ -373,11 +368,12 @@
         } else if (differY < -350) {
           differY = -350
         }
-        if (this.touchData.isLogin && differY < 0) { /*现在是login*/
-
-        } else if (!this.touchData.isLogin && differY > 0) { /*现在是注册*/
-
-        }
+        this.$refs.contLogin.style.top = differY + 'px'
+        /*if (this.touchData.isLogin && differY < 0) { /!*现在是login*!/
+          this.$refs.contFormLogin.style.top = differY + 'px'
+        } else if (!this.touchData.isLogin && differY > 0) { /!*现在是注册*!/
+          this.$refs.contFormLogin.style.top = -differY + 'px'
+        }*/
       },
       touchEndMethod() {
 
