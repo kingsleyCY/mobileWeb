@@ -54,22 +54,23 @@
                       v-if="item.username !== username"
                       class="yin-btn" placement="top"
                       width="230" trigger="click">
-                      <div class="dianyin-select">
+                      <div class="dianyin-select" ref="dianyinSelect">
                         <ul>
-                          <li @click="addImprint(1, item, index)"><img :src="dou"></li>
-                          <li @click="addImprint(2, item, index)"><img :src="geili"></li>
-                          <li @click="addImprint(3, item, index)"><img :src="pei"></li>
-                          <li @click="addImprint(4, item, index)"><img :src="penzi"></li>
+                          <li class="active" @click="selectYin(0, index)"><img :src="dou"></li>
+                          <li @click="selectYin(1, index)"><img :src="geili"></li>
+                          <li @click="selectYin(2, index)"><img :src="pei"></li>
+                          <li @click="selectYin(3, index)"><img :src="penzi"></li>
                         </ul>
+                        <el-button @click="addImprint($event, item)" type="danger" size="mini">给他点印
+                        </el-button>
                       </div>
-                      <span slot="reference">印</span>
+                      <span slot="reference" @click="">印</span>
                     </el-popover>
                   </div>
                 </li>
               </ul>
-              <div class="loading-more" @click="loadingMore"
-                   v-if="commentsData.list && (commentsData.list.length < commentsData.total)">
-                查看更多
+              <div v-if="commentsData.list && (commentsData.list.length < commentsData.total)"
+                   class="loading-more" @click="loadingMore">查看更多
                 <svg class="iconfont" aria-hidden="true">
                   <use xlink:href="#icon-xiangxia"></use>
                 </svg>
@@ -189,10 +190,11 @@
       },
       /* 提交评论 */
       submitMess() {
-        if(!this.messBtn) {
+        if (!this.messBtn) {
           this.messBtn = true
           /* 未登录必须先登录 */
           if (!this.username) {
+            this.messBtn = false
             this.changeLoginModel(true)
             return
           } else if ($('.text').val() == '') {
@@ -208,6 +210,8 @@
             $('.text').val("")
             this.commentsData.page = 1
             this.getCommentsList()
+          }).catch(res => {
+            this.messBtn = false
           })
         }
       },
@@ -253,15 +257,40 @@
           type: 'warning'
         });
       },
+      /* 选择印 */
+      selectYin(index, inde) {
+        var list
+        if (this.$refs.dianyinSelect.length) {
+          list = this.$refs.dianyinSelect[inde].querySelectorAll('li')
+        } else {
+          list = this.$refs.dianyinSelect.querySelectorAll('li')
+        }
+        list.forEach(function (v, i) {
+          if (i == index) {
+            v.classList.add("active")
+          } else {
+            v.classList.remove("active")
+          }
+        })
+      },
       /* 点印 */
-      addImprint(type, item, index) {
-        if(!this.username) {
+      addImprint(e, item) {
+        if (!this.username) {
           this.$notify({
             message: '您还未登录',
             type: 'warning'
           });
           return
         }
+        let btn = e.path.filter(function (v, i) {
+          return v.nodeName === 'BUTTON'
+        })[0]
+        var type = 0
+        $.each($(btn).prev('ul').children('li'), function (i, v) {
+          if($(v).hasClass('active')) {
+            type = $(v).index() + 1
+          }
+        })
         this.$http.post('/apis/api/comments/addImprint', {
           type: type,
           username: this.username,
@@ -519,13 +548,23 @@
     }
   }
   .dianyin-select {
+    button {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+    }
     ul {
       display: flex;
       justify-content: center;
       align-items: center;
       li {
         margin: 0 5px;
+        padding: 10px 0;
         cursor: pointer;
+        border-bottom: 2px solid white;
+        &.active {
+          border-bottom: 2px solid #e7847f;
+        }
       }
     }
   }
