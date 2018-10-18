@@ -91,12 +91,9 @@
       <!--移动端-->
       <div class="xs-screen" v-else>
         <div class="cont_forms"
-             ref="contForms"
-             @touchstart="touchStartMethod"
-             @touchmove="touchMoveMethod"
-             @touchend="touchEndMethod">
+             ref="contForms">
+          <div class="cont_img_back_"><img :src="poJpg" alt=""/></div>
           <div ref="contLogin" class="cont_form_login">
-            <div class="cont_img_back_"><img :src="poJpg" alt=""/></div>
             <a href="#" @click="handleClose"><i class="el-icon-close"></i></a>
             <h2>LOGIN</h2>
             <el-form ref="loginForms" :model="loginForm" :rules="rulesLogin"
@@ -109,10 +106,15 @@
               </el-form-item>
             </el-form>
             <button class="btn_login" @click="submitLogin">LOGIN</button>
+            <div class="go-sign" @click="mobileToSign">
+              <svg class="iconfont" aria-hidden="true">
+                <use xlink:href="#icon-Hdonghua-xiangzuofeiru"></use>
+              </svg>
+              <span>点击注册</span>
+            </div>
           </div>
           <div ref="contSign" class="cont_form_sign_up">
-            <div class="cont_img_back_"><img :src="poJpg" alt=""/></div>
-            <a href="#" @click="handleClose"><i class="el-icon-close"></i></a>
+            <a href="#" @click="mobileToLogin"><i class="el-icon-close"></i></a>
             <h2>SIGN UP</h2>
             <el-form ref="form" :model="userForm" :rules="rules"
                      label-width="0" class="form-list" size="small">
@@ -352,80 +354,6 @@
           document.querySelector('.cont_form_sign_up').style.display = "none";
           document.querySelector('.cont_form_login').style.display = "none";
         }, 500);
-      },
-      /* 移动端滑动面板 */
-      touchStartMethod(e) {
-        this.contForms = this.$refs.contForms
-        this.touchData.startY = e.touches[0].clientY
-        this.touchData.differY = 0
-      },
-      touchMoveMethod(e) {
-        this.touchData.movingY = e.touches[0].clientY
-        let differY = (this.touchData.movingY - this.touchData.startY) * this.touchData.coefficient
-        this.touchData.differY = differY
-        if (differY > 350) {
-          differY = 350
-        } else if (differY < -350) {
-          differY = -350
-        }
-        this.$refs.contLogin.style.top = differY + 'px'
-        /*if (this.touchData.isLogin && differY < 0) { /!*现在是login*!/
-          this.$refs.contFormLogin.style.top = differY + 'px'
-        } else if (!this.touchData.isLogin && differY > 0) { /!*现在是注册*!/
-          this.$refs.contFormLogin.style.top = -differY + 'px'
-        }*/
-      },
-      touchEndMethod() {
-
-      },
-      /* 老的 */
-      touchStartMethods(e) {
-        this.contForms = this.$refs.contForms
-        this.touchData.startX = e.touches[0].clientY
-        this.touchData.differY = 0
-      },
-      touchMoveMethods(e) {
-        this.touchData.movingX = e.touches[0].clientX
-        let differX = (this.touchData.movingX - this.touchData.startX) * this.touchData.coefficient
-        this.touchData.differX = differX
-        if (differX > 180) {
-          differX = 180
-        } else if (differX < -180) {
-          differX = -180
-        }
-        if (this.touchData.isLogin && differX < 0) { /*现在是login*/
-          this.contForms.style.transform = 'rotateY(' + differX + 'deg)'
-        } else if (!this.touchData.isLogin && differX > 0) { /*现在是注册*/
-          this.contForms.style.transform = 'rotateY(' + (-differX) + 'deg)'
-        }
-      },
-      touchEndMethods(e) {
-        /* contLogin, contSign */
-        if (this.touchData.isLogin) {
-          if (this.touchData.differX < -this.touchData.criticalAngle) {
-            /* 手动翻转到注册 */
-            this.touchData.differX = -180
-            this.mobileToSign()
-          } else if (this.touchData.differX > -this.touchData.criticalAngle) {
-            this.touchData.differX = 0
-            this.contForms.style.transform = 'rotateY(0deg)'
-          }
-        } else {
-          if (this.touchData.differX < this.touchData.criticalAngle) {
-            this.touchData.differX = 0
-            this.contForms.style.transform = 'rotateY(-180deg)'
-          } else if (this.touchData.differX > this.touchData.criticalAngle) {
-            /* 手动翻转到登录 */
-            this.touchData.differX = 180
-            this.mobileToLogin()
-          }
-        }
-        /* 位置判断 */
-        if (this.contForms.style.transform == 'rotateY(0deg)') {
-          this.touchData.isLogin = true
-        } else {
-          this.touchData.isLogin = false
-        }
       },
       /* 初始化表单 */
       initLogin() {

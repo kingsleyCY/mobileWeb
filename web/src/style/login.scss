@@ -365,10 +365,8 @@
     top: 0;
     width: 100%;
     z-index: 1;
-    overflow: visible;
-    height: 0;
+    height: 350px;
     transform-style: preserve-3d;
-    background: none;
     .cont_form_login {
       display: block;
       opacity: 1;
@@ -376,8 +374,6 @@
       height: 350px;
       z-index: 2;
       overflow: hidden;
-      position: relative;
-      background-color: #eee;
       h2 {
         padding: 60px 0 15px 0;
         margin: 0;
@@ -401,13 +397,10 @@
       display: block;
       opacity: 0;
       width: 100%;
-      /*transform: rotateY(-180deg);*/
+      transform: rotateY(-180deg);
       overflow: hidden;
-      height: 500px;
+      height: 550px;
       z-index: 1;
-      position: relative;
-      top: 350px;
-      background-color: #eee;
       h2 {
         padding: 40px 0 10px 0;
         margin: 0;
