@@ -47,7 +47,7 @@
           }, {
             name: "Mongo",
             percent: 50,
-            bgc: '#fffe39',
+            bgc: '#ffdc25',
           }, {
             name: "小程序",
             percent: 65,

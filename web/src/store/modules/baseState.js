@@ -15,9 +15,6 @@ const baseStates = {
       state.loginModel = flag
     },
   },
-  actions: {
-
-  }
+  actions: {}
 }
-
 export default baseStates
