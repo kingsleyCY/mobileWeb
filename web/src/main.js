@@ -64,6 +64,11 @@ router.beforeEach((to, from, next) => {
   }else {
     store.state.baseStates.isPc = false
   }
+  if(document.body.clientWidth < 768) {
+    store.state.baseStates.xsScreen = true
+  }else {
+    store.state.baseStates.xsScreen = false
+  }
   if(fullPath.indexOf(to.fullPath) >= 0 && isPc) {
     store.state.baseStates.allClient = true
   }else {

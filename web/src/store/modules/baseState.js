@@ -4,7 +4,8 @@ const baseStates = {
   state: {
     allClient: false,
     isPc: null,
-    loginModel: false
+    loginModel: false,
+    xsScreen: null
   },
   mutations: {
     changeAllClient(state, flag) {

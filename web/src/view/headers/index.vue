@@ -20,7 +20,7 @@
     <div class="menu-background" ref="menuBack" @click="closeMenu">
       <ul ref="menuList">
         <div>
-          <img src="../../assets/images/logo.jpg"/>
+          <img src="../../assets/images/logo-1.jpg"/>
         </div>
         <li v-for="(item, index) in menuArr" :key="index" @click="menuSelect(index + 1,[item.index])"
             v-if="item.isShow">
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-  import defaultLogo from "./../../assets/images/logo.jpg"
+  import defaultLogo from "./../../assets/images/logo-1.jpg"
   import { mapState, mapMutations } from "vuex"
 
   export default {
