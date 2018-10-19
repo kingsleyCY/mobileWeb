@@ -46,9 +46,8 @@
                     <span class="comments-time">{{common.timestampToTime(item.create_time)}}</span>
                   </div>
                   <div class="operation-box">
-                    <!--<span>回复</span>-->
-                    <svg class="iconfont" aria-hidden="true" @click="clickZan">
-                      <use xlink:href="#icon-dianzan-xian"></use> <!-- icon-dianzan -->
+                    <svg class="iconfont reply-btn" aria-hidden="true">
+                      <use xlink:href="#icon-huifu"></use>
                     </svg>
                     <el-popover
                       v-if="item.username !== username"
@@ -64,7 +63,7 @@
                         <el-button @click="addImprint($event, item)" type="danger" size="mini">给他点印
                         </el-button>
                       </div>
-                      <span slot="reference" @click="">印</span>
+                      <span slot="reference">印</span>
                     </el-popover>
                   </div>
                 </li>
@@ -525,6 +524,9 @@
               height: 40px;
             }
           }
+        }
+        .reply-btn {
+          cursor: pointer;
         }
       }
     }

@@ -58,12 +58,12 @@
                   <el-radio-group v-model="userForm.sex">
                     <el-radio label="1">
                       <svg class="iconfont" aria-hidden="true">
-                        <use xlink:href="#icon-nvsheng"></use>
+                        <use xlink:href="#icon-nvsheng-copy"></use>
                       </svg>
                     </el-radio>
                     <el-radio label="2">
                       <svg class="iconfont" aria-hidden="true">
-                        <use xlink:href="#icon-nansheng"></use>
+                        <use xlink:href="#icon-nansheng-copy"></use>
                       </svg>
                     </el-radio>
                   </el-radio-group>
