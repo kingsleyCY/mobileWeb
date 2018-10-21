@@ -46,7 +46,7 @@
                     <span class="comments-time">{{common.timestampToTime(item.create_time)}}</span>
                   </div>
                   <div class="operation-box">
-                    <svg class="iconfont reply-btn" aria-hidden="true">
+                    <svg class="iconfont reply-btn" aria-hidden="true" @click="clickZan">
                       <use xlink:href="#icon-huifu"></use>
                     </svg>
                     <el-popover
