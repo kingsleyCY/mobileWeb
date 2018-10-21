@@ -22,11 +22,11 @@
     name: "my-introduce",
     data() {
       return {
-        childComponents: ['child1', 'child2', 'child3']
+        childComponents: ['child1']
       }
     },
     created() {
-      console.log(this.xsScreen);
+      // console.log(this.xsScreen);
     },
     mounted() {
       var mySwiper = new Swiper('.swiper-container', {
@@ -71,6 +71,8 @@
         background-size: cover;
       }
       &.normal-screen {
+        background: url("./../../assets/images/bgi-2.jpg") no-repeat center;
+        background-size: cover;
       }
     }
   }
