@@ -1,7 +1,7 @@
 import axios from 'axios'
 import commonBase from './../../common/index'
-const common = new commonBase()
 
+const common = new commonBase()
 const userInfo = {
   state: {
     username: null,
@@ -11,7 +11,7 @@ const userInfo = {
     root: null
   },
   mutations: {
-    SET_USERINFO: function(state, param) {
+    SET_USERINFO: function (state, param) {
       state[param[0]] = param[1]
     },
     REMOVE_USERINFO: function (state) {
@@ -35,10 +35,9 @@ const userInfo = {
           commit("SET_USERINFO", ["avtor", res.date.userInfo.avtor])
           commit("SET_USERINFO", ["sex", res.date.userInfo.sex])
           commit("SET_USERINFO", ["root", res.date.userInfo.root])
-
           common.shoeMessege('success', "登录成功，welcome " + param.username)
           commit("changeLoginModel", false)
-        }else {
+        } else {
           localStorage.setItem("sessionId", "")
         }
       })
@@ -50,8 +49,12 @@ const userInfo = {
           localStorage.setItem("userInfo", "")
         }
       })
+    },
+    clear_session({commit}) {
+      localStorage.setItem("sessionId", "")
+      localStorage.setItem("userInfo", "")
+      commit('REMOVE_USERINFO')
     }
   }
 }
-
 export default userInfo

@@ -30,16 +30,32 @@ if (process.env.BASE_API) {
 } else {
   Vue.prototype.BASE_URL = "http://localhost:8801";
 }
+axios.interceptors.request.use(config => {
+  let sessionId = localStorage.getItem("sessionId");
+  if (sessionId) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
+    config.headers.sessionId = sessionId;
+  }
+  return config;
+}, err => {
+  return Promise.reject(err);
+});
 axios.interceptors.response.use(function (response) {
   if (response.data.code == 1) {
     return response.data
   } else if (response.data.code == 0) {
     return response.data
-  } else {
+  } else if(response.data.code == 10000){
     ElementUI.Message({
       message: response.data.mess,
       type: 'warning'
     })
+    return response.data
+  }else if(response.data.code == 100001) { /*登录过期*/
+    ElementUI.Message({
+      message: "登录过期，请重新登录",
+      type: 'warning'
+    })
+    store.dispatch('clear_session')
     return response.data
   }
 }, function (error) {

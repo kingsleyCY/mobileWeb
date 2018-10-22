@@ -204,11 +204,13 @@
             username: this.username,
             content: $.AnalyticEmotion($('.text').val()),
           }).then(res => {
-            this.messBtn = false
-            this.$message.success(res.mess)
-            $('.text').val("")
-            this.commentsData.page = 1
-            this.getCommentsList()
+            if(res.code == 1) {
+              this.messBtn = false
+              this.$message.success(res.mess)
+              $('.text').val("")
+              this.commentsData.page = 1
+              this.getCommentsList()
+            }
           }).catch(res => {
             this.messBtn = false
           })
