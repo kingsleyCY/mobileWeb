@@ -286,7 +286,7 @@
         })[0]
         var type = 0
         $.each($(btn).prev('ul').children('li'), function (i, v) {
-          if($(v).hasClass('active')) {
+          if ($(v).hasClass('active')) {
             type = $(v).index() + 1
           }
         })
@@ -300,9 +300,11 @@
           }
         }).then(res => {
           // console.log(res);
-          this.$message.success(res.mess)
-          this.commentsData.page = 1
-          this.getCommentsList()
+          if (res.code == 1) {
+            this.$message.success(res.mess)
+            this.commentsData.page = 1
+            this.getCommentsList()
+          }
         })
       },
       /* 计算点印背景图 */
