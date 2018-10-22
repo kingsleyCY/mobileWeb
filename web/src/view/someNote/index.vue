@@ -124,7 +124,7 @@
       layoutSubmit() {
         this.$http.post("/apis/api/status/layout", {}).then(res => {
           this.$message.success("注销成功")
-          localStorage.removeItem("sessionId")
+          localStorage.removeItem("sessionid")
           localStorage.removeItem("userInfo")
           this.REMOVE_USERINFO()
         })

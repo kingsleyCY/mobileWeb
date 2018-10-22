@@ -27,7 +27,7 @@ const userInfo = {
       axios.post('/apis/api/status/login', param).then(res => {
         if (res.code == 1) {
           // console.log(res);
-          localStorage.setItem("sessionId", res.date.sessionId)
+          localStorage.setItem("sessionid", res.date.sessionid)
           localStorage.setItem("userInfo", JSON.stringify(res.date.userInfo))
           /* 登录信息存储在Vuex */
           commit("SET_USERINFO", ["username", res.date.userInfo.username])
@@ -38,20 +38,20 @@ const userInfo = {
           common.shoeMessege('success', "登录成功，welcome " + param.username)
           commit("changeLoginModel", false)
         } else {
-          localStorage.setItem("sessionId", "")
+          localStorage.setItem("sessionid", "")
         }
       })
     },
     layout({commit}, param) {
       axios.post('/apis/api/status/layout', param).then(res => {
         if (res.code == 1) {
-          localStorage.setItem("sessionId", "")
+          localStorage.setItem("sessionid", "")
           localStorage.setItem("userInfo", "")
         }
       })
     },
     clear_session({commit}) {
-      localStorage.setItem("sessionId", "")
+      localStorage.setItem("sessionid", "")
       localStorage.setItem("userInfo", "")
       commit('REMOVE_USERINFO')
     }

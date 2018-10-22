@@ -31,9 +31,11 @@ if (process.env.BASE_API) {
   Vue.prototype.BASE_URL = "http://localhost:8801";
 }
 axios.interceptors.request.use(config => {
-  let sessionId = localStorage.getItem("sessionId");
-  if (sessionId) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
-    config.headers.sessionId = sessionId;
+  let sessionid = localStorage.getItem("sessionid");
+  if (sessionid) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
+    config.headers.sessionid = sessionid;
+  }else {
+    config.headers.sessionid = "";
   }
   return config;
 }, err => {
