@@ -38,7 +38,7 @@
                 <img src="https://lionynn.cn/images/smallProgram.jpg" alt="">
                 <div class="smallgrogram-introduce">
                   <p>ID：四季豆花</p>
-                  <p>个人网站关联的小程序，记录family的点点滴滴。<br><br>不忘丶始终</p>
+                  <p>网站相关联的小程序，刚好还可以练习一下小程序<br><br>不忘丶始终</p>
                 </div>
               </div>
             </el-card>
