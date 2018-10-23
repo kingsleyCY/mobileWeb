@@ -145,15 +145,19 @@
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
           }).then((response) => {
             setTimeout(function () {
-              const result = response.date[0]
-              _this.$message({
-                type: 'success',
-                message: '上传成功'
-              });
-              _this.beforeClose()
-              _this.uploadImgUrl = result
-              _this.$emit('uploadSuccess', result)
+              if(response.code == 1) {
+                const result = response.date
+                _this.$message({
+                  type: 'success',
+                  message: '上传成功'
+                });
+                _this.beforeClose()
+                _this.uploadImgUrl = result
+                _this.$emit('uploadSuccess', result)
+              }
             }, 1000)
+          }).catch(res => {
+            console.log(res + '----error');
           })
         })
       }

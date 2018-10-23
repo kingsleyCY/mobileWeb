@@ -12,7 +12,8 @@
       </el-form-item>
       <el-form-item label="文章标贴" prop="type">
         <el-radio :label="item.id" :key="index" v-model="ruleForm.label"
-                  v-for="(item, index) in selectArr.label">{{item.name}}</el-radio>
+                  v-for="(item, index) in selectArr.label">{{item.name}}
+        </el-radio>
       </el-form-item>
       <el-form-item label="文章标题">
         <el-input
@@ -99,9 +100,9 @@
       this.editor = null
       document.getElementById("editor").innerHTML = "";
       var editor = new E('#editor')
-      if(window.location.host == 'lioncc.cn') {
+      if (window.location.host == 'lioncc.cn') {
         editor.customConfig.uploadImgServer = 'http://lionynn.cn/apis/api/upload'
-      }else {
+      } else {
         editor.customConfig.uploadImgServer = '/apis/api/upload'
       }
       editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024
@@ -131,16 +132,11 @@
       editor.customConfig.uploadImgShowBase64 = true
       editor.customConfig.uploadImgHooks = {
         customInsert: function (insertImg, result, editor) {
-          // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
-          // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
-
-          // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
-          // console.log(result);
-          var url = result.data[0]
-          setTimeout(function () {
-            insertImg(url)
-          },1000)
-          // result 必须是一个 JSON 格式字符串！！！否则报错
+          if (result.code == 1) {
+            setTimeout(function () {
+              insertImg(result.date)
+            }, 1000)
+          }
         }
       }
       editor.create()
@@ -150,8 +146,8 @@
         this.isAdd = false
         this.ruleForm.cover = this.articleEditInfo.cover
         this.ruleForm.title = this.articleEditInfo.title
-        this.ruleForm.type = this.articleEditInfo.articleType?this.articleEditInfo.articleType:''
-        this.ruleForm.label = this.articleEditInfo.labelArr?this.articleEditInfo.labelArr:[]
+        this.ruleForm.type = this.articleEditInfo.articleType ? this.articleEditInfo.articleType : ''
+        this.ruleForm.label = this.articleEditInfo.labelArr ? this.articleEditInfo.labelArr : []
         editor.txt.html(this.articleEditInfo.content)
       } else [
         /* 添加文章 */
@@ -165,7 +161,6 @@
       imgUpload
     },
     props: ['articleEditInfo', 'typeArr', 'labelArr']
-
   }
 </script>
 
@@ -173,7 +168,7 @@
   /deep/ .el-form-item {
     margin-bottom: 12px;
   }
-  .el-select-dropdown{
+  .el-select-dropdown {
     z-index: 10050;
   }
   /deep/ .w-e-toolbar {

@@ -14,9 +14,9 @@ module.exports = {
       '/apis': {
         // target: 'http://lionynn.cn',
         target: 'http://localhost:8801',
-        pathRewrite: {
+        /*pathRewrite: {
           '^/apis': ''
-        },
+        },*/
         changeOrigin: true
       },
     },

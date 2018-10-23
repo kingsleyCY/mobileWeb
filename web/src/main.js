@@ -35,7 +35,7 @@ axios.interceptors.request.use(config => {
   let sessionid = localStorage.getItem("sessionid");
   if (sessionid) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
     config.headers.sessionid = sessionid;
-  }else {
+  } else {
     config.headers.sessionid = "";
   }
   return config;
@@ -47,13 +47,13 @@ axios.interceptors.response.use(function (response) {
     return response.data
   } else if (response.data.code == 0) {
     return response.data
-  } else if(response.data.code == 10000){
+  } else if (response.data.code == 10000) {
     ElementUI.Message({
       message: response.data.mess,
       type: 'warning'
     })
     return response.data
-  }else if(response.data.code == 100001) { /*登录过期*/
+  } else if (response.data.code == 100001) { /*登录过期*/
     ElementUI.Message({
       message: "登录过期，请重新登录",
       type: 'warning'
