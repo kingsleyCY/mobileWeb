@@ -140,12 +140,12 @@
             content: $.AnalyticEmotion($('.text').val()),
           }).then(res => {
             if(res.code == 1) {
-              this.messBtn = false
               this.$message.success(res.mess)
               $('.text').val("")
               this.commentsData.page = 1
               this.getCommentsList()
             }
+            this.messBtn = false
           }).catch(res => {
             this.messBtn = false
           })
