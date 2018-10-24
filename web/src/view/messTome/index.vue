@@ -83,8 +83,7 @@
           page: 1,
           pre_page: 20,
           total: 0
-        },
-        messBtn: false
+        }
       }
     },
     mounted() {

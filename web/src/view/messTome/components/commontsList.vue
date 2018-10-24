@@ -126,16 +126,15 @@
       /* 提交评论 */
       submitMess() {
         if (!this.messBtn) {
-          this.messBtn = true
           /* 未登录必须先登录 */
           if (!this.username) {
-            this.messBtn = false
             this.changeLoginModel(true)
             return
           } else if ($('.text').val() == '') {
             this.$message.info('请输入内容')
             return
           }
+          this.messBtn = true
           this.$http.post('/apis/api/comments/add', {
             username: this.username,
             content: $.AnalyticEmotion($('.text').val()),
