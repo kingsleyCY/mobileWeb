@@ -39,29 +39,30 @@
               <p>{{item.username}}</p>
               <p v-html="item.content"></p>
             </div>
-            <span class="comments-time">{{common.timestampToTime(item.create_time)}}</span>
+            <div class="right-info">
+              <p class="comments-time">{{common.timestampToTime(item.create_time).slice(5)}}</p>
+              <svg class="iconfont reply-btn" aria-hidden="true" @click="replyCommont">
+                <use xlink:href="#icon-huifu"></use>
+              </svg>
+              <el-popover
+                v-if="item.username !== username"
+                class="yin-btn" placement="top"
+                width="230" trigger="click">
+                <div class="dianyin-select" ref="dianyinSelect">
+                  <ul>
+                    <li class="active" @click="selectYin(0, index)"><img :src="dou"></li>
+                    <li @click="selectYin(1, index)"><img :src="geili"></li>
+                    <li @click="selectYin(2, index)"><img :src="pei"></li>
+                    <li @click="selectYin(3, index)"><img :src="penzi"></li>
+                  </ul>
+                  <el-button @click="addImprint($event, item)" type="danger" size="mini">给他点印
+                  </el-button>
+                </div>
+                <span slot="reference">印</span>
+              </el-popover>
+            </div>
           </div>
-          <div class="operation-box">
-            <svg class="iconfont reply-btn" aria-hidden="true" @click="clickZan">
-              <use xlink:href="#icon-huifu"></use>
-            </svg>
-            <el-popover
-              v-if="item.username !== username"
-              class="yin-btn" placement="top"
-              width="230" trigger="click">
-              <div class="dianyin-select" ref="dianyinSelect">
-                <ul>
-                  <li class="active" @click="selectYin(0, index)"><img :src="dou"></li>
-                  <li @click="selectYin(1, index)"><img :src="geili"></li>
-                  <li @click="selectYin(2, index)"><img :src="pei"></li>
-                  <li @click="selectYin(3, index)"><img :src="penzi"></li>
-                </ul>
-                <el-button @click="addImprint($event, item)" type="danger" size="mini">给他点印
-                </el-button>
-              </div>
-              <span slot="reference">印</span>
-            </el-popover>
-          </div>
+          <!--<div class="operation-box"></div>-->
         </li>
       </ul>
       <div v-if="commentsData.list && (commentsData.list.length < commentsData.total)"
@@ -139,7 +140,7 @@
             username: this.username,
             content: $.AnalyticEmotion($('.text').val()),
           }).then(res => {
-            if(res.code == 1) {
+            if (res.code == 1) {
               this.$message.success(res.mess)
               $('.text').val("")
               this.commentsData.page = 1
@@ -186,8 +187,8 @@
         ++this.commentsData.page
         this.getCommentsList()
       },
-      /* 点赞 */
-      clickZan() {
+      /* 回复 */
+      replyCommont() {
         this.$notify({
           message: '功能暂未开放',
           type: 'warning'
@@ -274,7 +275,6 @@
     computed: {
       ...mapState({
         username: function (state) {
-          // console.log(state.userInfor.username);
           return state.userInfor.username
         }
       })
@@ -393,57 +393,48 @@
           .comments-content {
             width: 100%;
             box-sizing: border-box;
-            padding: 0 15% 0 60px;
+            padding: 0 20% 0 60px;
             p:first-child {
               color: #e74851;
             }
             P:last-child {
-              padding-top: 10px;
+              padding-top: 5px;
             }
           }
-          span {
+          .right-info {
             position: absolute;
-            text-align: center;
-            width: 15%;
+            width: 20%;
             right: 0;
             top: 0;
             font-family: Arial;
             color: silver;
             font-size: 12px;
             font-family: "微软雅黑";
-          }
-        }
-        .operation-box {
-          display: flex;
-          width: 100%;
-          padding-right: 5px;
-          box-sizing: border-box;
-          justify-content: flex-end;
-          align-items: center;
-          > span:first-child {
-            color: #8d8d8a;
-            cursor: pointer;
-          }
-          > .iconfont {
-            width: 15px;
-            height: 15px;
-            margin-left: 8px;
-            cursor: pointer;
-            color: #8d8d8a;
-            transform: rotate(0deg);
-          }
-          .yin-btn {
-            width: 17px !important;
-            height: 17px !important;
-            line-height: 18px;
-            text-align: center;
-            color: #e74851;
-            border: 1px solid #e74851;
-            border-radius: 20px;
-            font-size: 12px;
-            transform: rotate(30deg);
-            cursor: pointer;
-            margin-left: 8px;
+            text-align: right;
+            .comments-time {
+              padding-bottom: 5px;
+            }
+            .iconfont {
+              width: 15px;
+              height: 15px;
+              margin-left: 5px;
+              cursor: pointer;
+              color: #8d8d8a;
+              transform: rotate(0deg);
+            }
+            .yin-btn {
+              width: 17px !important;
+              height: 17px !important;
+              line-height: 18px;
+              text-align: center;
+              color: #e74851;
+              border: 1px solid #e74851;
+              border-radius: 20px;
+              font-size: 12px;
+              transform: rotate(30deg);
+              cursor: pointer;
+              margin-left: 5px;
+            }
           }
         }
         .background-yin {
