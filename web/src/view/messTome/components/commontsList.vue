@@ -41,7 +41,8 @@
             </div>
             <div class="right-info">
               <p class="comments-time">{{common.timestampToTime(item.create_time).slice(5)}}</p>
-              <svg class="iconfont reply-btn" aria-hidden="true" @click="replyCommont">
+              <svg class="iconfont reply-btn" aria-hidden="true"
+                   @click="replyCommont('comments', item, undefined)">
                 <use xlink:href="#icon-huifu"></use>
               </svg>
               <el-popover
@@ -62,7 +63,17 @@
               </el-popover>
             </div>
           </div>
-          <!--<div class="operation-box"></div>-->
+          <div class="reply-list" v-if="item.replyList">
+            <ul>
+              <li v-for="(replyItem, replyIndex) in item.replyList">
+                <span>twst001</span>回复<span>test002</span>：这是为什么啊哈哈
+                <svg class="iconfont reply-btn" aria-hidden="true"
+                     @click="replyCommont('reply', item, replyItem)">
+                  <use xlink:href="#icon-huifu"></use>
+                </svg>
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
       <div v-if="commentsData.list && (commentsData.list.length < commentsData.total)"
@@ -80,7 +91,7 @@
   import geili from "@/assets/images/stamp/geili.png"
   import pei from "@/assets/images/stamp/pei.png"
   import penzi from "@/assets/images/stamp/penzi.png"
-  import { mapState, mapMutations } from "vuex"
+  import {mapState, mapMutations} from "vuex"
 
   export default {
     name: "commonts-list",
@@ -188,11 +199,13 @@
         this.getCommentsList()
       },
       /* 回复 */
-      replyCommont() {
-        this.$notify({
-          message: '功能暂未开放',
-          type: 'warning'
-        });
+      replyCommont(type, commentDetail, replyDetail) {
+        let replyHtml;
+        if(replyDetail) { /*回复*/
+          replyHtml = this.getReplyHtml(replyDetail.username, type)
+        }else { /*评论*/
+          replyHtml = this.getReplyHtml(commentDetail.username, type)
+        }
       },
       /* 选择印 */
       selectYin(index, inde) {
@@ -269,6 +282,18 @@
           left: Math.random(),
           top: Math.random(),
         }
+      },
+      /* 获取回复的HTML */
+      getReplyHtml(one, type) {
+        var placeText = ''
+        if(one && type == 'reply') {
+          placeText = '回复：' + one
+        }else if(one) {
+          placeText = '评论：' + one
+        }
+        return '<div id="replyTextBox">' +
+          '<textarea name="replyText" id="replyText" maxlength="150" placeholder="'+ placeText +'"></textarea>' +
+          '</div>'
       },
       ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO'])
     },
@@ -374,10 +399,10 @@
         }
       }
     }
-    ul {
+    > ul {
       width: 90%;
       margin: 0 auto;
-      li {
+      > li {
         padding: 15px 0;
         border-bottom: 1px dashed #e5e5e5;
         position: relative;
@@ -421,19 +446,28 @@
               cursor: pointer;
               color: #8d8d8a;
               transform: rotate(0deg);
+              font-size: 14px;
+            }
+            .reply-btn {
+              cursor: pointer;
+              /*display: none;*/
             }
             .yin-btn {
-              width: 17px !important;
-              height: 17px !important;
+              padding: 2px;
               line-height: 18px;
               text-align: center;
               color: #e74851;
               border: 1px solid #e74851;
               border-radius: 20px;
-              font-size: 12px;
+              font-size: 14px;
               transform: rotate(30deg);
               cursor: pointer;
               margin-left: 5px;
+            }
+          }
+          &:hover {
+            .reply-btn {
+              display: inline-block;
             }
           }
         }
@@ -455,8 +489,35 @@
             }
           }
         }
-        .reply-btn {
-          cursor: pointer;
+        .reply-list {
+          padding-left: 60px;
+          box-sizing: border-box;
+          position: relative;
+          ul {
+            li {
+              padding: 2px 0px;
+              font-size: 12px;
+              padding-right: 20px;
+              box-sizing: border-box;
+              > span {
+                color: #3a8ee6;
+              }
+              .reply-btn {
+                /*display: none;*/
+                font-size: 12px;
+                width: 15px;
+                height: 15px;
+                position: absolute;
+                right: 0;
+                top: 0;
+              }
+              &:hover {
+                .reply-btn {
+                  display: inline-block;
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -498,6 +559,20 @@
           border-bottom: 2px solid #e7847f;
         }
       }
+    }
+  }
+  #replyTextBox {
+    width: 100%;
+    #replyText {
+      width: 95%;
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #e74851;
+      border-radius: 10px;
+      resize: none;
+      outline: none;
+      box-sizing: border-box;
+      padding: 10px;
     }
   }
 </style>
