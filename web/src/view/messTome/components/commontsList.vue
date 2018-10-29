@@ -33,7 +33,7 @@
           <div :class="['background-yin',screenWidth<768?'xs-screen':'']" :ref="'everyComments' + index">
             <img :src="computedYin(items.type)" v-for="(items, indexs) in item.yinArr" :key="indexs">
           </div>
-          <div class="base-info clearfix">
+          <div class="base-info clearfix" :ref="'commentDetail' + index">
             <img :src="item.userInfo.avtor" alt="">
             <div class="comments-content">
               <p>{{item.username}}</p>
@@ -42,7 +42,7 @@
             <div class="right-info">
               <p class="comments-time">{{common.timestampToTime(item.create_time).slice(5)}}</p>
               <svg class="iconfont reply-btn" aria-hidden="true"
-                   @click="replyCommont('comments', item, undefined)">
+                   @click="replyCommont('comments', item, undefined, 'commentDetail' + index)">
                 <use xlink:href="#icon-huifu"></use>
               </svg>
               <el-popover
@@ -68,7 +68,7 @@
               <li v-for="(replyItem, replyIndex) in item.replyList">
                 <span>twst001</span>回复<span>test002</span>：这是为什么啊哈哈
                 <svg class="iconfont reply-btn" aria-hidden="true"
-                     @click="replyCommont('reply', item, replyItem)">
+                     @click="replyCommont('reply', item, replyItem, 'commentDetail' + index)">
                   <use xlink:href="#icon-huifu"></use>
                 </svg>
               </li>
@@ -91,7 +91,7 @@
   import geili from "@/assets/images/stamp/geili.png"
   import pei from "@/assets/images/stamp/pei.png"
   import penzi from "@/assets/images/stamp/penzi.png"
-  import {mapState, mapMutations} from "vuex"
+  import { mapState, mapMutations } from "vuex"
 
   export default {
     name: "commonts-list",
@@ -117,7 +117,8 @@
           pre_page: 20,
           total: 0
         },
-        messBtn: false
+        messBtn: false,
+        replyText: ''
       }
     },
     mounted() {
@@ -199,13 +200,28 @@
         this.getCommentsList()
       },
       /* 回复 */
-      replyCommont(type, commentDetail, replyDetail) {
+      replyCommont(type, commentDetail, replyDetail, commentDetailRef) {
         let replyHtml;
-        if(replyDetail) { /*回复*/
+        if (replyDetail) { /*回复*/
           replyHtml = this.getReplyHtml(replyDetail.username, type)
-        }else { /*评论*/
+        } else { /*评论*/
           replyHtml = this.getReplyHtml(commentDetail.username, type)
         }
+        let commentRef = this.$refs[commentDetailRef][0] ? this.$refs[commentDetailRef][0] : this.$refs[commentDetailRef]
+        if($(commentRef).find('#replyTextBox').length <= 0) {
+          $('#replyTextBox').remove()
+          $(commentRef).children('.comments-content').append(replyHtml)
+          this.showReplyText()
+        }else {
+          this.hideReplyText()
+          setTimeout(function () {
+            $('#replyTextBox').remove()
+          },500)
+        }
+      },
+      /* 提交评论 */
+      submitReply() {
+        console.log(1);
       },
       /* 选择印 */
       selectYin(index, inde) {
@@ -286,14 +302,28 @@
       /* 获取回复的HTML */
       getReplyHtml(one, type) {
         var placeText = ''
-        if(one && type == 'reply') {
+        if (one && type == 'reply') {
           placeText = '回复：' + one
-        }else if(one) {
+        } else if (one) {
           placeText = '评论：' + one
         }
         return '<div id="replyTextBox">' +
-          '<textarea name="replyText" id="replyText" maxlength="150" placeholder="'+ placeText +'"></textarea>' +
-          '</div>'
+          '<input name="replyText" id="replyText" maxlength="150" placeholder="' + placeText + '">' +
+          '<button>确认</button></div>'
+      },
+      /* 显示输入框 */
+      showReplyText() {
+        let that = this;
+        $('#replyTextBox').fadeIn(function () {
+          $('#replyTextBox button').off('click').on('click', function () {
+            that.submitReply()
+          })
+        })
+        $('#replyTextBox').height(35);
+      },
+      /* 隐藏输入框 */
+      hideReplyText() {
+        $('#replyTextBox').height(0);
       },
       ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO'])
     },
@@ -422,7 +452,7 @@
             p:first-child {
               color: #e74851;
             }
-            P:last-child {
+            P:nth-child(2) {
               padding-top: 5px;
             }
           }
@@ -559,20 +589,6 @@
           border-bottom: 2px solid #e7847f;
         }
       }
-    }
-  }
-  #replyTextBox {
-    width: 100%;
-    #replyText {
-      width: 95%;
-      display: block;
-      margin: 0 auto;
-      border: 1px solid #e74851;
-      border-radius: 10px;
-      resize: none;
-      outline: none;
-      box-sizing: border-box;
-      padding: 10px;
     }
   }
 </style>
