@@ -118,7 +118,12 @@
           total: 0
         },
         messBtn: false,
-        replyText: ''
+        replyObj: {
+          replyText: '',
+          commonts_id: undefined,
+          reply_username: undefined,
+          username: undefined,
+        },
       }
     },
     mounted() {
@@ -211,6 +216,10 @@
         if($(commentRef).find('#replyTextBox').length <= 0) {
           $('#replyTextBox').remove()
           $(commentRef).children('.comments-content').append(replyHtml)
+          this.replyObj.replyText = ''
+          this.replyObj.commonts_id = commentDetail.id
+          this.replyObj.reply_username = commentDetail.username
+          this.replyObj.username = this.username
           this.showReplyText()
         }else {
           this.hideReplyText()
@@ -221,7 +230,18 @@
       },
       /* 提交评论 */
       submitReply() {
-        console.log(1);
+        this.replyObj.replyText = $('#replyText').val()
+        this.$http.post('/apis/api/comments/replyComments', {
+          commonts_id: this.replyObj.commonts_id,
+          reply_username: this.replyObj.reply_username,
+          username: this.replyObj.username,
+          content: this.replyObj.replyText
+        }).then(res => {
+          if (res.code == 1) {
+            console.log(res);
+            this.$message.success("添加成功")
+          }
+        })
       },
       /* 选择印 */
       selectYin(index, inde) {
