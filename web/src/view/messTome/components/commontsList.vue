@@ -65,7 +65,8 @@
           </div>
           <div class="reply-list" v-if="item.replyArr">
             <ul>
-              <li v-for="(replyItem, replyIndex) in item.replyArr" :ref="'comments' + index + replyIndex">
+              <li :class="[username === replyItem.username?'self-reply':'']"
+                  v-for="(replyItem, replyIndex) in item.replyArr" :ref="'comments' + index + replyIndex">
                 <span>{{replyItem.username}}</span>
                 {{item.username == replyItem.reply_username?'评论':'回复'}}
                 <span>{{replyItem.reply_username}}</span>：{{replyItem.content}}
@@ -533,9 +534,11 @@
               border: 1px solid #e74851;
               border-radius: 20px;
               font-size: 14px;
-              transform: rotate(30deg);
               cursor: pointer;
               margin-left: 5px;
+              transform:rotate(30deg);
+              display: inline-block;
+              line-height: 14px;
             }
           }
           &:hover {
@@ -590,6 +593,14 @@
                 background-color: #fcfcfc;
                 .reply-btn {
                   display: inline-block;
+                }
+              }
+              &.self-reply {
+                &:hover {
+                  background: none;
+                  .reply-btn {
+                    display: none;
+                  }
                 }
               }
             }
