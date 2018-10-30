@@ -63,10 +63,12 @@
               </el-popover>
             </div>
           </div>
-          <div class="reply-list" v-if="item.replyList">
+          <div class="reply-list" v-if="item.replyArr">
             <ul>
-              <li v-for="(replyItem, replyIndex) in item.replyList">
-                <span>twst001</span>回复<span>test002</span>：这是为什么啊哈哈
+              <li v-for="(replyItem, replyIndex) in item.replyArr">
+                <span>{{replyItem.username}}</span>
+                {{item.username == replyItem.reply_username?'评论':'回复'}}
+                <span>{{replyItem.reply_username}}</span>：{{replyItem.content}}
                 <svg class="iconfont reply-btn" aria-hidden="true"
                      @click="replyCommont('reply', item, replyItem, 'commentDetail' + index)">
                   <use xlink:href="#icon-huifu"></use>
