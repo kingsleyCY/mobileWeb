@@ -52,7 +52,6 @@ html, body {
   background-color: #F6F6F6;
   font-size: 14px;
   font-family: "kaiti" !important;
-  overflow-x: hidden;
   box-sizing: border-box;
   position: relative;
 }
@@ -70,7 +69,7 @@ ul {
 /* 回复评论样式 */
 #replyTextBox {
   width: 100%;
-  padding-top: 20px;
+  padding-top: 10px;
   display: none;
   height: 0;
   transition: height 0.3s;
@@ -88,13 +87,14 @@ ul {
     padding: 10px 15px;
     font-size: 14px;
     padding-right: 65px;
+    height: 100%;
   }
   button {
     position: absolute;
-    top: 20px;
+    top: 10px;
     right: 0;
     width: 60px;
-    height: 40px;
+    height: calc(100% - 10px);
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     padding: 0;
@@ -103,5 +103,9 @@ ul {
     color: white;
     cursor: pointer;
     outline: none;
+    &.xs-screen {
+      font-size: 10px;
+      width: 80px;
+    }
   }
 }

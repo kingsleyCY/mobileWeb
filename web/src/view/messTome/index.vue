@@ -113,7 +113,6 @@
     computed: {
       ...mapState({
         username: function (state) {
-          // console.log(state.userInfor.username);
           return state.userInfor.username
         }
       })

@@ -65,12 +65,12 @@
           </div>
           <div class="reply-list" v-if="item.replyArr">
             <ul>
-              <li v-for="(replyItem, replyIndex) in item.replyArr">
+              <li v-for="(replyItem, replyIndex) in item.replyArr" :ref="'comments' + index + replyIndex">
                 <span>{{replyItem.username}}</span>
                 {{item.username == replyItem.reply_username?'评论':'回复'}}
                 <span>{{replyItem.reply_username}}</span>：{{replyItem.content}}
                 <svg class="iconfont reply-btn" aria-hidden="true"
-                     @click="replyCommont('reply', item, replyItem, 'commentDetail' + index)">
+                     @click="replyCommont('reply', item, replyItem, 'comments' + index + replyIndex)">
                   <use xlink:href="#icon-huifu"></use>
                 </svg>
               </li>
@@ -186,6 +186,10 @@
             this.commentsData.list = this.commentsData.list.concat(res.date.resuletList)
           }
           this.commentsData.total = res.date.commentsInfo.count
+          this.hideReplyText()
+          setTimeout(function () {
+            $('#replyTextBox').remove()
+          },500)
           this.$nextTick(() => {
             for (var i = baseLength; i < that.commentsData.list.length; i++) {
               if (that.$refs['everyComments' + i][0].querySelectorAll('img').length > 0) {
@@ -208,19 +212,31 @@
       },
       /* 回复 */
       replyCommont(type, commentDetail, replyDetail, commentDetailRef) {
-        let replyHtml;
-        if (replyDetail) { /*回复*/
-          replyHtml = this.getReplyHtml(replyDetail.username, type)
-        } else { /*评论*/
-          replyHtml = this.getReplyHtml(commentDetail.username, type)
+        /*
+        * type : 回复/评论
+        * commentDetail ：当前评论详情
+        * replyDetail ：当前回复详情
+        * commentDetailRef ：当前评论/回复ref
+        * */
+        if(!this.username) {
+          this.$message.info("您还未登录")
+          return
         }
-        let commentRef = this.$refs[commentDetailRef][0] ? this.$refs[commentDetailRef][0] : this.$refs[commentDetailRef]
-        if($(commentRef).find('#replyTextBox').length <= 0) {
+        var replyHtml, commentsRef, appendChild;
+        if(replyDetail) {
+          replyHtml = this.getReplyHtml(replyDetail.username, type)
+          commentsRef = this.$refs[commentDetailRef][0] ? this.$refs[commentDetailRef][0] : this.$refs[commentDetailRef]
+          appendChild = $(commentsRef)
+        }else {
+          replyHtml = this.getReplyHtml(commentDetail.username, type)
+          commentsRef = this.$refs[commentDetailRef][0] ? this.$refs[commentDetailRef][0] : this.$refs[commentDetailRef]
+          appendChild = $(commentsRef).children('.comments-content')
+        }
+        if($(commentsRef).find('#replyTextBox').length <= 0) {
           $('#replyTextBox').remove()
-          $(commentRef).children('.comments-content').append(replyHtml)
-          this.replyObj.replyText = ''
+          appendChild.append(replyHtml)
           this.replyObj.commonts_id = commentDetail.id
-          this.replyObj.reply_username = commentDetail.username
+          this.replyObj.reply_username = replyDetail?replyDetail.username:commentDetail.username
           this.replyObj.username = this.username
           this.showReplyText()
         }else {
@@ -242,6 +258,8 @@
           if (res.code == 1) {
             console.log(res);
             this.$message.success("添加成功")
+            this.commentsData.page = 1
+            this.getCommentsList()
           }
         })
       },
@@ -331,7 +349,7 @@
         }
         return '<div id="replyTextBox">' +
           '<input name="replyText" id="replyText" maxlength="150" placeholder="' + placeText + '">' +
-          '<button>确认</button></div>'
+          '<button class="'+(this.xsScreen?'xs-screen':'')+'">确认</button></div>'
       },
       /* 显示输入框 */
       showReplyText() {
@@ -341,11 +359,11 @@
             that.submitReply()
           })
         })
-        $('#replyTextBox').height(35);
+        $('#replyTextBox').height(30);
       },
       /* 隐藏输入框 */
       hideReplyText() {
-        $('#replyTextBox').height(0);
+        $('#replyTextBox').css('height', 0);
       },
       ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO'])
     },
@@ -353,6 +371,9 @@
       ...mapState({
         username: function (state) {
           return state.userInfor.username
+        },
+        xsScreen: function (state) {
+          return state.baseStates.xsScreen
         }
       })
     },
@@ -543,6 +564,7 @@
         }
         .reply-list {
           padding-left: 60px;
+          padding-top: 5px;
           box-sizing: border-box;
           position: relative;
           ul {
@@ -551,11 +573,12 @@
               font-size: 12px;
               padding-right: 20px;
               box-sizing: border-box;
+              position: relative;
               > span {
                 color: #3a8ee6;
               }
               .reply-btn {
-                /*display: none;*/
+                display: none;
                 font-size: 12px;
                 width: 15px;
                 height: 15px;
@@ -564,6 +587,7 @@
                 top: 0;
               }
               &:hover {
+                background-color: #fcfcfc;
                 .reply-btn {
                   display: inline-block;
                 }
