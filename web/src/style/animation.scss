@@ -1,3 +1,4 @@
+/* login */
 @keyframes animar_fondo {
   from {
     -webkit-transform: scale(1) translate(0px);
@@ -29,4 +30,24 @@
     -o-transform: scale(1.5);
     transform: scale(1.5);
   }
+}
+/* 显示隐藏动画 */
+.show-box-leave-active, .show-box-enter-active {
+  transition: all 1s;
+}
+.show-box-leave {
+  transform: translateX(0);
+  opacity: 1;
+}
+.show-box-leave-to {
+  transform: translateX(-30px);
+  opacity: 0;
+}
+.show-box-enter {
+  transform: translateX(30px);
+  opacity: 0;
+}
+.show-box-enter-to {
+  transform: translateX(0);
+  opacity: 1;
 }

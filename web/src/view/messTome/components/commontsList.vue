@@ -28,62 +28,69 @@
           <span>{{commentsData.total}}</span>&nbsp;条留言
         </div>
       </div>
-      <ul v-if="commentsData.list">
-        <li v-for="(item, index) in commentsData.list" :key="index">
-          <div :class="['background-yin',screenWidth<768?'xs-screen':'']" :ref="'everyComments' + index">
-            <img :src="computedYin(items.type)" v-for="(items, indexs) in item.yinArr" :key="indexs">
-          </div>
-          <div class="base-info clearfix" :ref="'commentDetail' + index">
-            <img :src="item.userInfo.avtor" alt="">
-            <div class="comments-content">
-              <p>{{item.username}}</p>
-              <p v-html="item.content"></p>
+      <transition name="show-box">
+        <ul v-show="commentsData.list">
+          <li v-for="(item, index) in commentsData.list" :key="index">
+            <div :class="['background-yin',screenWidth<768?'xs-screen':'']" :ref="'everyComments' + index">
+              <img :src="computedYin(items.type)" v-for="(items, indexs) in item.yinArr" :key="indexs">
             </div>
-            <div class="right-info">
-              <p class="comments-time">{{common.timestampToTime(item.create_time).slice(5)}}</p>
-              <svg class="iconfont reply-btn" aria-hidden="true"
-                   @click="replyCommont('comments', item, undefined, 'commentDetail' + index)">
-                <use xlink:href="#icon-huifu"></use>
-              </svg>
-              <el-popover
-                v-if="item.username !== username"
-                class="yin-btn" placement="top"
-                width="230" trigger="click">
-                <div class="dianyin-select" ref="dianyinSelect">
-                  <ul>
-                    <li class="active" @click="selectYin(0, index)"><img :src="dou"></li>
-                    <li @click="selectYin(1, index)"><img :src="geili"></li>
-                    <li @click="selectYin(2, index)"><img :src="pei"></li>
-                    <li @click="selectYin(3, index)"><img :src="penzi"></li>
-                  </ul>
-                  <el-button @click="addImprint($event, item)" type="danger" size="mini">给他点印
-                  </el-button>
-                </div>
-                <span slot="reference">印</span>
-              </el-popover>
-            </div>
-          </div>
-          <div class="reply-list" v-if="item.replyArr">
-            <ul>
-              <li :class="[username === replyItem.username?'self-reply':'']"
-                  v-for="(replyItem, replyIndex) in item.replyArr" :ref="'comments' + index + replyIndex">
-                <span>{{replyItem.username}}</span>
-                {{item.username == replyItem.reply_username?'评论':'回复'}}
-                <span>{{replyItem.reply_username}}</span>：{{replyItem.content}}
+            <div class="base-info clearfix" :ref="'commentDetail' + index">
+              <img :src="item.userInfo.avtor" alt="">
+              <div class="comments-content">
+                <p>{{item.username}}</p>
+                <p v-html="item.content"></p>
+              </div>
+              <div class="right-info">
+                <p class="comments-time">{{common.timestampToTime(item.create_time).slice(5)}}</p>
                 <svg class="iconfont reply-btn" aria-hidden="true"
-                     @click="replyCommont('reply', item, replyItem, 'comments' + index + replyIndex)">
+                     @click="replyCommont('comments', item, undefined, 'commentDetail' + index)">
                   <use xlink:href="#icon-huifu"></use>
                 </svg>
-              </li>
-            </ul>
-          </div>
-        </li>
-      </ul>
+                <el-popover
+                  v-if="item.username !== username"
+                  class="yin-btn" placement="top"
+                  width="230" trigger="click">
+                  <div class="dianyin-select" ref="dianyinSelect">
+                    <ul>
+                      <li class="active" @click="selectYin(0, index)"><img :src="dou"></li>
+                      <li @click="selectYin(1, index)"><img :src="geili"></li>
+                      <li @click="selectYin(2, index)"><img :src="pei"></li>
+                      <li @click="selectYin(3, index)"><img :src="penzi"></li>
+                    </ul>
+                    <el-button @click="addImprint($event, item)" type="danger" size="mini">给他点印
+                    </el-button>
+                  </div>
+                  <span slot="reference">印</span>
+                </el-popover>
+              </div>
+            </div>
+            <div class="reply-list" v-if="item.replyArr">
+              <ul>
+                <li :class="[username === replyItem.username?'self-reply':'']"
+                    v-for="(replyItem, replyIndex) in item.replyArr" :ref="'comments' + index + replyIndex">
+                  <span>{{replyItem.username}}</span>
+                  {{item.username == replyItem.reply_username?'评论':'回复'}}
+                  <span>{{replyItem.reply_username}}</span>：{{replyItem.content}}
+                  <svg class="iconfont reply-btn" aria-hidden="true"
+                       @click="replyCommont('reply', item, replyItem, 'comments' + index + replyIndex)">
+                    <use xlink:href="#icon-huifu"></use>
+                  </svg>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </transition>
+      <transition name="show-box">
+        <div v-show="!commentsData.list" style="text-align: center;color: #d6d6d6;line-height: 100px;">暂无数据 <i
+          class="el-icon-loading"></i></div>
+      </transition>
       <div v-if="commentsData.list && (commentsData.list.length < commentsData.total)"
            class="loading-more" @click="loadingMore">查看更多
-        <svg class="iconfont" aria-hidden="true">
+        <svg class="iconfont" aria-hidden="true" v-if="!isGetList">
           <use xlink:href="#icon-xiangxia"></use>
         </svg>
+        <i class="el-icon-loading" v-else></i>
       </div>
     </div>
   </div>
@@ -121,6 +128,7 @@
           total: 0
         },
         messBtn: false,
+        isGetList: false,
         replyObj: {
           replyText: '',
           commonts_id: undefined,
@@ -175,10 +183,12 @@
       /* 获取评论列表 */
       getCommentsList() {
         let that = this
+        that.isGetList = true
         this.$http.post('/apis/api/comments/all', {
           page: this.commentsData.page,
           pre_page: this.commentsData.pre_page,
         }).then(res => {
+          that.isGetList = false
           var baseLength = 0
           if (this.commentsData.page == 1) {
             this.commentsData.list = res.date.resuletList
@@ -190,7 +200,7 @@
           this.hideReplyText()
           setTimeout(function () {
             $('#replyTextBox').remove()
-          },500)
+          }, 500)
           this.$nextTick(() => {
             for (var i = baseLength; i < that.commentsData.list.length; i++) {
               if (that.$refs['everyComments' + i][0].querySelectorAll('img').length > 0) {
@@ -205,6 +215,8 @@
               }
             }
           })
+        }).catch(res => {
+          that.isGetList = false
         })
       },
       loadingMore() {
@@ -219,37 +231,41 @@
         * replyDetail ：当前回复详情
         * commentDetailRef ：当前评论/回复ref
         * */
-        if(!this.username) {
+        if (!this.username) {
           this.$message.info("您还未登录")
           return
         }
         var replyHtml, commentsRef, appendChild;
-        if(replyDetail) {
+        if (replyDetail) {
           replyHtml = this.getReplyHtml(replyDetail.username, type)
           commentsRef = this.$refs[commentDetailRef][0] ? this.$refs[commentDetailRef][0] : this.$refs[commentDetailRef]
           appendChild = $(commentsRef)
-        }else {
+        } else {
           replyHtml = this.getReplyHtml(commentDetail.username, type)
           commentsRef = this.$refs[commentDetailRef][0] ? this.$refs[commentDetailRef][0] : this.$refs[commentDetailRef]
           appendChild = $(commentsRef).children('.comments-content')
         }
-        if($(commentsRef).find('#replyTextBox').length <= 0) {
+        if ($(commentsRef).find('#replyTextBox').length <= 0) {
           $('#replyTextBox').remove()
           appendChild.append(replyHtml)
           this.replyObj.commonts_id = commentDetail.id
-          this.replyObj.reply_username = replyDetail?replyDetail.username:commentDetail.username
+          this.replyObj.reply_username = replyDetail ? replyDetail.username : commentDetail.username
           this.replyObj.username = this.username
           this.showReplyText()
-        }else {
+        } else {
           this.hideReplyText()
           setTimeout(function () {
             $('#replyTextBox').remove()
-          },500)
+          }, 500)
         }
       },
       /* 提交评论 */
       submitReply() {
         this.replyObj.replyText = $('#replyText').val()
+        if (this.replyObj.replyText == '') {
+          this.$message.info("评论不能为空")
+          return
+        }
         this.$http.post('/apis/api/comments/replyComments', {
           commonts_id: this.replyObj.commonts_id,
           reply_username: this.replyObj.reply_username,
@@ -257,7 +273,6 @@
           content: this.replyObj.replyText
         }).then(res => {
           if (res.code == 1) {
-            console.log(res);
             this.$message.success("添加成功")
             this.commentsData.page = 1
             this.getCommentsList()
@@ -350,7 +365,7 @@
         }
         return '<div id="replyTextBox">' +
           '<input name="replyText" id="replyText" maxlength="150" placeholder="' + placeText + '">' +
-          '<button class="'+(this.xsScreen?'xs-screen':'')+'">确认</button></div>'
+          '<button class="' + (this.xsScreen ? 'xs-screen' : '') + '">确认</button></div>'
       },
       /* 显示输入框 */
       showReplyText() {
@@ -447,6 +462,7 @@
   .reply-box {
     user-select: none;
     padding-bottom: 20px;
+    transition: height 0.5s;
     .reply-title {
       display: flex;
       width: 90%;
@@ -536,7 +552,7 @@
               font-size: 14px;
               cursor: pointer;
               margin-left: 5px;
-              transform:rotate(30deg);
+              transform: rotate(30deg);
               display: inline-block;
               line-height: 14px;
             }

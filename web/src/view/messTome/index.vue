@@ -11,26 +11,30 @@
             <el-card class="box-card">
               <div slot="header" class="clearfix">
                 <span class="title">个人信息</span>
+                <el-button style="padding: 0;float: right;" v-if="userInfo" type="text" @click="layoutSubmit">注销</el-button>
               </div>
               <div class="public-notice" v-if="userInfo">
                 <div class="user-infor">
                   <img :src="userInfo.avtor">
                   <div>
-                    <span class="user-name">{{userInfo.username}}</span>
+                    <span class="user-name">
+                      {{userInfo.username.slice(0,10) + (userInfo.username.length>10?'...':'')}}
+                    </span>
                     <svg class="iconfont" aria-hidden="true" v-if="userInfo.sex == 1">
                       <use xlink:href="#icon-nvsheng"></use>
                     </svg>
                     <svg class="iconfont" aria-hidden="true" v-else-if="userInfo.sex == 2">
                       <use xlink:href="#icon-nansheng"></use>
                     </svg>
-                    <div style="padding: 3px 10px;box-sizing: border-box">
-                      <el-button style="padding: 0" type="text" @click="layoutSubmit">注销</el-button>
+                    <div style="padding: 5px 0;box-sizing: border-box">
+                      <span>{{useremail.slice(0, 6)}}***{{useremail.slice(useremail.indexOf('@'))}}</span>
                     </div>
                   </div>
                 </div>
                 <div style="font-style: italic;padding-top: 10px">
                   "这个人很懒，什么都没有留下"
                 </div>
+                <el-button type="text">个人详情</el-button>
               </div>
               <div class="public-notice" v-else>
                 暂未登陆
@@ -114,7 +118,10 @@
       ...mapState({
         username: function (state) {
           return state.userInfor.username
-        }
+        },
+        useremail: function (state) {
+          return state.userInfor.useremail
+        },
       })
     },
     watch: {
