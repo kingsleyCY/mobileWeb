@@ -48,6 +48,7 @@
     transition: all .5s cubic-bezier(.55, 0, .1, 1);
     overflow-y: auto;
     overflow-x: hidden;
+    -webkit-overflow-scrolling : touch;
   }
   .slide-left-enter, .slide-right-leave-active {
     opacity: 0;

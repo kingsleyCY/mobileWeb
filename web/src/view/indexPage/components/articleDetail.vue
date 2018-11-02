@@ -89,6 +89,7 @@
 <style lang="scss" scoped type="text/scss">
   .article-box {
     overflow-x: hidden;
+    -webkit-overflow-scrolling : touch;
     padding: 0 15px 30px;
     box-sizing: border-box;
     font-size: 16px;
