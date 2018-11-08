@@ -28,7 +28,7 @@ if (process.env.BASE_API) {
   axios.defaults.baseURL = process.env.BASE_API;
   Vue.prototype.BASE_URL = process.env.BASE_API;
 } else {
-  Vue.prototype.BASE_URL = "http://localhost:8801";
+  Vue.prototype.BASE_URL = "http://localhost:8804";
 }
 axios.interceptors.request.use(config => {
   config.withCredentials = true
