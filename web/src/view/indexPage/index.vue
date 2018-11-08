@@ -12,7 +12,7 @@
                   <use xlink:href="#icon-fanhui"></use>
                 </svg>
                 <el-button style="float: right; padding: 0" type="text" @click="changeLoginModel(true)"
-                           v-if="articleName == 'articleList' && !username">登录
+                           v-if="articleName == 'articleList' && !username">登录1
                 </el-button>
                 <!--<span style="float: right; padding: 3px 0" v-if="articleName == 'articleList'">已登录</span>-->
               </div>
