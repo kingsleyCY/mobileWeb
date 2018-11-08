@@ -35,7 +35,7 @@
                 <span class="title">关注小程序</span>
               </div>
               <div class="public-notice my-smallprogram">
-                <img src="https://lionynn.cn/images/smallProgram.jpg" alt="">
+                <img src="https://dev.lionynn.cn/images/smallProgram.jpg" alt="">
                 <div class="smallgrogram-introduce">
                   <p>ID：四季豆花</p>
                   <p>网站相关联的小程序，刚好还可以练习一下小程序<br><br>不忘丶始终</p>
@@ -63,32 +63,32 @@
                   <div slot="content">GitHub</div>
                   <div class="social-contact">
                     <a href="https://github.com/Stur-Lion" target="_blank">
-                      <img src="https://lionynn.cn/images/github.jpg" alt="">
+                      <img src="https://dev.lionynn.cn/images/github.jpg" alt="">
                     </a>
                   </div>
                 </el-tooltip>
                 <el-tooltip placement="top">
                   <div slot="content">
-                    <img src="https://lionynn.cn/images/qq-qr.png" alt="">
+                    <img src="https://dev.lionynn.cn/images/qq-qr.png" alt="">
                   </div>
                   <div class="social-contact">
-                    <img src="https://lionynn.cn/images/qq.jpg" alt="">
+                    <img src="https://dev.lionynn.cn/images/qq.jpg" alt="">
                   </div>
                 </el-tooltip>
                 <el-tooltip placement="top">
                   <div slot="content">
-                    <img src="https://lionynn.cn/images/weibo-qr.jpg" alt="">
+                    <img src="https://dev.lionynn.cn/images/weibo-qr.jpg" alt="">
                   </div>
                   <div class="social-contact">
-                    <img src="https://lionynn.cn/images/weibo.jpg" alt="">
+                    <img src="https://dev.lionynn.cn/images/weibo.jpg" alt="">
                   </div>
                 </el-tooltip>
                 <el-tooltip placement="top">
                   <div slot="content">
-                    <img src="https://lionynn.cn/images/weixin-qr.jpg" alt="">
+                    <img src="https://dev.lionynn.cn/images/weixin-qr.jpg" alt="">
                   </div>
                   <div class="social-contact">
-                    <img src="https://lionynn.cn/images/weixin.jpg" alt="">
+                    <img src="https://dev.lionynn.cn/images/weixin.jpg" alt="">
                   </div>
                 </el-tooltip>
               </div>

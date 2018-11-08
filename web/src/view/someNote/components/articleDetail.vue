@@ -66,7 +66,7 @@
         if (location.origin.indexOf('localhost') >= 0) { //本地
           BASE_URL = 'http://localhost:8080/someNote?article=true&id=' + that.articleInfo.id
         } else {
-          BASE_URL = 'http://lioncc.cn/someNote?article=true&id=' + that.articleInfo.id
+          BASE_URL = 'http://dev.lioncc.cn/someNote?article=true&id=' + that.articleInfo.id
         }
         // console.log(BASE_URL);
         that.config.url = BASE_URL

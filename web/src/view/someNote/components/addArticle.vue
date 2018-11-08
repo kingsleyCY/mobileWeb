@@ -99,8 +99,8 @@
       this.editor = null
       document.getElementById("editor").innerHTML = "";
       var editor = new E('#editor')
-      if(window.location.host == 'lioncc.cn') {
-        editor.customConfig.uploadImgServer = 'http://lionynn.cn/apis/api/upload'
+      if(window.location.host == 'dev.lioncc.cn') {
+        editor.customConfig.uploadImgServer = 'http://dev.lionynn.cn/apis/api/upload'
       }else {
         editor.customConfig.uploadImgServer = '/apis/api/upload'
       }
