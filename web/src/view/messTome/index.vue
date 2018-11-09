@@ -11,7 +11,8 @@
             <el-card class="box-card">
               <div slot="header" class="clearfix">
                 <span class="title">个人信息</span>
-                <el-button style="padding: 0;float: right;" v-if="userInfo" type="text" @click="layoutSubmit">注销</el-button>
+                <el-button style="padding: 0;float: right;" v-if="userInfo" type="text" @click="layoutSubmit">注销
+                </el-button>
               </div>
               <div class="public-notice" v-if="userInfo">
                 <div class="user-infor">
@@ -54,6 +55,25 @@
                 </ul>
               </div>
             </el-card>
+            <!--TEST-->
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <span class="title">测试</span>
+              </div>
+              <div class="public-notice">
+                <vue-avatar
+                  class="vue-avatar"
+                  :style="{'width': '100%'}"
+                  :width=150
+                  :height=150
+                  :rotation="0"
+                  :scale="1"
+                  :borderRadius="100"
+                  ref="vueavatar"
+                  @vue-avatar-editor:image-ready="onImageReady">
+                </vue-avatar>
+              </div>
+            </el-card>
           </div>
         </el-col>
       </el-row>
@@ -63,6 +83,7 @@
 
 <script>
   import commontsList from "./components/commontsList"
+  import { VueAvatar } from 'vue-avatar-editor-improved'
   import { mapState, mapMutations } from "vuex"
 
   export default {
@@ -112,6 +133,13 @@
           this.REMOVE_USERINFO()
         })
       },
+      saveClicked() {
+        var img = this.$refs.vueavatar.getImageScaled();
+        this.$refs.image.src = img.toDataURL();
+      },
+      onImageReady() {
+
+      },
       ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO'])
     },
     computed: {
@@ -130,7 +158,7 @@
       }
     },
     components: {
-      commontsList
+      commontsList, VueAvatar
     }
   }
 </script>
@@ -187,5 +215,9 @@
         }
       }
     }
+  }
+  /deep/ .vue-avatar canvas {
+    width: 100% !important;
+    height: auto;
   }
 </style>
