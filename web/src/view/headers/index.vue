@@ -71,7 +71,7 @@
             path: '/myIntroduce',
             isShow: 1
           }, {
-            name: "给我留言",
+            name: "留言给我",
             index: "5",
             icon: 'icon-wenju',
             path: '/messTome',
