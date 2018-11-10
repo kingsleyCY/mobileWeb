@@ -55,25 +55,6 @@
                 </ul>
               </div>
             </el-card>
-            <!--TEST-->
-            <el-card class="box-card">
-              <div slot="header" class="clearfix">
-                <span class="title">测试</span>
-              </div>
-              <div class="public-notice">
-                <vue-avatar
-                  class="vue-avatar"
-                  :style="{'width': '100%'}"
-                  :width=150
-                  :height=150
-                  :rotation="0"
-                  :scale="1"
-                  :borderRadius="100"
-                  ref="vueavatar"
-                  @vue-avatar-editor:image-ready="onImageReady">
-                </vue-avatar>
-              </div>
-            </el-card>
           </div>
         </el-col>
       </el-row>
@@ -83,7 +64,6 @@
 
 <script>
   import commontsList from "./components/commontsList"
-  import { VueAvatar } from 'vue-avatar-editor-improved'
   import { mapState, mapMutations } from "vuex"
 
   export default {
@@ -158,7 +138,7 @@
       }
     },
     components: {
-      commontsList, VueAvatar
+      commontsList
     }
   }
 </script>
