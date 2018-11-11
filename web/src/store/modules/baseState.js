@@ -5,6 +5,7 @@ const baseStates = {
     allClient: false,
     isPc: null,
     loginModel: false,
+    userModel: false,
     xsScreen: null
   },
   mutations: {
@@ -13,6 +14,9 @@ const baseStates = {
     },
     changeLoginModel(state, flag) {
       state.loginModel = flag
+    },
+    changeUserModel(state, flag) {
+      state.userModel = flag
     },
   },
   actions: {}

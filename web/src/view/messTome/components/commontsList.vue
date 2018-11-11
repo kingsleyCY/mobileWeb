@@ -203,7 +203,7 @@
           }, 500)
           this.$nextTick(() => {
             for (var i = baseLength; i < that.commentsData.list.length; i++) {
-              if (that.$refs['everyComments' + i][0].querySelectorAll('img').length > 0) {
+              if (that.$refs['everyComments' + i] && that.$refs['everyComments' + i][0].querySelectorAll('img').length > 0) {
                 const imgList = that.$refs['everyComments' + i][0].querySelectorAll('img')
                 for (var j = 0; j < imgList.length; j++) {
                   var screenWidth = that.$refs['everyComments' + i][0].clientWidth * 0.9 - 60

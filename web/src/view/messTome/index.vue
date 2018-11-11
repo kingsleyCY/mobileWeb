@@ -35,7 +35,7 @@
                 <div style="font-style: italic;padding-top: 10px">
                   "这个人很懒，什么都没有留下"
                 </div>
-                <el-button type="text">个人详情</el-button>
+                <el-button type="text" @click="openUserDetail">个人详情</el-button>
               </div>
               <div class="public-notice" v-else>
                 暂未登陆
@@ -117,10 +117,10 @@
         var img = this.$refs.vueavatar.getImageScaled();
         this.$refs.image.src = img.toDataURL();
       },
-      onImageReady() {
-
+      openUserDetail() {
+        this.changeUserModel(!this.userModel)
       },
-      ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO'])
+      ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO', 'changeUserModel'])
     },
     computed: {
       ...mapState({
@@ -130,6 +130,7 @@
         useremail: function (state) {
           return state.userInfor.useremail
         },
+        userModel: state => state.baseStates.userModel
       })
     },
     watch: {
