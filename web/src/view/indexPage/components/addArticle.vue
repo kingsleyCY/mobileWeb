@@ -95,15 +95,16 @@
       }
     },
     mounted() {
+      let that = this
       // console.log(this.articleEditInfo)
       // 创建编辑器
       this.editor = null
       document.getElementById("editor").innerHTML = "";
       var editor = new E('#editor')
       if (window.location.host == 'dev.lioncc.cn') {
-        editor.customConfig.uploadImgServer = 'http://dev.lionynn.cn/apis/api/upload'
+        editor.customConfig.uploadImgServer = 'http://dev.lionynn.cn/apis/api/upload/oss'
       } else {
-        editor.customConfig.uploadImgServer = '/apis/api/upload'
+        editor.customConfig.uploadImgServer = '/apis/api/upload/oss'
       }
       editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024
       editor.customConfig.uploadImgMaxLength = 1
@@ -130,12 +131,18 @@
         //'redo'  // 重复
       ]
       editor.customConfig.uploadImgShowBase64 = true
+      editor.customConfig.uploadImgHeaders = {
+        sessionid: localStorage.getItem("sessionid")
+      }
       editor.customConfig.uploadImgHooks = {
         customInsert: function (insertImg, result, editor) {
           if (result.code == 1) {
             setTimeout(function () {
               insertImg(result.date)
             }, 1000)
+          }else if (result.code == 100001) { /*登录过期*/
+            that.$message.warning('登录过期，请重新登录')
+            that.$store.dispatch('clear_session')
           }
         }
       }
