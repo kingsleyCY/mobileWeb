@@ -17,8 +17,14 @@ const baseStates = {
     },
     changeUserModel(state, flag) {
       state.userModel = flag
-    },
+    }
   },
-  actions: {}
+  actions: {
+    getAssesionToken: function () {
+      axios.post('/apis/api/wx/getAccessToken').then(res => {
+
+      })
+    }
+  }
 }
 export default baseStates

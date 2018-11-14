@@ -122,6 +122,9 @@
       }
     },
     mounted() {
+      this.$store.dispatch('getAssesionToken', {}, function (res) {
+        console.log(res);
+      })
       this.testArticle()
       this.getConfiguration()
     },
