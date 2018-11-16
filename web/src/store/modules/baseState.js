@@ -20,9 +20,13 @@ const baseStates = {
     }
   },
   actions: {
-    getAssesionToken: function () {
-      axios.post('/apis/api/wx/getAccessToken').then(res => {
-
+    getAssesionToken: function ({commit}, param) {
+      return new Promise((resolve, reject) => {
+        axios.post('/apis/api/wx/getAccessToken', param).then(res => {
+          resolve(res)
+        }).then(res => {
+          reject(res)
+        })
       })
     }
   }
