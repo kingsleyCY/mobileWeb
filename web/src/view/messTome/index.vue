@@ -118,6 +118,7 @@
         this.$refs.image.src = img.toDataURL();
       },
       openUserDetail() {
+        return
         this.changeUserModel(!this.userModel)
       },
       ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO', 'changeUserModel'])
