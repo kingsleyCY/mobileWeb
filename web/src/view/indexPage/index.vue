@@ -35,7 +35,7 @@
                 <span class="title">关注小程序</span>
               </div>
               <div class="public-notice my-smallprogram">
-                <img src="http://dev.lionynn.cn/images/smallProgram.jpg" alt="">
+                <img :src="env.STATICS_API + '/images/smallProgram.jpg'" alt="">
                 <div class="smallgrogram-introduce">
                   <p>ID：四季豆花</p>
                   <p>网站相关联的小程序，刚好还可以练习一下小程序<br><br>不忘丶始终</p>
@@ -65,32 +65,32 @@
                   <div slot="content">GitHub</div>
                   <div class="social-contact">
                     <a href="https://github.com/Stur-Lion" target="_blank">
-                      <img src="http://dev.lionynn.cn/images/github.jpg" alt="">
+                      <img :src="env.STATICS_API + '/images/github.jpg'">
                     </a>
                   </div>
                 </el-tooltip>
                 <el-tooltip placement="top">
                   <div slot="content">
-                    <img src="http://dev.lionynn.cn/images/qq-qr.png" alt="">
+                    <img :src="env.STATICS_API + '/images/qq-qr.png'">
                   </div>
                   <div class="social-contact">
-                    <img src="http://dev.lionynn.cn/images/qq.jpg" alt="">
+                    <img :src="env.STATICS_API + '/images/qq.jpg'">
                   </div>
                 </el-tooltip>
                 <el-tooltip placement="top">
                   <div slot="content">
-                    <img src="http://dev.lionynn.cn/images/weibo-qr.jpg" alt="">
+                    <img :src="env.STATICS_API + '/images/weibo-qr.jpg'">
                   </div>
                   <div class="social-contact">
-                    <img src="http://dev.lionynn.cn/images/weibo.jpg" alt="">
+                    <img :src="env.STATICS_API + '/images/weibo.jpg'">
                   </div>
                 </el-tooltip>
                 <el-tooltip placement="top">
                   <div slot="content">
-                    <img src="http://dev.lionynn.cn/images/weixin-qr.jpg" alt="">
+                    <img :src="env.STATICS_API + '/images/weixin-qr.jpg'">
                   </div>
                   <div class="social-contact">
-                    <img src="http://dev.lionynn.cn/images/weixin.jpg" alt="">
+                    <img :src="env.STATICS_API + '/images/weixin.jpg'">
                   </div>
                 </el-tooltip>
               </div>
@@ -135,7 +135,9 @@
         }
         this.$store.dispatch('getAssesionToken', param).then(res => {
           console.log(res);
-          this.img = 'http://localhost:8804/' + res.date
+          if(res.code == 1) {
+            this.img = 'http://localhost:8804/' + res.date
+          }
         })
       },
       toAddArticle(res) {
@@ -184,9 +186,9 @@
     computed: {
       ...mapState({
         username: function (state) {
-          // console.log(state.userInfor.username);
           return state.userInfor.username
-        }
+        },
+        env: state => state.baseStates.env
       })
     },
     components: {

@@ -6,7 +6,8 @@ const baseStates = {
     isPc: null,
     loginModel: false,
     userModel: false,
-    xsScreen: null
+    xsScreen: null,
+    env: process.env
   },
   mutations: {
     changeAllClient(state, flag) {

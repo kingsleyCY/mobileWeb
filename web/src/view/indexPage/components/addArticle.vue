@@ -35,6 +35,7 @@
 <script>
   import VueCropper from 'vue-cropper'
   import imgUpload from "@/components/imgUpload"
+  import { mapState } from "vuex"
 
   var E = require('wangeditor')  // 使用 npm 安装
   export default {
@@ -101,8 +102,8 @@
       this.editor = null
       document.getElementById("editor").innerHTML = "";
       var editor = new E('#editor')
-      if (window.location.host == 'dev.lioncc.cn') {
-        editor.customConfig.uploadImgServer = 'http://dev.lionynn.cn/apis/api/upload/oss'
+      if (window.location.host.indexOf('lioncc.cn') >= 0) {
+        editor.customConfig.uploadImgServer = this.env.BASE_API + '/apis/api/upload/oss'
       } else {
         editor.customConfig.uploadImgServer = '/apis/api/upload/oss'
       }
@@ -163,6 +164,11 @@
       this.ruleForm.editor = editor
       this.selectArr.type = this.typeArr
       this.selectArr.label = this.labelArr
+    },
+    computed: {
+      ...mapState({
+        env: state => state.baseStates.env
+      })
     },
     components: {
       imgUpload
