@@ -7,11 +7,11 @@ var BASE_API, /* 请求数据URL */
 if (process.env.npm_lifecycle_event == 'cbuild') { /*dev*/
   BASE_API = '"https://dev.lionynn.cn"'
   STATICS_API = '"https://dev.lionynn.cn"'
-  BASE_URL = 'http://dev.lioncc.cn'
+  BASE_URL = '"http://dev.lioncc.cn"'
 } else if (process.env.npm_lifecycle_event == 'build') { /*master*/
   BASE_API = '"https://lionynn.cn"'
   STATICS_API = '"https://lionynn.cn"'
-  BASE_URL = 'http://lioncc.cn'
+  BASE_URL = '"http://lioncc.cn"'
 }
 module.exports = {
   NODE_ENV: '"production"',
