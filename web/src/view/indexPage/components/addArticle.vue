@@ -135,13 +135,14 @@
       editor.customConfig.uploadImgHeaders = {
         sessionid: localStorage.getItem("sessionid")
       }
+      editor.customConfig.withCredentials = true
       editor.customConfig.uploadImgHooks = {
         customInsert: function (insertImg, result, editor) {
           if (result.code == 1) {
             setTimeout(function () {
               insertImg(result.date)
             }, 1000)
-          }else if (result.code == 100001) { /*登录过期*/
+          } else if (result.code == 100001) { /*登录过期*/
             that.$message.warning('登录过期，请重新登录')
             that.$store.dispatch('clear_session')
           }

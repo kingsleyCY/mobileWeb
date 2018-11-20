@@ -95,6 +95,7 @@
       }
     },
     mounted() {
+      let that = this
       // console.log(this.articleEditInfo)
       // 创建编辑器
       this.editor = null
@@ -133,6 +134,7 @@
       editor.customConfig.uploadImgHeaders = {
         sessionid: localStorage.getItem("sessionid")
       }
+      editor.customConfig.withCredentials = true
       editor.customConfig.uploadImgHooks = {
         customInsert: function (insertImg, result, editor) {
           if (result.code == 1) {
