@@ -125,6 +125,7 @@
       }
     },
     mounted() {
+      console.log(1);
       this.testArticle()
       this.getConfiguration()
     },
