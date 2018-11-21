@@ -5,7 +5,9 @@ const baseStates = {
     allClient: false,
     isPc: null,
     loginModel: false,
-    xsScreen: null
+    userModel: false,
+    xsScreen: null,
+    env: process.env
   },
   mutations: {
     changeAllClient(state, flag) {
@@ -14,7 +16,20 @@ const baseStates = {
     changeLoginModel(state, flag) {
       state.loginModel = flag
     },
+    changeUserModel(state, flag) {
+      state.userModel = flag
+    }
   },
-  actions: {}
+  actions: {
+    getAssesionToken: function ({commit}, param) {
+      return new Promise((resolve, reject) => {
+        axios.post('/apis/api/wx/getAccessToken', param).then(res => {
+          resolve(res)
+        }).then(res => {
+          reject(res)
+        })
+      })
+    }
+  }
 }
 export default baseStates

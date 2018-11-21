@@ -34,6 +34,7 @@
 <script>
   import VueCropper from 'vue-cropper'
   import imgUpload from "@/components/imgUpload"
+  import { mapState } from "vuex"
 
   var E = require('wangeditor')  // 使用 npm 安装
   export default {
@@ -94,15 +95,16 @@
       }
     },
     mounted() {
+      let that = this
       // console.log(this.articleEditInfo)
       // 创建编辑器
       this.editor = null
       document.getElementById("editor").innerHTML = "";
       var editor = new E('#editor')
-      if(window.location.host == 'lioncc.cn') {
-        editor.customConfig.uploadImgServer = 'http://lionynn.cn/apis/api/upload'
-      }else {
-        editor.customConfig.uploadImgServer = '/apis/api/upload'
+      if (window.location.host.indexOf('lioncc.cn') >= 0) {
+        editor.customConfig.uploadImgServer = this.env.BASE_API + '/apis/api/upload/oss'
+      } else {
+        editor.customConfig.uploadImgServer = '/apis/api/upload/oss'
       }
       editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024
       editor.customConfig.uploadImgMaxLength = 1
@@ -129,18 +131,20 @@
         //'redo'  // 重复
       ]
       editor.customConfig.uploadImgShowBase64 = true
+      editor.customConfig.uploadImgHeaders = {
+        sessionid: localStorage.getItem("sessionid")
+      }
+      editor.customConfig.withCredentials = true
       editor.customConfig.uploadImgHooks = {
         customInsert: function (insertImg, result, editor) {
-          // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
-          // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
-
-          // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
-          // console.log(result);
-          var url = result.data[0]
-          setTimeout(function () {
-            insertImg(url)
-          },1000)
-          // result 必须是一个 JSON 格式字符串！！！否则报错
+          if (result.code == 1) {
+            setTimeout(function () {
+              insertImg(result.date)
+            }, 1000)
+          }else if (result.code == 100001) { /*登录过期*/
+            that.$message.warning('登录过期，请重新登录')
+            that.$store.dispatch('clear_session')
+          }
         }
       }
       editor.create()
@@ -160,6 +164,11 @@
       this.ruleForm.editor = editor
       this.selectArr.type = this.typeArr
       this.selectArr.label = this.labelArr
+    },
+    computed: {
+      ...mapState({
+        env: state => state.baseStates.env
+      })
     },
     components: {
       imgUpload

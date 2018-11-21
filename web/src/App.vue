@@ -1,3 +1,4 @@
+<script src="../config/prod.env.js"></script>
 <template>
   <div id="app">
     <router-view/>
@@ -6,12 +7,12 @@
 
 <script>
   export default {
-    name: 'App'
+    name: 'App',
   }
 </script>
 
 <style type="text/scss" lang="scss">
-  #app{
+  #app {
     width: 100%;
     height: 100%;
   }

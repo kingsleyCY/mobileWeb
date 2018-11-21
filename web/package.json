@@ -6,16 +6,17 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "cdev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "cbuild": "node build/build.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "compression-webpack-plugin": "^2.0.0",
     "element-ui": "^2.4.6",
     "jquery": "^2.2.3",
     "lib-flexible": "^0.3.2",
@@ -24,7 +25,8 @@
     "social-share.js": "^1.0.16",
     "swiper": "^4.3.5",
     "vue": "^2.5.2",
-    "vue-cropper": "0.2.9",
+    "vue-avatar-editor-improved": "^1.0.4",
+    "vue-cropper": "0.3.8",
     "vue-cute-timeline": "^1.2.5",
     "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.0.1",

@@ -11,7 +11,8 @@
             <el-card class="box-card">
               <div slot="header" class="clearfix">
                 <span class="title">个人信息</span>
-                <el-button style="padding: 0;float: right;" v-if="userInfo" type="text" @click="layoutSubmit">注销</el-button>
+                <el-button style="padding: 0;float: right;" v-if="userInfo" type="text" @click="layoutSubmit">注销
+                </el-button>
               </div>
               <div class="public-notice" v-if="userInfo">
                 <div class="user-infor">
@@ -34,7 +35,7 @@
                 <div style="font-style: italic;padding-top: 10px">
                   "这个人很懒，什么都没有留下"
                 </div>
-                <el-button type="text">个人详情</el-button>
+                <el-button type="text" @click="openUserDetail">个人详情</el-button>
               </div>
               <div class="public-notice" v-else>
                 暂未登陆
@@ -112,7 +113,15 @@
           this.REMOVE_USERINFO()
         })
       },
-      ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO'])
+      saveClicked() {
+        var img = this.$refs.vueavatar.getImageScaled();
+        this.$refs.image.src = img.toDataURL();
+      },
+      openUserDetail() {
+        return
+        this.changeUserModel(!this.userModel)
+      },
+      ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO', 'changeUserModel'])
     },
     computed: {
       ...mapState({
@@ -122,6 +131,7 @@
         useremail: function (state) {
           return state.userInfor.useremail
         },
+        userModel: state => state.baseStates.userModel
       })
     },
     watch: {
@@ -187,5 +197,9 @@
         }
       }
     }
+  }
+  /deep/ .vue-avatar canvas {
+    width: 100% !important;
+    height: auto;
   }
 </style>

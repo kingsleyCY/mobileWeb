@@ -35,7 +35,7 @@
                 <span class="title">关注小程序</span>
               </div>
               <div class="public-notice my-smallprogram">
-                <img src="https://lionynn.cn/images/smallProgram.jpg" alt="">
+                <img :src="env.STATICS_API + '/images/smallProgram.jpg'" alt="">
                 <div class="smallgrogram-introduce">
                   <p>ID：四季豆花</p>
                   <p>网站相关联的小程序，刚好还可以练习一下小程序<br><br>不忘丶始终</p>
@@ -51,6 +51,8 @@
                 <p>博客以后会在每两周的星期天晚上12:00更新迭代，希望大家多多支持。</p>
                 <p>后续会加入更多的功能，例如基本的登录注册、权限模块，如果经费及精力条件允许下会尝试的接入一些第三方功能。</p>
                 <p class="update-time">下次更新：{{update_time}}</p>
+                <!--<el-button size="small" @click="getcode">获取二维码</el-button>
+                <img v-if="img" :src="img" style="display: block;width: 100%;height: auto">-->
               </div>
             </el-card>
             <!--社交-->
@@ -63,32 +65,32 @@
                   <div slot="content">GitHub</div>
                   <div class="social-contact">
                     <a href="https://github.com/Stur-Lion" target="_blank">
-                      <img src="https://lionynn.cn/images/github.jpg" alt="">
+                      <img :src="env.STATICS_API + '/images/github.jpg'">
                     </a>
                   </div>
                 </el-tooltip>
                 <el-tooltip placement="top">
                   <div slot="content">
-                    <img src="https://lionynn.cn/images/qq-qr.png" alt="">
+                    <img :src="env.STATICS_API + '/images/qq-qr.png'">
                   </div>
                   <div class="social-contact">
-                    <img src="https://lionynn.cn/images/qq.jpg" alt="">
+                    <img :src="env.STATICS_API + '/images/qq.jpg'">
                   </div>
                 </el-tooltip>
                 <el-tooltip placement="top">
                   <div slot="content">
-                    <img src="https://lionynn.cn/images/weibo-qr.jpg" alt="">
+                    <img :src="env.STATICS_API + '/images/weibo-qr.jpg'">
                   </div>
                   <div class="social-contact">
-                    <img src="https://lionynn.cn/images/weibo.jpg" alt="">
+                    <img :src="env.STATICS_API + '/images/weibo.jpg'">
                   </div>
                 </el-tooltip>
                 <el-tooltip placement="top">
                   <div slot="content">
-                    <img src="https://lionynn.cn/images/weixin-qr.jpg" alt="">
+                    <img :src="env.STATICS_API + '/images/weixin-qr.jpg'">
                   </div>
                   <div class="social-contact">
-                    <img src="https://lionynn.cn/images/weixin.jpg" alt="">
+                    <img :src="env.STATICS_API + '/images/weixin.jpg'">
                   </div>
                 </el-tooltip>
               </div>
@@ -118,7 +120,8 @@
         selectArr: {
           type: [],
           label: []
-        }
+        },
+        img: ''
       }
     },
     mounted() {
@@ -126,6 +129,17 @@
       this.getConfiguration()
     },
     methods: {
+      getcode() {
+        let param = {
+          username: this.username
+        }
+        this.$store.dispatch('getAssesionToken', param).then(res => {
+          console.log(res);
+          if(res.code == 1) {
+            this.img = 'http://localhost:8804/' + res.date
+          }
+        })
+      },
       toAddArticle(res) {
         this.articleEdit_info = null
         this.articleName = "addArticle"
@@ -172,9 +186,9 @@
     computed: {
       ...mapState({
         username: function (state) {
-          // console.log(state.userInfor.username);
           return state.userInfor.username
-        }
+        },
+        env: state => state.baseStates.env
       })
     },
     components: {

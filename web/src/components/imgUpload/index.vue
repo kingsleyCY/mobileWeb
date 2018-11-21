@@ -139,23 +139,24 @@
           this.model = true;
           this.modelSrc = img;
           formData.append("file", data, this.fileName);
-          this.$http.post("/apis/api/upload", formData, {
+          this.$http.post("/apis/api/upload/oss", formData, {
             contentType: false,
             processData: false,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
           }).then((response) => {
-            setTimeout(function () {
-              if(response.code == 1) {
-                const result = response.date
-                _this.$message({
-                  type: 'success',
-                  message: '上传成功'
-                });
-                _this.beforeClose()
-                _this.uploadImgUrl = result
-                _this.$emit('uploadSuccess', result)
-              }
-            }, 1000)
+            /*setTimeout(function () {
+
+            }, 1000)*/
+            if(response.code == 1) {
+              const result = response.date
+              _this.$message({
+                type: 'success',
+                message: '上传成功'
+              });
+              _this.beforeClose()
+              _this.uploadImgUrl = result
+              _this.$emit('uploadSuccess', result)
+            }
           }).catch(res => {
             console.log(res + '----error');
           })

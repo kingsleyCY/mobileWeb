@@ -4,16 +4,20 @@
 
 const path = require('path')
 
+let STATICS_API = ''
+if(process.env.npm_lifecycle_event == 'cdev') { /*dev*/
+  STATICS_API = 'http://localhost:8804'
+}else if(process.env.npm_lifecycle_event == 'dev') { /*master*/
+  STATICS_API = 'http://localhost:8801'
+}
 module.exports = {
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
       '/apis': {
-        // target: 'http://lionynn.cn',
-        target: 'http://localhost:8801',
+        target: STATICS_API,
         /*pathRewrite: {
           '^/apis': ''
         },*/
