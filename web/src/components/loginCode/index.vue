@@ -1,0 +1,56 @@
+<template>
+  <el-dialog
+    title="" append-to-body modal-append-to-body width="320px"
+    :close-on-click-modal="false" :close-on-press-escape="true"
+    :visible.sync="loginCodeModel" top="10vh" :show-close="false"
+    class="login-qrcode-model">
+    <div class="login-qrcode">
+      <img :src="loginCodeSrc" alt="图片失效" ref="loginImg">
+      <p>为方便网站维护，请使用微信扫一扫授权绑定</p>
+    </div>
+  </el-dialog>
+</template>
+
+<script>
+  import { mapState, mapMutations } from "vuex"
+
+  export default {
+    name: "login-code",
+    data() {
+      return {
+
+      }
+    },
+    computed: {
+      ...mapState({
+        loginCodeModel: state => state.baseStates.loginCodeModel,
+        loginCodeSrc: state => state.baseStates.loginCodeSrc,
+      })
+    },
+    methods: {
+      handleClose() {
+        /*this.loginModel = false*/
+      },
+      ...mapMutations(['changeLoginCodeModel'])
+    }
+  }
+</script>
+
+<style lang="scss" scoped type="text/scss">
+  .login-qrcode-model {
+    /deep/ .el-dialog__header {
+      padding: 0 !important;
+    }
+    /deep/ .el-dialog__body {
+      padding: 20px;
+    }
+  }
+  .login-qrcode {
+    width: 100%;
+    p {
+      padding-top: 10px;
+      text-align: center;
+      color: #ff3a1e;
+    }
+  }
+</style>

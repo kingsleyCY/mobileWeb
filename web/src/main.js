@@ -43,11 +43,11 @@ axios.interceptors.request.use(config => {
   return Promise.reject(err);
 });
 axios.interceptors.response.use(function (response) {
-  if (response.data.code == 1) {
+  if (response.data.code == 1) { /* 数据获取成功 */
     return response.data
   } else if (response.data.code == 0) {
     return response.data
-  } else if (response.data.code == 10000) {
+  } else if (response.data.code == 10000) { /* 数据获取失败 */
     ElementUI.Message({
       message: response.data.mess,
       type: 'warning'
@@ -59,6 +59,12 @@ axios.interceptors.response.use(function (response) {
       type: 'warning'
     })
     store.dispatch('clear_session')
+    return response.data
+  } else if (response.data.code == 10001) {
+    ElementUI.Message({
+      message: "您还未绑定微信，请扫码绑定微信",
+      type: 'warning'
+    })
     return response.data
   }
 }, function (error) {

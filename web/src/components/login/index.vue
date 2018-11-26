@@ -303,6 +303,7 @@
       },
       /* 登录提交 */
       submitLogin() {
+        let that = this
         this.$nextTick(() => {
           this.$refs['loginForms'].validate((valid) => {
             if (valid) {
@@ -310,10 +311,23 @@
                 username: this.loginForm.usernames,
                 password: this.loginForm.passwords,
               }
-              this.$store.dispatch('login', param, function (result) {
-                // console.log(result);
-                this.$message.success("登陆成功，welcome ")
-                this.changeLoginModel(false)
+              this.$store.dispatch('login', param).then(function (res) {
+                if(res.code == 10001) {
+                  /* 请求绑定微信二维码图片 */
+                  let params = {
+                    username: that.loginForm.usernames
+                  }
+                  that.$store.dispatch('getAssesionToken', params).then(result => {
+                    if(result.code == 1) {
+                      that.changeLoginCodeModel({
+                        modelFlag: true,
+                        img: result.date + '?' + Math.random()
+                      })
+                    }
+                  })
+                }
+              }, function (res) {
+                console.log(res);
               })
             }
           });
@@ -391,7 +405,7 @@
         this.$refs.contSign.style.opacity = 1
         this.$refs.contForms.style.height = '550px'
       },
-      ...mapMutations(['changeLoginModel'])
+      ...mapMutations(['changeLoginModel', 'changeLoginCodeModel'])
     },
     computed: {
       ...mapState({

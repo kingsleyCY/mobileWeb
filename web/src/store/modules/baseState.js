@@ -5,6 +5,8 @@ const baseStates = {
     allClient: false,
     isPc: null,
     loginModel: false,
+    loginCodeModel: false,
+    loginCodeSrc: '',
     userModel: false,
     xsScreen: null,
     env: process.env
@@ -15,6 +17,10 @@ const baseStates = {
     },
     changeLoginModel(state, flag) {
       state.loginModel = flag
+    },
+    changeLoginCodeModel(state, args) {
+      state.loginCodeModel = args.modelFlag?args.modelFlag:false
+      state.loginCodeSrc = args.img?args.img:''
     },
     changeUserModel(state, flag) {
       state.userModel = flag

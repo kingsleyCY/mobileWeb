@@ -12,6 +12,7 @@
       </div>
     </div>
     <login></login>
+    <login-code></login-code>
     <userDetail></userDetail>
     <to-top></to-top>
   </div>
@@ -22,6 +23,7 @@
   import sectionModel from '@/view/section'
   import footerModel from '@/view/footer'
   import login from '@/components/login'
+  import loginCode from '@/components/loginCode'
   import toTop from '@/components/toTop'
   import userDetail from '@/components/userDetail'
 
@@ -38,7 +40,7 @@
       })
     },
     components: {
-      headerModel, sectionModel, footerModel, login, toTop, userDetail
+      headerModel, sectionModel, footerModel, login, toTop, userDetail, loginCode
     },
     mounted() {
       setTimeout(function () {
