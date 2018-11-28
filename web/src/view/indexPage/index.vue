@@ -51,9 +51,7 @@
                 <p>博客以后会在每两周的星期天晚上12:00更新迭代，希望大家多多支持。</p>
                 <p>后续会加入更多的功能，例如基本的登录注册、权限模块，如果经费及精力条件允许下会尝试的接入一些第三方功能。</p>
                 <p class="update-time">下次更新：{{update_time}}</p>
-                <!--<el-button size="small" @click="getcode">获取二维码</el-button>
-                <img v-if="wx_img" :src="wx_img"
-                     style="display: block;width: 100%;height: auto">-->
+                <el-button size="small" @click="getcode">建立连接</el-button>
               </div>
             </el-card>
             <!--社交-->
@@ -107,7 +105,7 @@
   import articleList from "./components/articleList"
   import addArticle from "./components/addArticle"
   import articleDetail from "./components/articleDetail"
-  import { mapState, mapMutations } from "vuex"
+  import {mapState, mapMutations} from "vuex"
 
   export default {
     name: 'index-page',
@@ -131,14 +129,30 @@
     },
     methods: {
       getcode() {
-        let param = {
-          username: this.username
-        }
-        this.$store.dispatch('getAssesionToken', param).then(res => {
-          if(res.code == 1) {
-            this.wx_img = res.date + '?' + Math.random()
+        if (window.WebSocket) {
+          var ws = new WebSocket('ws://localhost:8806');
+          ws.onopen = function (e) {
+            console.log("连接服务器成功");
+            ws.send("GAME1");
           }
-        })
+          ws.onclose = function (e) {
+            console.log("服务器关闭");
+          }
+          ws.onerror = function () {
+            console.log("连接出错");
+          }
+          setInterval(function () {
+            if(window.location.hostname === 'localhost') {
+              setTimeout(function () {
+                ws.close()
+              }, 5000)
+            }
+            ws.send(window.location.hostname);
+          }, 1000)
+          ws.onmessage = function (e) {
+            console.log(e.data);
+          }
+        }
       },
       toAddArticle(res) {
         this.articleEdit_info = null
@@ -209,7 +223,7 @@
       .box-card {
         margin-bottom: 15px;
         &.xs-screen {
-          /deep/ .el-card__body{
+          /deep/ .el-card__body {
             padding: 10px 5px !important;
           }
         }
@@ -325,7 +339,6 @@
       }
     }
   }
-
   .el-tooltip__popper {
     img {
       display: block;
@@ -333,7 +346,6 @@
       width: 150px;
     }
   }
-
   .swiper-box.box-card {
     /deep/ .el-card__body {
       padding: 0 !important;
