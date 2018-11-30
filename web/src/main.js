@@ -16,6 +16,7 @@ import ElementUI from 'element-ui';
 import '@/style/index.scss'
 import store from './store'
 import commonBase from './common/index'
+import VueSocketIO from 'vue-socket.io';
 
 require("../static/comment/js/main")
 require("../static/comment/js/sinaFaceAndEffec")
@@ -23,6 +24,10 @@ Vue.config.productionTip = false
 Vue.prototype.common = new commonBase()
 Vue.use(Share)
 Vue.use(ElementUI);
+Vue.use(new VueSocketIO({
+  debug: true,
+  connection: 'http://192.168.1.103:8806'
+}))
 // axios.defaults.baseURL = process.env.BASE_API;
 if (process.env.BASE_API) {
   axios.defaults.baseURL = process.env.BASE_API;

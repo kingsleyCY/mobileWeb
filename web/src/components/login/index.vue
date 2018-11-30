@@ -202,24 +202,24 @@
         },
         rules: {
           username: [
-            {required: true, trigger: 'blur'},
-            {min: 6, message: 'The minimum user name is 6.', trigger: 'blur'}
+            { required: true, trigger: 'blur' },
+            { min: 6, message: 'The minimum user name is 6.', trigger: 'blur' }
           ],
           useremail: [
-            {required: true, trigger: 'blur'},
-            {type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur'}
+            { required: true, trigger: 'blur' },
+            { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
           ],
           sex: [
-            {required: true, trigger: 'blur'}
+            { required: true, trigger: 'blur' }
           ],
           password: [
-            {required: true, validator: validatePass, trigger: 'blur'}
+            { required: true, validator: validatePass, trigger: 'blur' }
           ],
           confirm_password: [
-            {required: true, validator: validatePass2, trigger: 'blur'}
+            { required: true, validator: validatePass2, trigger: 'blur' }
           ],
           avtor: [
-            {required: true}
+            { required: true }
           ]
         },
         loginForm: {
@@ -228,10 +228,10 @@
         },
         rulesLogin: {
           usernames: [
-            {required: true, trigger: 'blur'}
+            { required: true, trigger: 'blur' }
           ],
           passwords: [
-            {required: true, trigger: 'blur'}
+            { required: true, trigger: 'blur' }
           ]
         },
         contForms: null,
@@ -246,6 +246,11 @@
           criticalAngle: 45 / coefficient,
           isLogin: true,
         }
+      }
+    },
+    sockets: {
+      message: function (data) {
+        console.log(data);
       }
     },
     methods: {
@@ -312,29 +317,13 @@
                 password: this.loginForm.passwords,
               }
               this.$store.dispatch('login', param).then(function (res) {
-                if(res.code == 10001) {
+                if (res.code == 10001) {
                   /* 请求绑定微信二维码图片 */
                   let params = {
                     username: that.loginForm.usernames
                   }
                   that.$store.dispatch('getAssesionToken', params).then(result => {
-                    if(result.code == 1) {
-                      if (window.WebSocket) {
-                        var ws = new WebSocket('ws://localhost:8806');
-                        ws.onopen = function (e) {
-                          console.log("连接服务器成功");
-                          ws.send("GAME1");
-                        }
-                        ws.onclose = function (e) {
-                          console.log("服务器关闭");
-                        }
-                        ws.onerror = function () {
-                          console.log("连接出错");
-                        }
-                        ws.onmessage = function (e) {
-                          console.log(e.data);
-                        }
-                      }
+                    if (result.code == 1) {
                       that.changeLoginCodeModel({
                         modelFlag: true,
                         img: result.date + '?' + Math.random()
@@ -428,8 +417,7 @@
         loginModel: state => state.baseStates.loginModel,
         isPc: state => state.baseStates.isPc
       })
-    },
-    watch: {}
+    }
   }
 </script>
 
