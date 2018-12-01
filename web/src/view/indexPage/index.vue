@@ -51,7 +51,6 @@
                 <p>博客以后会在每两周的星期天晚上12:00更新迭代，希望大家多多支持。</p>
                 <p>后续会加入更多的功能，例如基本的登录注册、权限模块，如果经费及精力条件允许下会尝试的接入一些第三方功能。</p>
                 <p class="update-time">下次更新：{{update_time}}</p>
-                <!--<el-button size="small" @click="getcode">建立连接</el-button>-->
               </div>
             </el-card>
             <!--社交-->
@@ -128,24 +127,6 @@
       this.getConfiguration()
     },
     methods: {
-      getcode() {
-        if (window.WebSocket) {
-          var ws = new WebSocket('ws://localhost:8806');
-          ws.onopen = function (e) {
-            console.log("连接服务器成功");
-            ws.send("GAME1");
-          }
-          ws.onclose = function (e) {
-            console.log("服务器关闭");
-          }
-          ws.onerror = function () {
-            console.log("连接出错");
-          }
-          ws.on("message", function(obj) {
-            console.log(obj);
-          });
-        }
-      },
       toAddArticle(res) {
         this.articleEdit_info = null
         this.articleName = "addArticle"
