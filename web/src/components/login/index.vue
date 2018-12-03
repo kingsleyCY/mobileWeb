@@ -248,11 +248,6 @@
         }
       }
     },
-    sockets: {
-      message: function (data) {
-        console.log(data);
-      }
-    },
     methods: {
       handleClose() {
         if (this.$refs.form) {
@@ -316,6 +311,11 @@
                 username: this.loginForm.usernames,
                 password: this.loginForm.passwords,
               }
+              console.log(this.loginForm.usernames)
+              this.sockets.subscribe(this.loginForm.usernames, (data) => {
+                console.log(data);
+                that.submitLogin()
+              });
               this.$store.dispatch('login', param).then(function (res) {
                 if (res.code == 10001) {
                   /* 请求绑定微信二维码图片 */

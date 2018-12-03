@@ -38,6 +38,7 @@ const userInfo = {
             commit("SET_USERINFO", ["root", res.date.userInfo.root])
             common.shoeMessege('success', "登录成功，welcome " + param.username)
             commit("changeLoginModel", false)
+            commit("changeLoginCodeModel", false)
             resolve(res)
           } else {
             localStorage.setItem("sessionid", "")
