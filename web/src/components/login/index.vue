@@ -163,7 +163,7 @@
 
 <script>
   import poJpg from "@/assets/images/po.jpg"
-  import { mapState, mapMutations } from "vuex"
+  import {mapState, mapMutations} from "vuex"
 
   export default {
     data() {
@@ -202,24 +202,24 @@
         },
         rules: {
           username: [
-            { required: true, trigger: 'blur' },
-            { min: 6, message: 'The minimum user name is 6.', trigger: 'blur' }
+            {required: true, trigger: 'blur'},
+            {min: 6, message: 'The minimum user name is 6.', trigger: 'blur'}
           ],
           useremail: [
-            { required: true, trigger: 'blur' },
-            { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
+            {required: true, trigger: 'blur'},
+            {type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur'}
           ],
           sex: [
-            { required: true, trigger: 'blur' }
+            {required: true, trigger: 'blur'}
           ],
           password: [
-            { required: true, validator: validatePass, trigger: 'blur' }
+            {required: true, validator: validatePass, trigger: 'blur'}
           ],
           confirm_password: [
-            { required: true, validator: validatePass2, trigger: 'blur' }
+            {required: true, validator: validatePass2, trigger: 'blur'}
           ],
           avtor: [
-            { required: true }
+            {required: true}
           ]
         },
         loginForm: {
@@ -228,10 +228,10 @@
         },
         rulesLogin: {
           usernames: [
-            { required: true, trigger: 'blur' }
+            {required: true, trigger: 'blur'}
           ],
           passwords: [
-            { required: true, trigger: 'blur' }
+            {required: true, trigger: 'blur'}
           ]
         },
         contForms: null,
@@ -276,27 +276,40 @@
       },
       /* 注册请求提交 */
       submitClick() {
+        let that = this
         this.$nextTick(() => {
           this.$refs['form'].validate((valid) => {
             if (valid) {
-              this.$http.post('/apis/api/users/addUser', this.userForm)
-                .then(res => {
-                  // console.log(res);
-                  if (res.code == 1) {
-                    // this.$message.success("注册成功")
-                    let param = {
-                      username: this.userForm.username,
-                      password: this.userForm.password,
-                    }
-                    this.$store.dispatch('login', param, function (result) {
-                      // console.log(result);
-                      this.$messchangeLoginModelage.success(
-                        "注册成功, 已自动登录，welcome " + res.date.username
-                      )
-                      this.changeLoginModel(false)
-                    })
+              this.$http.post('/apis/api/users/addUser', this.userForm).then(res => {
+                // console.log(res);
+                if (res.code == 1) {
+                  // this.$message.success("注册成功")
+                  let param = {
+                    username: that.userForm.username,
+                    password: that.userForm.password,
                   }
-                })
+                  that.sockets.subscribe(that.loginForm.usernames, (data) => {
+                    that.submitLogin()
+                  });
+                  that.$store.dispatch('login', param, function (result) {
+                    console.log(result);
+                    if (result.code == 10001) {
+                      /* 请求绑定微信二维码图片 */
+                      let params = {
+                        username: that.loginForm.usernames
+                      }
+                      that.$store.dispatch('getAssesionToken', params).then(result => {
+                        if (result.code == 1) {
+                          that.changeLoginCodeModel({
+                            modelFlag: true,
+                            img: result.date + '?' + Math.random()
+                          })
+                        }
+                      })
+                    }
+                  })
+                }
+              })
             }
           });
         })
