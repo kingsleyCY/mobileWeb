@@ -292,7 +292,6 @@
                     that.submitLogin()
                   });
                   that.$store.dispatch('login', param, function (result) {
-                    console.log(result);
                     if (result.code == 10001) {
                       /* 请求绑定微信二维码图片 */
                       let params = {
@@ -326,7 +325,6 @@
               }
               console.log(this.loginForm.usernames)
               this.sockets.subscribe(this.loginForm.usernames, (data) => {
-                console.log(data);
                 that.submitLogin()
               });
               this.$store.dispatch('login', param).then(function (res) {
