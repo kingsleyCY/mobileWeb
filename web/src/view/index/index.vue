@@ -6,10 +6,7 @@
     <section-model></section-model>
     <footer-model></footer-model>
     <div class="index-loading" ref="indexLoading">
-      <div class="spinner-circular">
-        <div class="double-bounce1"></div>
-        <div class="double-bounce2"></div>
-      </div>
+      <lottie :options="defaultOptions" :height="400" :width="400"/>
     </div>
     <login></login>
     <login-code></login-code>
@@ -26,13 +23,20 @@
   import loginCode from '@/components/loginCode'
   import toTop from '@/components/toTop'
   import userDetail from '@/components/userDetail'
+  import Lottie from '@/components/lottie';
+  import * as animationData from '../../assets/pinjump.json';
 
   import { mapState } from "vuex"
 
   export default {
     name: 'index',
     data() {
-      return {}
+      return {
+        defaultOptions: {
+          animationData: animationData,
+          animationSpeed: 1.2
+        },
+      }
     },
     computed: {
       ...mapState({
@@ -40,7 +44,12 @@
       })
     },
     components: {
-      headerModel, sectionModel, footerModel, login, toTop, userDetail, loginCode
+      headerModel,
+      sectionModel,
+      footerModel,
+      login, toTop,
+      userDetail,
+      loginCode, Lottie
     },
     mounted() {
       setTimeout(function () {
@@ -48,14 +57,14 @@
         setTimeout(function () {
           this.$refs.indexLoading.style.display = "none"
         }.bind(this), 500)
-      }.bind(this),1500)
+      }.bind(this), 2500)
     }
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped type="text/css">
-  .index-loading{
+  .index-loading {
     position: fixed;
     width: 100%;
     height: 100%;

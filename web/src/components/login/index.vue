@@ -42,6 +42,7 @@
                 </el-form-item>
               </el-form>
               <button class="btn_login" @click="submitLogin">LOGIN</button>
+              <img src="http://lioncc.oss-cn-beijing.aliyuncs.com/ui/webqr.png" class="qucik-login" @click="qrLogin">
             </div>
             <div ref="contFormSign" class="cont_form_sign_up">
               <a href="#" @click="ocultar_login_sign_up"><i class="el-icon-back"></i></a>
@@ -163,7 +164,7 @@
 
 <script>
   import poJpg from "@/assets/images/po.jpg"
-  import {mapState, mapMutations} from "vuex"
+  import { mapState, mapMutations } from "vuex"
 
   export default {
     data() {
@@ -281,21 +282,19 @@
           this.$refs['form'].validate((valid) => {
             if (valid) {
               this.$http.post('/apis/api/users/addUser', this.userForm).then(res => {
-                // console.log(res);
                 if (res.code == 1) {
-                  // this.$message.success("注册成功")
                   let param = {
                     username: that.userForm.username,
                     password: that.userForm.password,
                   }
-                  that.sockets.subscribe(that.loginForm.usernames, (data) => {
+                  that.sockets.subscribe(param.username, (data) => {
                     that.submitLogin()
                   });
-                  that.$store.dispatch('login', param, function (result) {
+                  that.$store.dispatch('login', param).then(function (result) {
                     if (result.code == 10001) {
                       /* 请求绑定微信二维码图片 */
                       let params = {
-                        username: that.loginForm.usernames
+                        username: param.username
                       }
                       that.$store.dispatch('getAssesionToken', params).then(result => {
                         if (result.code == 1) {
@@ -323,16 +322,15 @@
                 username: this.loginForm.usernames,
                 password: this.loginForm.passwords,
               }
-              console.log(this.loginForm.usernames)
-              this.sockets.subscribe(this.loginForm.usernames, (data) => {
-                that.submitLogin()
-              });
-              this.$store.dispatch('login', param).then(function (res) {
+              that.$store.dispatch('login', param).then(function (res) {
                 if (res.code == 10001) {
                   /* 请求绑定微信二维码图片 */
                   let params = {
                     username: that.loginForm.usernames
                   }
+                  that.sockets.subscribe(params.username, (data) => {
+                    that.submitLogin()
+                  });
                   that.$store.dispatch('getAssesionToken', params).then(result => {
                     if (result.code == 1) {
                       that.changeLoginCodeModel({
@@ -348,6 +346,10 @@
             }
           });
         })
+      },
+      /* 扫码登录 */
+      qrLogin() {
+
       },
       /* 动画JS */
       cambiar_login() {
