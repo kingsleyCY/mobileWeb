@@ -28,7 +28,7 @@ const baseStates = {
   },
   actions: {
     getAssesionToken: function ({commit}, param) {
-      console.log('---');
+      // console.log('---');
       return new Promise((resolve, reject) => {
         axios.post('/apis/api/wx/getAccessToken', param).then(res => {
           resolve(res)

@@ -41,7 +41,7 @@
                   <el-input type="password" v-model="loginForm.passwords" placeholder="Password"></el-input>
                 </el-form-item>
               </el-form>
-              <button class="btn_login" @click="submitLogin">LOGIN</button>
+              <button class="btn_login" @click="submitLogin" v-loading="btnLoading">LOGIN</button>
               <img src="http://lioncc.oss-cn-beijing.aliyuncs.com/ui/webqr.png" class="qucik-login" @click="qrLogin">
             </div>
             <div ref="contFormSign" class="cont_form_sign_up">
@@ -84,7 +84,7 @@
                        v-for="(item, index) in 18" :key="index">
                 </div>
               </el-form>
-              <button class="btn_sign_up" @click="submitClick">SIGN UP</button>
+              <button class="btn_sign_up" @click="submitClick" v-loading="btnLoading">SIGN UP</button>
             </div>
           </div>
         </div>
@@ -193,6 +193,7 @@
       return {
         poJpg,
         screenWidth: document.body.clientWidth, // 屏幕尺寸
+        btnLoading: false,
         userForm: {
           username: '',
           useremail: '',
@@ -287,10 +288,12 @@
                     username: that.userForm.username,
                     password: that.userForm.password,
                   }
+                  that.btnLoading = true
                   that.sockets.subscribe(param.username, (data) => {
                     that.submitLogin()
                   });
                   that.$store.dispatch('login', param).then(function (result) {
+                    that.btnLoading = false
                     if (result.code == 10001) {
                       /* 请求绑定微信二维码图片 */
                       let params = {
@@ -322,7 +325,9 @@
                 username: this.loginForm.usernames,
                 password: this.loginForm.passwords,
               }
+              that.btnLoading = true
               that.$store.dispatch('login', param).then(function (res) {
+                that.btnLoading = false
                 if (res.code == 10001) {
                   /* 请求绑定微信二维码图片 */
                   let params = {
@@ -342,6 +347,7 @@
                 }
               }, function (res) {
                 console.log(res);
+                that.btnLoading = false
               })
             }
           });

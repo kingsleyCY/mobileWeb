@@ -57,7 +57,7 @@
         setTimeout(function () {
           this.$refs.indexLoading.style.display = "none"
         }.bind(this), 500)
-      }.bind(this), 2500)
+      }.bind(this), 1000)
     }
   }
 </script>
