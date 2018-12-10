@@ -35,10 +35,10 @@
               <el-form ref="loginForms" :model="loginForm" :rules="rulesLogin"
                        label-width="0" class="form-list">
                 <el-form-item label="" prop="usernames">
-                  <el-input v-model="loginForm.usernames" placeholder="Username"></el-input>
+                  <el-input v-model.trim="loginForm.usernames" placeholder="Username"></el-input>
                 </el-form-item>
                 <el-form-item label="" prop="passwords">
-                  <el-input type="password" v-model="loginForm.passwords" placeholder="Password"></el-input>
+                  <el-input type="password" v-model.trim="loginForm.passwords" placeholder="Password"></el-input>
                 </el-form-item>
               </el-form>
               <button class="btn_login" @click="submitLogin" v-loading="btnLoading">LOGIN</button>
@@ -53,7 +53,7 @@
                   <el-input v-model="userForm.username" placeholder="Username"></el-input>
                 </el-form-item>
                 <el-form-item label="" prop="useremail">
-                  <el-input v-model="userForm.useremail" placeholder="Useremail"></el-input>
+                  <el-input v-model.trim="userForm.useremail" placeholder="Useremail"></el-input>
                 </el-form-item>
                 <el-form-item label="" prop="sex">
                   <el-radio-group v-model="userForm.sex">
@@ -70,10 +70,10 @@
                   </el-radio-group>
                 </el-form-item>
                 <el-form-item label="" prop="password">
-                  <el-input v-model="userForm.password" type="password" placeholder="Password"></el-input>
+                  <el-input v-model.trim="userForm.password" type="password" placeholder="Password"></el-input>
                 </el-form-item>
                 <el-form-item label="" prop="confirm_password">
-                  <el-input v-model="userForm.confirm_password" type="password"
+                  <el-input v-model.trim="userForm.confirm_password" type="password"
                             placeholder="Confirm_password"></el-input>
                 </el-form-item>
                 <el-form-item label="" prop="avtor" style="margin-bottom: 0px;padding-top: 10px">
@@ -189,6 +189,13 @@
           callback();
         }
       };
+      var validateName = (rule, value, callback) => {
+        if(/^[a-zA-Z0-9_]{1,}$/.test(value)) {
+          callback();
+        }else {
+          callback(new Error('用户名只允许大小字母及数字'));
+        }
+      };
       let coefficient = 1
       return {
         poJpg,
@@ -204,24 +211,26 @@
         },
         rules: {
           username: [
-            {required: true, trigger: 'blur'},
-            {min: 6, message: 'The minimum user name is 6.', trigger: 'blur'}
+            { required: true, trigger: 'blur' },
+            { min: 6, message: 'The minimum user name is 6.', trigger: 'blur' },
+            { max: 20, message: 'The maximum user name is 20.', trigger: 'blur' },
+            { required: true, validator: validateName, trigger: 'blur' }
           ],
           useremail: [
-            {required: true, trigger: 'blur'},
-            {type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur'}
+            { required: true, trigger: 'blur' },
+            { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
           ],
           sex: [
-            {required: true, trigger: 'blur'}
+            { required: true, trigger: 'blur' }
           ],
           password: [
-            {required: true, validator: validatePass, trigger: 'blur'}
+            { required: true, validator: validatePass, trigger: 'blur' }
           ],
           confirm_password: [
-            {required: true, validator: validatePass2, trigger: 'blur'}
+            { required: true, validator: validatePass2, trigger: 'blur' }
           ],
           avtor: [
-            {required: true}
+            { required: true }
           ]
         },
         loginForm: {
@@ -230,10 +239,10 @@
         },
         rulesLogin: {
           usernames: [
-            {required: true, trigger: 'blur'}
+            { required: true, trigger: 'blur' }
           ],
           passwords: [
-            {required: true, trigger: 'blur'}
+            { required: true, trigger: 'blur' }
           ]
         },
         contForms: null,
