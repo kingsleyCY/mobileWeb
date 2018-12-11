@@ -305,10 +305,8 @@
                     that.btnLoading = false
                     if (result.code == 10001) {
                       /* 请求绑定微信二维码图片 */
-                      let params = {
-                        username: param.username
-                      }
-                      that.$store.dispatch('getAssesionToken', params).then(result => {
+                      console.log(param);
+                      that.$store.dispatch('getAssesionToken', param).then(result => {
                         if (result.code == 1) {
                           that.changeLoginCodeModel({
                             modelFlag: true,
@@ -339,13 +337,10 @@
                 that.btnLoading = false
                 if (res.code == 10001) {
                   /* 请求绑定微信二维码图片 */
-                  let params = {
-                    username: that.loginForm.usernames
-                  }
-                  that.sockets.subscribe(params.username, (data) => {
+                  that.sockets.subscribe(param.username, (data) => {
                     that.submitLogin()
                   });
-                  that.$store.dispatch('getAssesionToken', params).then(result => {
+                  that.$store.dispatch('getAssesionToken', param).then(result => {
                     if (result.code == 1) {
                       that.changeLoginCodeModel({
                         modelFlag: true,
