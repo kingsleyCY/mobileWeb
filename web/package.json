@@ -21,6 +21,7 @@
     "jquery": "^2.2.3",
     "lib-flexible": "^0.3.2",
     "location": "^0.0.1",
+    "lottie-web": "^5.4.2",
     "navigator": "^1.0.1",
     "social-share.js": "^1.0.16",
     "swiper": "^4.3.5",

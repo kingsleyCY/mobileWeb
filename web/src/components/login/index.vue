@@ -164,6 +164,7 @@
 
 <script>
   import poJpg from "@/assets/images/po.jpg"
+  import qrweb from "@/assets/images/qrweb.png"
   import { mapState, mapMutations } from "vuex"
 
   export default {
@@ -198,7 +199,7 @@
       };
       let coefficient = 1
       return {
-        poJpg,
+        poJpg, qrweb,
         screenWidth: document.body.clientWidth, // 屏幕尺寸
         btnLoading: false,
         userForm: {
