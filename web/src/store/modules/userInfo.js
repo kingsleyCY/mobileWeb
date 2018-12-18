@@ -49,6 +49,16 @@ const userInfo = {
         })
       })
     },
+    /* 二维码登录 */
+    codeLogin({commit}, param) {
+      return new Promise((resolve, reject) => {
+        axios.post('/apis/api/status/codeLogin', param).then(res => {
+          resolve(res)
+        }).catch(res => {
+          reject(res)
+        })
+      })
+    },
     layout({commit}, param) {
       axios.post('/apis/api/status/layout', param).then(res => {
         if (res.code == 1) {

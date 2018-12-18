@@ -5,7 +5,7 @@
     :visible.sync="loginCodeModel" top="10vh" :show-close="false"
     class="login-qrcode-model">
     <div class="login-qrcode">
-      <img :src="loginCodeSrc" alt="图片失效" ref="loginImg">
+      <img :src="loginCodeObj?loginCodeObj.img:''" alt="图片失效" ref="loginImg">
       <p>为方便网站维护，请使用微信扫一扫授权绑定</p>
     </div>
   </el-dialog>
@@ -24,7 +24,7 @@
     computed: {
       ...mapState({
         loginCodeModel: state => state.baseStates.loginCodeModel,
-        loginCodeSrc: state => state.baseStates.loginCodeSrc,
+        loginCodeObj: state => state.baseStates.loginCodeObj,
       })
     },
     methods: {

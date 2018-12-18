@@ -25,8 +25,9 @@ Vue.prototype.common = new commonBase()
 Vue.use(Share)
 Vue.use(ElementUI);
 Vue.use(new VueSocketIO({
-  // debug: true,
-  connection: 'http://139.196.127.127:8806'
+  debug: true,
+  // connection: 'http://139.196.127.127:8806'
+  connection: 'http://10.13.25.218:8806'
 }))
 // axios.defaults.baseURL = process.env.BASE_API;
 if (process.env.BASE_API) {
