@@ -312,7 +312,8 @@
                           that.changeLoginCodeModel({
                             modelFlag: true,
                             loginCodeObj: {
-                              img: result.date + '?' + Math.random()
+                              img: result.date + '?' + Math.random(),
+                              isLogin: false
                             }
                           })
                         }
@@ -348,7 +349,8 @@
                       that.changeLoginCodeModel({
                         modelFlag: true,
                         loginCodeObj: {
-                          img: result.date + '?' + Math.random()
+                          img: result.date + '?' + Math.random(),
+                          isLogin: false
                         }
                       })
                     }
@@ -367,12 +369,19 @@
         const that = this
         const socketRadom = this.common.createRandom()
         console.log(socketRadom)
+        this.changeLoginModel(false)
         that.sockets.subscribe(socketRadom, (data) => {
           console.log(data);
         });
         let param = { socketRadom }
         that.$store.dispatch('codeLogin', param).then(result => {
-          console.log(result);
+          that.changeLoginCodeModel({
+            modelFlag: true,
+            loginCodeObj: {
+              img: result.date,
+              isLogin: true
+            }
+          })
         })
       },
       /* 动画JS */

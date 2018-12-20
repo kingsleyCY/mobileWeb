@@ -4,9 +4,12 @@
     :close-on-click-modal="false" :close-on-press-escape="true"
     :visible.sync="loginCodeModel" top="10vh" :show-close="false"
     class="login-qrcode-model">
-    <div class="login-qrcode">
+    <div class="login-qrcode" v-if="!loginCodeObj.isLogin">
       <img :src="loginCodeObj?loginCodeObj.img:''" alt="图片失效" ref="loginImg">
       <p>为方便网站维护，请使用微信扫一扫授权绑定</p>
+    </div>
+    <div class="login-qrcode" v-else>
+      <img :src="loginCodeObj?loginCodeObj.img:''" alt="图片失效" ref="loginImg">
     </div>
   </el-dialog>
 </template>
