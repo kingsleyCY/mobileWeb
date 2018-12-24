@@ -368,10 +368,14 @@
       qrLogin() {
         const that = this
         const socketRadom = this.common.createRandom()
-        console.log(socketRadom)
         this.changeLoginModel(false)
         that.sockets.subscribe(socketRadom, (data) => {
-          console.log(data);
+          console.log(data.date);
+          let param = {
+            socketRadom: data.date.socketRadom,
+            username: data.date.username
+          }
+          that.$store.dispatch('clientLogin', param).then(result => {})
         });
         let param = { socketRadom }
         that.$store.dispatch('codeLogin', param).then(result => {
