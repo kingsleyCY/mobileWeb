@@ -370,6 +370,7 @@
         const that = this
         const socketRadom = this.common.createRandom()
         this.changeLoginModel(false)
+        console.log(socketRadom);
         that.sockets.subscribe(socketRadom, (data) => {
           console.log(data.date);
           let param = {
