@@ -12,9 +12,8 @@
                   <use xlink:href="#icon-fanhui"></use>
                 </svg>
                 <el-button style="float: right; padding: 0" type="text" @click="changeLoginModel(true)"
-                           v-if="articleName == 'articleList' && !username">登录1
+                           v-if="articleName == 'articleList' && !username">登录
                 </el-button>
-                <!--<span style="float: right; padding: 3px 0" v-if="articleName == 'articleList'">已登录</span>-->
               </div>
               <div style="position: relative; transition: all .5s;min-height: 200px" ref="articleBox">
                 <transition name="slide-left">

@@ -339,13 +339,14 @@
               that.btnLoading = true
               that.$store.dispatch('login', param).then(function (res) {
                 that.btnLoading = false
+                /* 请求绑定微信二维码图片 */
                 if (res.code == 10001) {
-                  /* 请求绑定微信二维码图片 */
                   that.sockets.subscribe(param.username, (data) => {
                     that.submitLogin()
                   });
                   that.$store.dispatch('getAssesionToken', param).then(result => {
                     if (result.code == 1) {
+                      that.changeLoginModel(false)
                       that.changeLoginCodeModel({
                         modelFlag: true,
                         loginCodeObj: {
