@@ -16,9 +16,9 @@ class commonBase {
     return Y + M + D + h + ':' + m;
   }
   createRandom() {
-    const en_arr = ['#', '$', '*', '+', '=', '@', '-', '~', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'e', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'w', 'v', 'u', 'x', 'y', 'z']
-    let num1 = Math.floor(Math.random() * 34 + 1);
-    let num2 = Math.floor(Math.random() * 34 + 1);
+    const en_arr = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'e', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'w', 'v', 'u', 'x', 'y', 'z']
+    let num1 = Math.floor(Math.random() * 26 + 1);
+    let num2 = Math.floor(Math.random() * 26 + 1);
     return (Math.random() * 10000000).toString(16).substr(0, 5) + (en_arr[num1] ? en_arr[num1] : '-') + (new Date()).getTime().toString().substr(0, 10) + (en_arr[num2] ? en_arr[num2] : '-') + Math.random().toString().substr(2, 7);
   }
   shoeMessege(type, mess) {
