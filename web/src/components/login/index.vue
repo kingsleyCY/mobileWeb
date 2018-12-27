@@ -165,7 +165,7 @@
 <script>
   import poJpg from "@/assets/images/po.jpg"
   import qrweb from "@/assets/images/qrweb.png"
-  import {mapState, mapMutations} from "vuex"
+  import { mapState, mapMutations } from "vuex"
 
   export default {
     data() {
@@ -212,26 +212,26 @@
         },
         rules: {
           username: [
-            {required: true, trigger: 'blur'},
-            {min: 6, message: 'The minimum user name is 6.', trigger: 'blur'},
-            {max: 20, message: 'The maximum user name is 20.', trigger: 'blur'},
-            {required: true, validator: validateName, trigger: 'blur'}
+            { required: true, trigger: 'blur' },
+            { min: 6, message: 'The minimum user name is 6.', trigger: 'blur' },
+            { max: 20, message: 'The maximum user name is 20.', trigger: 'blur' },
+            { required: true, validator: validateName, trigger: 'blur' }
           ],
           useremail: [
-            {required: true, trigger: 'blur'},
-            {type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur'}
+            { required: true, trigger: 'blur' },
+            { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
           ],
           sex: [
-            {required: true, trigger: 'blur'}
+            { required: true, trigger: 'blur' }
           ],
           password: [
-            {required: true, validator: validatePass, trigger: 'blur'}
+            { required: true, validator: validatePass, trigger: 'blur' }
           ],
           confirm_password: [
-            {required: true, validator: validatePass2, trigger: 'blur'}
+            { required: true, validator: validatePass2, trigger: 'blur' }
           ],
           avtor: [
-            {required: true}
+            { required: true }
           ]
         },
         loginForm: {
@@ -240,10 +240,10 @@
         },
         rulesLogin: {
           usernames: [
-            {required: true, trigger: 'blur'}
+            { required: true, trigger: 'blur' }
           ],
           passwords: [
-            {required: true, trigger: 'blur'}
+            { required: true, trigger: 'blur' }
           ]
         },
         contForms: null,
@@ -299,14 +299,13 @@
                     password: that.userForm.password,
                   }
                   that.btnLoading = true
-                  that.sockets.subscribe(param.username, (data) => {
-                    that.submitLogin()
-                  });
                   that.$store.dispatch('login', param).then(function (result) {
                     that.btnLoading = false
                     if (result.code == 10001) {
                       /* 请求绑定微信二维码图片 */
-                      console.log(param);
+                      that.sockets.subscribe(param.username, (data) => {
+                        that.submitLogin()
+                      });
                       that.$store.dispatch('getAssesionToken', param).then(result => {
                         if (result.code == 1) {
                           that.changeLoginCodeModel({
@@ -377,7 +376,8 @@
             socketRadom: data.date.socketRadom,
             username: data.date.username
           }
-          that.$store.dispatch('clientLogin', param).then(result => {})
+          that.$store.dispatch('clientLogin', param).then(result => {
+          })
         });
         let param = { socketRadom }
         that.$store.dispatch('codeLogin', param).then(result => {

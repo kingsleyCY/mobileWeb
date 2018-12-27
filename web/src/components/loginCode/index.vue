@@ -20,9 +20,7 @@
   export default {
     name: "login-code",
     data() {
-      return {
-
-      }
+      return {}
     },
     computed: {
       ...mapState({
