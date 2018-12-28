@@ -14,7 +14,6 @@
                 <el-button style="float: right; padding: 0" type="text" @click="changeLoginModel(true)"
                            v-if="articleName == 'articleList' && !username">登录
                 </el-button>
-                <!--<span style="float: right; padding: 3px 0" v-if="articleName == 'articleList'">已登录</span>-->
               </div>
               <div style="position: relative; transition: all .5s;min-height: 200px" ref="articleBox">
                 <transition name="slide-left">
@@ -51,8 +50,6 @@
                 <p>博客以后会在每两周的星期天晚上12:00更新迭代，希望大家多多支持。</p>
                 <p>后续会加入更多的功能，例如基本的登录注册、权限模块，如果经费及精力条件允许下会尝试的接入一些第三方功能。</p>
                 <p class="update-time">下次更新：{{update_time}}</p>
-                <!--<el-button size="small" @click="getcode">获取二维码</el-button>
-                <img v-if="img" :src="img" style="display: block;width: 100%;height: auto">-->
               </div>
             </el-card>
             <!--社交-->
@@ -106,7 +103,7 @@
   import articleList from "./components/articleList"
   import addArticle from "./components/addArticle"
   import articleDetail from "./components/articleDetail"
-  import { mapState, mapMutations } from "vuex"
+  import {mapState, mapMutations} from "vuex"
 
   export default {
     name: 'index-page',
@@ -121,7 +118,7 @@
           type: [],
           label: []
         },
-        img: ''
+        wx_img: ''
       }
     },
     mounted() {
@@ -129,17 +126,6 @@
       this.getConfiguration()
     },
     methods: {
-      getcode() {
-        let param = {
-          username: this.username
-        }
-        this.$store.dispatch('getAssesionToken', param).then(res => {
-          console.log(res);
-          if(res.code == 1) {
-            this.img = 'http://localhost:8804/' + res.date
-          }
-        })
-      },
       toAddArticle(res) {
         this.articleEdit_info = null
         this.articleName = "addArticle"
@@ -209,7 +195,7 @@
       .box-card {
         margin-bottom: 15px;
         &.xs-screen {
-          /deep/ .el-card__body{
+          /deep/ .el-card__body {
             padding: 10px 5px !important;
           }
         }
@@ -325,7 +311,6 @@
       }
     }
   }
-
   .el-tooltip__popper {
     img {
       display: block;
@@ -333,7 +318,6 @@
       width: 150px;
     }
   }
-
   .swiper-box.box-card {
     /deep/ .el-card__body {
       padding: 0 !important;

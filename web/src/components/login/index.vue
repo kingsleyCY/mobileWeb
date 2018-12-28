@@ -35,13 +35,14 @@
               <el-form ref="loginForms" :model="loginForm" :rules="rulesLogin"
                        label-width="0" class="form-list">
                 <el-form-item label="" prop="usernames">
-                  <el-input v-model="loginForm.usernames" placeholder="Username"></el-input>
+                  <el-input v-model.trim="loginForm.usernames" placeholder="Username"></el-input>
                 </el-form-item>
                 <el-form-item label="" prop="passwords">
-                  <el-input type="password" v-model="loginForm.passwords" placeholder="Password"></el-input>
+                  <el-input type="password" v-model.trim="loginForm.passwords" placeholder="Password"></el-input>
                 </el-form-item>
               </el-form>
-              <button class="btn_login" @click="submitLogin">LOGIN</button>
+              <button class="btn_login" @click="submitLogin" v-loading="btnLoading">LOGIN</button>
+              <img src="http://lioncc.oss-cn-beijing.aliyuncs.com/ui/webqr.png" class="qucik-login" @click="qrLogin">
             </div>
             <div ref="contFormSign" class="cont_form_sign_up">
               <a href="#" @click="ocultar_login_sign_up"><i class="el-icon-back"></i></a>
@@ -52,7 +53,7 @@
                   <el-input v-model="userForm.username" placeholder="Username"></el-input>
                 </el-form-item>
                 <el-form-item label="" prop="useremail">
-                  <el-input v-model="userForm.useremail" placeholder="Useremail"></el-input>
+                  <el-input v-model.trim="userForm.useremail" placeholder="Useremail"></el-input>
                 </el-form-item>
                 <el-form-item label="" prop="sex">
                   <el-radio-group v-model="userForm.sex">
@@ -69,10 +70,10 @@
                   </el-radio-group>
                 </el-form-item>
                 <el-form-item label="" prop="password">
-                  <el-input v-model="userForm.password" type="password" placeholder="Password"></el-input>
+                  <el-input v-model.trim="userForm.password" type="password" placeholder="Password"></el-input>
                 </el-form-item>
                 <el-form-item label="" prop="confirm_password">
-                  <el-input v-model="userForm.confirm_password" type="password"
+                  <el-input v-model.trim="userForm.confirm_password" type="password"
                             placeholder="Confirm_password"></el-input>
                 </el-form-item>
                 <el-form-item label="" prop="avtor" style="margin-bottom: 0px;padding-top: 10px">
@@ -83,7 +84,7 @@
                        v-for="(item, index) in 18" :key="index">
                 </div>
               </el-form>
-              <button class="btn_sign_up" @click="submitClick">SIGN UP</button>
+              <button class="btn_sign_up" @click="submitClick" v-loading="btnLoading">SIGN UP</button>
             </div>
           </div>
         </div>
@@ -163,6 +164,7 @@
 
 <script>
   import poJpg from "@/assets/images/po.jpg"
+  import qrweb from "@/assets/images/qrweb.png"
   import { mapState, mapMutations } from "vuex"
 
   export default {
@@ -188,10 +190,18 @@
           callback();
         }
       };
+      var validateName = (rule, value, callback) => {
+        if (/^[a-zA-Z0-9_]{1,}$/.test(value)) {
+          callback();
+        } else {
+          callback(new Error('用户名只允许大小字母及数字'));
+        }
+      };
       let coefficient = 1
       return {
-        poJpg,
+        poJpg, qrweb,
         screenWidth: document.body.clientWidth, // 屏幕尺寸
+        btnLoading: false,
         userForm: {
           username: '',
           useremail: '',
@@ -202,24 +212,26 @@
         },
         rules: {
           username: [
-            {required: true, trigger: 'blur'},
-            {min: 6, message: 'The minimum user name is 6.', trigger: 'blur'}
+            { required: true, trigger: 'blur' },
+            { min: 6, message: 'The minimum user name is 6.', trigger: 'blur' },
+            { max: 20, message: 'The maximum user name is 20.', trigger: 'blur' },
+            { required: true, validator: validateName, trigger: 'blur' }
           ],
           useremail: [
-            {required: true, trigger: 'blur'},
-            {type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur'}
+            { required: true, trigger: 'blur' },
+            { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
           ],
           sex: [
-            {required: true, trigger: 'blur'}
+            { required: true, trigger: 'blur' }
           ],
           password: [
-            {required: true, validator: validatePass, trigger: 'blur'}
+            { required: true, validator: validatePass, trigger: 'blur' }
           ],
           confirm_password: [
-            {required: true, validator: validatePass2, trigger: 'blur'}
+            { required: true, validator: validatePass2, trigger: 'blur' }
           ],
           avtor: [
-            {required: true}
+            { required: true }
           ]
         },
         loginForm: {
@@ -228,10 +240,10 @@
         },
         rulesLogin: {
           usernames: [
-            {required: true, trigger: 'blur'}
+            { required: true, trigger: 'blur' }
           ],
           passwords: [
-            {required: true, trigger: 'blur'}
+            { required: true, trigger: 'blur' }
           ]
         },
         contForms: null,
@@ -276,33 +288,46 @@
       },
       /* 注册请求提交 */
       submitClick() {
+        let that = this
         this.$nextTick(() => {
           this.$refs['form'].validate((valid) => {
             if (valid) {
-              this.$http.post('/apis/api/users/addUser', this.userForm)
-                .then(res => {
-                  // console.log(res);
-                  if (res.code == 1) {
-                    // this.$message.success("注册成功")
-                    let param = {
-                      username: this.userForm.username,
-                      password: this.userForm.password,
-                    }
-                    this.$store.dispatch('login', param, function (result) {
-                      // console.log(result);
-                      this.$messchangeLoginModelage.success(
-                        "注册成功, 已自动登录，welcome " + res.date.username
-                      )
-                      this.changeLoginModel(false)
-                    })
+              that.btnLoading = true
+              this.$http.post('/apis/api/users/addUser', this.userForm).then(res => {
+                that.btnLoading = false
+                if (res.code == 1) {
+                  let param = {
+                    username: that.userForm.username,
+                    password: that.userForm.password,
                   }
-                })
+                  /* 注册成功绑定微信 */
+                  that.sockets.subscribe(param.username, (data) => {
+                    that.$store.dispatch('login', param).then(function (result) {
+                    })
+                  });
+                  that.$store.dispatch('getAssesionToken', param).then(result => {
+                    if (result.code == 1) {
+                      that.changeLoginModel(false)
+                      that.changeLoginCodeModel({
+                        modelFlag: true,
+                        loginCodeObj: {
+                          img: result.date + '?' + Math.random(),
+                          isLogin: false
+                        }
+                      })
+                    }
+                  })
+                }
+              }, function (error) {
+                that.btnLoading = false
+              })
             }
           });
         })
       },
       /* 登录提交 */
       submitLogin() {
+        let that = this
         this.$nextTick(() => {
           this.$refs['loginForms'].validate((valid) => {
             if (valid) {
@@ -310,13 +335,57 @@
                 username: this.loginForm.usernames,
                 password: this.loginForm.passwords,
               }
-              this.$store.dispatch('login', param, function (result) {
-                // console.log(result);
-                this.$message.success("登陆成功，welcome ")
-                this.changeLoginModel(false)
+              that.btnLoading = true
+              that.$store.dispatch('login', param).then(function (res) {
+                that.btnLoading = false
+                /* 请求绑定微信二维码图片 */
+                if (res.code == 10001) {
+                  that.sockets.subscribe(param.username, (data) => {
+                    that.submitLogin()
+                  });
+                  that.$store.dispatch('getAssesionToken', param).then(result => {
+                    if (result.code == 1) {
+                      that.changeLoginModel(false)
+                      that.changeLoginCodeModel({
+                        modelFlag: true,
+                        loginCodeObj: {
+                          img: result.date + '?' + Math.random(),
+                          isLogin: false
+                        }
+                      })
+                    }
+                  })
+                }
+              }, function (res) {
+                console.log(res);
+                that.btnLoading = false
               })
             }
           });
+        })
+      },
+      /* 扫码登录 */
+      qrLogin() {
+        const that = this
+        const socketRadom = this.common.createRandom()
+        this.changeLoginModel(false)
+        that.sockets.subscribe(socketRadom, (data) => {
+          let param = {
+            socketRadom: data.date.socketRadom,
+            username: data.date.username
+          }
+          that.$store.dispatch('clientLogin', param).then(result => {
+          })
+        });
+        let param = { socketRadom }
+        that.$store.dispatch('codeLogin', param).then(result => {
+          that.changeLoginCodeModel({
+            modelFlag: true,
+            loginCodeObj: {
+              img: result.date,
+              isLogin: true
+            }
+          })
         })
       },
       /* 动画JS */
@@ -391,15 +460,14 @@
         this.$refs.contSign.style.opacity = 1
         this.$refs.contForms.style.height = '550px'
       },
-      ...mapMutations(['changeLoginModel'])
+      ...mapMutations(['changeLoginModel', 'changeLoginCodeModel'])
     },
     computed: {
       ...mapState({
         loginModel: state => state.baseStates.loginModel,
         isPc: state => state.baseStates.isPc
       })
-    },
-    watch: {}
+    }
   }
 </script>
 

@@ -5,6 +5,8 @@ const baseStates = {
     allClient: false,
     isPc: null,
     loginModel: false,
+    loginCodeModel: false,
+    loginCodeObj: {},
     userModel: false,
     xsScreen: null,
     env: process.env
@@ -16,12 +18,17 @@ const baseStates = {
     changeLoginModel(state, flag) {
       state.loginModel = flag
     },
+    changeLoginCodeModel(state, args) {
+      state.loginCodeModel = args.modelFlag?args.modelFlag:false
+      state.loginCodeObj = args.loginCodeObj?args.loginCodeObj:{}
+    },
     changeUserModel(state, flag) {
       state.userModel = flag
     }
   },
   actions: {
     getAssesionToken: function ({commit}, param) {
+      // console.log('---');
       return new Promise((resolve, reject) => {
         axios.post('/apis/api/wx/getAccessToken', param).then(res => {
           resolve(res)
