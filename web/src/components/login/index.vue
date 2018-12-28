@@ -292,34 +292,34 @@
         this.$nextTick(() => {
           this.$refs['form'].validate((valid) => {
             if (valid) {
+              that.btnLoading = true
               this.$http.post('/apis/api/users/addUser', this.userForm).then(res => {
+                that.btnLoading = false
                 if (res.code == 1) {
                   let param = {
                     username: that.userForm.username,
                     password: that.userForm.password,
                   }
-                  that.btnLoading = true
-                  that.$store.dispatch('login', param).then(function (result) {
-                    that.btnLoading = false
-                    if (result.code == 10001) {
-                      /* 请求绑定微信二维码图片 */
-                      that.sockets.subscribe(param.username, (data) => {
-                        that.submitLogin()
-                      });
-                      that.$store.dispatch('getAssesionToken', param).then(result => {
-                        if (result.code == 1) {
-                          that.changeLoginCodeModel({
-                            modelFlag: true,
-                            loginCodeObj: {
-                              img: result.date + '?' + Math.random(),
-                              isLogin: false
-                            }
-                          })
+                  /* 注册成功绑定微信 */
+                  that.sockets.subscribe(param.username, (data) => {
+                    that.$store.dispatch('login', param).then(function (result) {
+                    })
+                  });
+                  that.$store.dispatch('getAssesionToken', param).then(result => {
+                    if (result.code == 1) {
+                      that.changeLoginModel(false)
+                      that.changeLoginCodeModel({
+                        modelFlag: true,
+                        loginCodeObj: {
+                          img: result.date + '?' + Math.random(),
+                          isLogin: false
                         }
                       })
                     }
                   })
                 }
+              }, function (error) {
+                that.btnLoading = false
               })
             }
           });
@@ -369,9 +369,7 @@
         const that = this
         const socketRadom = this.common.createRandom()
         this.changeLoginModel(false)
-        console.log(socketRadom);
         that.sockets.subscribe(socketRadom, (data) => {
-          console.log(data.date);
           let param = {
             socketRadom: data.date.socketRadom,
             username: data.date.username
