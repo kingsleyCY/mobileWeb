@@ -165,6 +165,7 @@
 <script>
   import poJpg from "@/assets/images/po.jpg"
   import qrweb from "@/assets/images/qrweb.png"
+  import { register } from '@/api/login'
   import { mapState, mapMutations } from "vuex"
 
   export default {
@@ -293,7 +294,7 @@
           this.$refs['form'].validate((valid) => {
             if (valid) {
               that.btnLoading = true
-              this.$http.post('/apis/api/users/addUser', this.userForm).then(res => {
+              register(this.userForm).then(res => {
                 that.btnLoading = false
                 if (res.code == 1) {
                   let param = {

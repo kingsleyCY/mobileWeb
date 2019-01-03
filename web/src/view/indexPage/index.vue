@@ -103,7 +103,8 @@
   import articleList from "./components/articleList"
   import addArticle from "./components/addArticle"
   import articleDetail from "./components/articleDetail"
-  import {mapState, mapMutations} from "vuex"
+  import { getBaseText } from '@/api/article'
+  import { mapState, mapMutations } from "vuex"
 
   export default {
     name: 'index-page',
@@ -154,12 +155,12 @@
       testArticle() {
         if (this.$route.query.article) {
           // console.log(this.$route);
-          this.todetail("articleDetail", {id: this.$route.query.id})
+          this.todetail("articleDetail", { id: this.$route.query.id })
         }
       },
       /* 获取配置参数 */
       getConfiguration() {
-        this.$http.post('/apis/api/status/baseText', {
+        getBaseText({
           datatype: ['nextTime', 'articleType', 'articleLabel']
         }).then(res => {
           this.update_time = res.date.nextTime

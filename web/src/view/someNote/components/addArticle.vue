@@ -12,7 +12,8 @@
       </el-form-item>
       <el-form-item label="文章标贴" prop="type">
         <el-radio :label="item.id" :key="index" v-model="ruleForm.label"
-                  v-for="(item, index) in selectArr.label">{{item.name}}</el-radio>
+                  v-for="(item, index) in selectArr.label">{{item.name}}
+        </el-radio>
       </el-form-item>
       <el-form-item label="文章标题">
         <el-input
@@ -32,6 +33,7 @@
 </template>
 
 <script>
+  import { editArticle, addArticle } from '@/api/article'
   import VueCropper from 'vue-cropper'
   import imgUpload from "@/components/imgUpload"
   import { mapState } from "vuex"
@@ -80,13 +82,13 @@
             username: JSON.parse(localStorage.getItem('userInfo')).username,
           }
           if (this.isAdd) {
-            that.$http.post("/apis/api/article/addArticle", param).then(function (res) {
+            addArticle(param).then(function (res) {
               that.$message.success("添加成功")
               that.$emit("articleList", "articleList")
             })
           } else {
             param.id = that.articleEditInfo.id
-            that.$http.post("/apis/api/article/updateArticle", param).then(function (res) {
+            editArticle(param).then(function (res) {
               that.$message.success("编辑成功")
               that.$emit("articleList", "articleList")
             })
@@ -141,7 +143,7 @@
             setTimeout(function () {
               insertImg(result.date)
             }, 1000)
-          }else if (result.code == 100001) { /*登录过期*/
+          } else if (result.code == 100001) { /*登录过期*/
             that.$message.warning('登录过期，请重新登录')
             that.$store.dispatch('clear_session')
           }
@@ -154,8 +156,8 @@
         this.isAdd = false
         this.ruleForm.cover = this.articleEditInfo.cover
         this.ruleForm.title = this.articleEditInfo.title
-        this.ruleForm.type = this.articleEditInfo.articleType?this.articleEditInfo.articleType:''
-        this.ruleForm.label = this.articleEditInfo.labelArr?this.articleEditInfo.labelArr:[]
+        this.ruleForm.type = this.articleEditInfo.articleType ? this.articleEditInfo.articleType : ''
+        this.ruleForm.label = this.articleEditInfo.labelArr ? this.articleEditInfo.labelArr : []
         editor.txt.html(this.articleEditInfo.content)
       } else [
         /* 添加文章 */
@@ -182,7 +184,7 @@
   /deep/ .el-form-item {
     margin-bottom: 12px;
   }
-  .el-select-dropdown{
+  .el-select-dropdown {
     z-index: 10050;
   }
   /deep/ .w-e-toolbar {

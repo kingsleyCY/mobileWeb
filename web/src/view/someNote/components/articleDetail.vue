@@ -31,6 +31,7 @@
 </template>
 
 <script>
+  import { articleDeatil } from '@/api/article'
   import { mapState } from "vuex"
 
   export default {
@@ -57,10 +58,11 @@
         this.btnFlag = true
       }
       let that = this
-      this.$http.post('/apis/api/article/findOne', {
+      let param = {
         id: this.articleInfo.id,
         addLook: this.userroot != 2 ? true : false
-      }).then(res => {
+      }
+      articleDeatil(param).then(res => {
         that.article_info = res.date
         let BASE_URL
         if (location.origin.indexOf('localhost') >= 0) { //本地
@@ -68,7 +70,6 @@
         } else {
           BASE_URL = this.env.BASE_URL + '/indexPage?article=true&id=' + that.articleInfo.id
         }
-        // console.log(BASE_URL);
         that.config.url = BASE_URL
       })
     },
@@ -90,7 +91,7 @@
 <style lang="scss" type="text/scss" scoped>
   .article-box {
     overflow-x: hidden;
-    -webkit-overflow-scrolling : touch;
+    -webkit-overflow-scrolling: touch;
     padding: 0 15px 30px;
     box-sizing: border-box;
     font-size: 16px;

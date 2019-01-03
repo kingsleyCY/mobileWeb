@@ -65,6 +65,8 @@
   import articleList from "./components/articleList"
   import addArticle from "./components/addArticle"
   import articleDetail from "./components/articleDetail"
+  import { layout } from '@/api/login'
+  import { getBaseText } from '@/api/article'
   import { mapState, mapMutations } from "vuex"
 
   export default {
@@ -122,7 +124,7 @@
       },
       /* 注销 */
       layoutSubmit() {
-        this.$http.post("/apis/api/status/layout", {}).then(res => {
+        layout().then(res => {
           this.$message.success("注销成功")
           localStorage.removeItem("sessionid")
           localStorage.removeItem("userInfo")
@@ -133,12 +135,12 @@
       testArticle() {
         if (this.$route.query.article) {
           // console.log(this.$route);
-          this.todetail("articleDetail", {id: this.$route.query.id})
+          this.todetail("articleDetail", { id: this.$route.query.id })
         }
       },
       /* 获取配置参数 */
       getConfiguration() {
-        this.$http.post('/apis/api/status/baseText', {
+        getBaseText({
           datatype: ['articleType', 'articleLabel']
         }).then(res => {
           this.selectArr.type = res.date.articleType
@@ -178,7 +180,7 @@
       .box-card {
         margin-bottom: 15px;
         &.xs-screen {
-          /deep/ .el-card__body{
+          /deep/ .el-card__body {
             padding: 10px 5px !important;
           }
         }
@@ -312,7 +314,6 @@
       }
     }
   }
-
   .el-tooltip__popper {
     img {
       display: block;
@@ -320,7 +321,6 @@
       width: 150px;
     }
   }
-
   .swiper-box.box-card {
     /deep/ .el-card__body {
       padding: 0 !important;
