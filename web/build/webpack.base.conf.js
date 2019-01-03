@@ -33,8 +33,7 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   externals: {
-    jquery: "jQuery",
-    Vuex: 'Vuex'
+    jquery: "jQuery"
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],

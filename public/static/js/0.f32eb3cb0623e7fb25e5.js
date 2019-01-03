@@ -1,0 +1,2 @@
+webpackJsonp([0],{M9A7:function(t,a,e){"use strict";a.b=function(t){return Object(n.a)({url:"/apis/api/users/addUser",method:"POST",data:t})},a.a=function(){return Object(n.a)({url:"/apis/api/status/layout",method:"POST"})},a.c=function(t){return Object(n.a)({url:"/apis/api/upload/oss",method:"POST",data:t,contentType:!1,processData:!1,headers:{"Content-Type":"application/x-www-form-urlencoded"}})};var n=e("l/JR")}});
+//# sourceMappingURL=0.f32eb3cb0623e7fb25e5.js.map
