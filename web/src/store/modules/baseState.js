@@ -1,4 +1,5 @@
 import axios from 'axios'
+import request from '../../api/request'
 
 const baseStates = {
   state: {
@@ -19,18 +20,18 @@ const baseStates = {
       state.loginModel = flag
     },
     changeLoginCodeModel(state, args) {
-      state.loginCodeModel = args.modelFlag?args.modelFlag:false
-      state.loginCodeObj = args.loginCodeObj?args.loginCodeObj:{}
+      state.loginCodeModel = args.modelFlag ? args.modelFlag : false
+      state.loginCodeObj = args.loginCodeObj ? args.loginCodeObj : {}
     },
     changeUserModel(state, flag) {
       state.userModel = flag
     }
   },
   actions: {
-    getAssesionToken: function ({commit}, param) {
+    getAssesionToken: function ({ commit }, param) {
       // console.log('---');
       return new Promise((resolve, reject) => {
-        axios.post('/apis/api/wx/getAccessToken', param).then(res => {
+        request.post('/apis/api/wx/getAccessToken', param).then(res => {
           resolve(res)
         }).then(res => {
           reject(res)

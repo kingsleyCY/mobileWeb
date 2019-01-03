@@ -54,6 +54,8 @@
 </template>
 
 <script>
+  import { articleList } from '@/api/article'
+
   export default {
     name: "article-list",
     data() {
@@ -87,14 +89,12 @@
         this.btnFlag = true
       }
       let that = this
-      this.$http.get("/apis/api/article/all", {
-          params: {
-            page: that.pageInfo.page,
-            pre_page: that.pageInfo.pre_page,
-            articleType: 1
-          }
-        }
-      ).then(function (res) {
+      let param = {
+        page: that.pageInfo.page,
+        pre_page: that.pageInfo.pre_page,
+        articleType: 1
+      }
+      articleList(param).then(function (res) {
         that.dynamicList = res.date.article_list
         that.pageInfo.total = res.date.page_info.count
         that.$nextTick(() => {

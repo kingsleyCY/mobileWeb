@@ -42,7 +42,8 @@
 
 <script>
   import VueCropper from 'vue-cropper'
-  import {mapState} from "vuex"
+  import { uploadFile } from '@/api/login'
+  import { mapState } from "vuex"
 
   export default {
     name: "img-upload",
@@ -90,8 +91,7 @@
           if (typeof e.target.result === 'object') {
             // 把Array Buffer转化为blob 如果是base64不需要
             data = window.URL.createObjectURL(new Blob([e.target.result]))
-          }
-          else {
+          } else {
             data = e.target.result
           }
           _this.partIndex = 2
@@ -139,15 +139,8 @@
           this.model = true;
           this.modelSrc = img;
           formData.append("file", data, this.fileName);
-          this.$http.post("/apis/api/upload/oss", formData, {
-            contentType: false,
-            processData: false,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-          }).then((response) => {
-            /*setTimeout(function () {
-
-            }, 1000)*/
-            if(response.code == 1) {
+          uploadFile(formData).then((response) => {
+            if (response.code == 1) {
               const result = response.date
               _this.$message({
                 type: 'success',
@@ -173,7 +166,7 @@
         this.$refs.uploadBox.style.width = this.width ? this.width : "180px"
         this.$refs.uploadBox.style.height = this.height ? this.height : "110px"
         //console.log(this.initImg);
-        if(this.initImg) {
+        if (this.initImg) {
           this.uploadImgUrl = this.initImg
         }
       })
@@ -240,7 +233,6 @@
       }
     }
   }
-
   .uploadImg-box {
     height: 300px;
     > div {
@@ -274,7 +266,6 @@
       }
     }
   }
-
   .el-dialog__wrapper {
     z-index: 100005 !important;
   }

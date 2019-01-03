@@ -35,6 +35,7 @@
 <script>
   import VueCropper from 'vue-cropper'
   import imgUpload from "@/components/imgUpload"
+  import { editArticle, addArticle } from '@/api/article'
   import { mapState } from "vuex"
 
   var E = require('wangeditor')  // 使用 npm 安装
@@ -81,13 +82,13 @@
             username: JSON.parse(localStorage.getItem('userInfo')).username,
           }
           if (this.isAdd) {
-            that.$http.post("/apis/api/article/addArticle", param).then(function (res) {
+            addArticle(param).then(function (res) {
               that.$message.success("添加成功")
               that.$emit("articleList", "articleList")
             })
           } else {
             param.id = that.articleEditInfo.id
-            that.$http.post("/apis/api/article/updateArticle", param).then(function (res) {
+            editArticle(param).then(function (res) {
               that.$message.success("编辑成功")
               that.$emit("articleList", "articleList")
             })
