@@ -17,7 +17,9 @@
           </el-form-item>
           <div class="login-btn-box">
             <div>
-              <el-button type="text" @click="toRegist">注册账号</el-button>/<el-button type="text" @click="toinit" style="margin: 0">重置密码</el-button>
+              <el-button type="text" @click="toRegist">注册账号</el-button>
+              /
+              <el-button type="text" @click="toinit" style="margin: 0">重置密码</el-button>
             </div>
             <div>
               <el-button @click="handleClose" size="small">取消</el-button>
@@ -77,7 +79,7 @@
 </template>
 
 <script>
-  import {mapState, mapMutations} from "vuex"
+  import { mapState, mapMutations } from "vuex"
 
   export default {
     name: "login",
@@ -115,24 +117,24 @@
         },
         rules: {
           username: [
-            {required: true, trigger: 'blur'},
+            { required: true, trigger: 'blur' },
             { min: 6, message: 'The minimum user name is 6.', trigger: 'blur' }
           ],
           useremail: [
-            {required: true, trigger: 'blur'},
-            {type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur'}
+            { required: true, trigger: 'blur' },
+            { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
           ],
           sex: [
-            {required: true, trigger: 'blur'}
+            { required: true, trigger: 'blur' }
           ],
           password: [
-            {required: true, validator: validatePass, trigger: 'blur'}
+            { required: true, validator: validatePass, trigger: 'blur' }
           ],
           confirm_password: [
-            {required: true, validator: validatePass2, trigger: 'blur'}
+            { required: true, validator: validatePass2, trigger: 'blur' }
           ],
           avtor: [
-            {required: true}
+            { required: true }
           ]
         },
         loginForm: {
@@ -141,10 +143,10 @@
         },
         rulesLogin: {
           usernames: [
-            {required: true, trigger: 'blur'}
+            { required: true, trigger: 'blur' }
           ],
           passwords: [
-            {required: true, trigger: 'blur'}
+            { required: true, trigger: 'blur' }
           ]
         }
       }
@@ -282,17 +284,16 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      text-align: center;padding-top: 15px;
+      text-align: center;
+      padding-top: 15px;
     }
   }
-
   .selectAvtor {
     display: inline-block;
     width: 75px;
     height: 75px;
     border-radius: 75px;
   }
-
   .avtor-select-box {
     img {
       display: inline-block;
@@ -302,7 +303,6 @@
       cursor: pointer;
     }
   }
-
   /deep/ .el-dialog__header {
     height: 0;
     padding: 0px;

@@ -64,6 +64,7 @@
 
 <script>
   import commontsList from "./components/commontsList"
+  import { layout } from '@/api/login'
   import { mapState, mapMutations } from "vuex"
 
   export default {
@@ -105,7 +106,7 @@
       },
       /* 注销 */
       layoutSubmit() {
-        this.$http.post("/apis/api/status/layout", {}).then(res => {
+        layout().then(res => {
           this.$message.success("注销成功")
           localStorage.removeItem("sessionid")
           localStorage.removeItem("userInfo")

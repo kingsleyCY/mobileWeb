@@ -12,7 +12,7 @@ export function register(param) {
 /* 注销 */
 export function layout() {
   return request({
-    url: '/apis/api/status/layout"',
+    url: '/apis/api/status/layout',
     method: 'POST',
   })
 }
@@ -20,7 +20,7 @@ export function layout() {
 /* 上传阿里云 */
 export function uploadFile(param) {
   return request({
-    url: '/apis/api/users/addUser',
+    url: '/apis/api/upload/oss',
     method: 'POST',
     data: param,
     contentType: false,

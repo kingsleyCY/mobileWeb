@@ -101,6 +101,7 @@
   import geili from "@/assets/images/stamp/geili.png"
   import pei from "@/assets/images/stamp/pei.png"
   import penzi from "@/assets/images/stamp/penzi.png"
+  import { getMessList, addMess, addApply, addYin } from '@/api/message'
   import { mapState, mapMutations } from "vuex"
 
   export default {
@@ -164,10 +165,11 @@
             return
           }
           this.messBtn = true
-          this.$http.post('/apis/api/comments/add', {
+          let param = {
             username: this.username,
             content: $.AnalyticEmotion($('.text').val()),
-          }).then(res => {
+          }
+          addMess(param).then(res => {
             if (res.code == 1) {
               this.$message.success(res.mess)
               $('.text').val("")
@@ -184,10 +186,11 @@
       getCommentsList() {
         let that = this
         that.isGetList = true
-        this.$http.post('/apis/api/comments/all', {
+        let param = {
           page: this.commentsData.page,
-          pre_page: this.commentsData.pre_page,
-        }).then(res => {
+          pre_page: this.commentsData.pre_page
+        }
+        getMessList(param).then(res => {
           that.isGetList = false
           var baseLength = 0
           if (this.commentsData.page == 1) {
@@ -266,12 +269,13 @@
           this.$message.info("评论不能为空")
           return
         }
-        this.$http.post('/apis/api/comments/replyComments', {
+        let param = {
           commonts_id: this.replyObj.commonts_id,
           reply_username: this.replyObj.reply_username,
           username: this.replyObj.username,
           content: this.replyObj.replyText
-        }).then(res => {
+        }
+        addApply(param).then(res => {
           if (res.code == 1) {
             this.$message.success("添加成功")
             this.commentsData.page = 1
@@ -313,7 +317,7 @@
             type = $(v).index() + 1
           }
         })
-        this.$http.post('/apis/api/comments/addImprint', {
+        let param = {
           type: type,
           username: this.username,
           commentId: item.id,
@@ -321,7 +325,8 @@
             left: Math.random(),
             top: Math.random(),
           }
-        }).then(res => {
+        }
+        addYin(param).then(res => {
           // console.log(res);
           if (res.code == 1) {
             this.$message.success(res.mess)
