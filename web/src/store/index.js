@@ -1,4 +1,5 @@
 import Vue from 'vue'
+// import Vuex from 'vuex'
 import baseStates from "./modules/baseState"
 import userInfor from "./modules/userInfo"
 
