@@ -1,11 +1,11 @@
-import axios from 'axios'
+//import axios from 'axios'
 import store from "../store";
 import { Message } from 'element-ui'
 
 if (axios) {
   var instance = axios.create({
     baseURL: process.env.BASE_API,
-    timeout: 1000
+    timeout: 15000
   });
 
   instance.interceptors.request.use(config => {
