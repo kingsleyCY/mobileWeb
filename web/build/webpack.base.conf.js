@@ -34,8 +34,7 @@ module.exports = {
   },
   externals: {
     jquery: "jQuery",
-    Vuex: 'Vuex',
-    axios: 'axios'
+    Vuex: 'Vuex'
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
