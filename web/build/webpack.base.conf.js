@@ -5,7 +5,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -33,7 +33,9 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   externals: {
-    jquery: "jQuery"
+    jquery: "jQuery",
+    Vuex: 'Vuex',
+    axios: 'axios'
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -96,9 +98,9 @@ module.exports = {
   },
   plugins: [
     new webpack.ProvidePlugin({
-      $:"jquery",
-      jQuery:"jquery",
-      "windows.jQuery":"jquery"
+      $: "jquery",
+      jQuery: "jquery",
+      "windows.jQuery": "jquery"
     })
   ]
 }

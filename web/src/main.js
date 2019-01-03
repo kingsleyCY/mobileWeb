@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import 'lib-flexible'
 
-const $ = require("jquery") // 分离打包
+// const $ = require("jquery") // 分离打包
 import Share from 'vue-social-share'
 import ElementUI from 'element-ui';
 import '@/style/index.scss'
