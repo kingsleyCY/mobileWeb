@@ -33,6 +33,7 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   externals: {
+    'vue':'Vue',
     jquery: "jQuery",
     Vuex: 'Vuex',
     axios: 'axios',

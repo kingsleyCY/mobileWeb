@@ -2,7 +2,6 @@
 import Router from 'vue-router'
 
 Vue.use(Router)*/
-/* resolve => require(['@/components/ClosingCount'], resolve) */
 
 export default new VueRouter({
   mode: "history",
