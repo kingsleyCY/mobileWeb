@@ -1,37 +1,38 @@
-import Vue from 'vue'
+/*import Vue from 'vue'
 import Router from 'vue-router'
 
-Vue.use(Router)
+Vue.use(Router)*/
+/* resolve => require(['@/components/ClosingCount'], resolve) */
 
-export default new Router({
+export default new VueRouter({
   mode: "history",
   routes: [
     {
       path: '/',
       name: 'index',
-      component: () => import('@/view/index'),
+      component: resolve => require(['@/view/index'], resolve),
       redirect: "/indexPage",
       children: [
         {
           path: 'indexPage',
           name: 'index-page',
-          component: () => import('@/view/indexPage'),
-        },{
+          component: resolve => require(['@/view/indexPage'], resolve),
+        }, {
           path: 'forOurs',
           name: 'for-ours',
-          component: () => import('@/view/forOurs'),
-        },{
+          component: resolve => require(['@/view/forOurs'], resolve),
+        }, {
           path: 'someNote',
           name: 'some-note',
-          component: () => import('@/view/someNote'),
-        },{
+          component: resolve => require(['@/view/someNote'], resolve),
+        }, {
           path: 'myIntroduce',
           name: 'my-introduce',
-          component: () => import('@/view/myIntroduce'),
-        },{
+          component: resolve => require(['@/view/myIntroduce'], resolve),
+        }, {
           path: 'messTome',
           name: 'mess-tome',
-          component: () => import('@/view/messTome'),
+          component: resolve => require(['@/view/messTome'], resolve),
         }
       ]
     }
