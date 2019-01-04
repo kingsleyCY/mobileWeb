@@ -3,33 +3,36 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 import 'lib-flexible'
 
-// const $ = require("jquery") // 分离打包
 import Share from 'vue-social-share'
+Vue.use(Share)
+
 import ElementUI from 'element-ui';
+Vue.use(ElementUI);
 import '@/style/index.scss'
-import store from './store'
+
 import commonBase from './common/index'
-import VueSocketIO from 'vue-socket.io';
+Vue.prototype.common = new commonBase()
 
 require("../static/comment/js/main")
 require("../static/comment/js/sinaFaceAndEffec")
 Vue.config.productionTip = false
-Vue.prototype.common = new commonBase()
-Vue.use(Share)
-Vue.use(ElementUI);
+
+import VueSocketIO from 'vue-socket.io';
 Vue.use(new VueSocketIO({
   debug: true,
-  // connection: 'http://192.168.1.118:8806'
   connection: 'http://139.196.127.127:8806'
 }))
+
 if (process.env.BASE_API) {
   /*axios.defaults.baseURL = process.env.BASE_API;*/
   Vue.prototype.BASE_URL = process.env.BASE_API;
 } else {
   Vue.prototype.BASE_URL = process.env.STATICS_API;
 }
+
 router.beforeEach((to, from, next) => {
   let fullPath = []
   let isPc
