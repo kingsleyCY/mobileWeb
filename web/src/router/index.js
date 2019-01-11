@@ -32,6 +32,10 @@ export default new VueRouter({
           path: 'messTome',
           name: 'mess-tome',
           component: resolve => require(['@/view/messTome'], resolve),
+        }, {
+          path: 'selfDetail',
+          name: 'self-detail',
+          component: resolve => require(['@/view/selfDetail'], resolve),
         }
       ]
     }

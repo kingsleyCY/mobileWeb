@@ -41,7 +41,7 @@
                 暂未登陆
               </div>
             </el-card>
-            <!--消息-->
+            <!--友链-->
             <el-card class="box-card">
               <div slot="header" class="clearfix">
                 <span class="title">友链</span>
@@ -119,8 +119,7 @@
         this.$refs.image.src = img.toDataURL();
       },
       openUserDetail() {
-        return
-        this.changeUserModel(!this.userModel)
+        this.$router.push('/selfDetail')
       },
       ...mapMutations(['changeLoginModel', 'REMOVE_USERINFO', 'changeUserModel'])
     },
