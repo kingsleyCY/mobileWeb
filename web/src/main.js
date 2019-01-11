@@ -23,7 +23,7 @@ Vue.config.productionTip = false
 import VueSocketIO from 'vue-socket.io';
 Vue.use(new VueSocketIO({
   debug: true,
-  connection: 'http://139.196.127.127:8806'
+  connection: process.env.socket_URL
 }))
 
 if (process.env.BASE_API) {
