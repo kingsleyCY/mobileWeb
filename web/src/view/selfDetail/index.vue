@@ -14,7 +14,16 @@
               <el-input resize="none" rows="3" type="textarea" v-model="form.personSignature"></el-input>
             </el-form-item>
             <el-form-item label="头像">
-
+              <div class="base-content">
+                <i class="el-icon-upload"></i>
+                <p>点击上传图片</p>
+              </div>
+              <vueCropper
+                ref="cropper" :img="option.img" :output-size="option.size" :output-type="option.outputType"
+                :info="true" :full="option.full" :can-move="option.canMove" :can-move-box="option.canMoveBox"
+                :fixed-box="option.fixedBox" :original="option.original" :auto-crop="option.autoCrop"
+                :auto-crop-width="option.autoCropWidth" :auto-crop-height="option.autoCropHeight"
+                :center-box="option.centerBox" @real-time="realTime" :high="option.high" @img-load="imgLoad"></vueCropper>
             </el-form-item>
           </el-form>
         </el-col>
@@ -24,6 +33,9 @@
 </template>
 
 <script>
+  import VueCropper from 'vue-cropper'
+  import { uploadFile } from '@/api/login'
+
   export default {
     name: 'self-details',
     data() {
@@ -32,8 +44,42 @@
           username: '',
           useremail: '',
           personSignature: '',
-        }
+          imageUrl: ''
+        },
+        option: {
+          img: '',
+          size: 1,
+          full: false,
+          outputType: 'png',
+          canMove: true,
+          fixedBox: true,
+          original: false,
+          canMoveBox: true,
+          autoCrop: true,
+          // 只有自动截图开启 宽度高度才生效
+          autoCropWidth: 120,
+          autoCropHeight: 120,
+          centerBox: true,
+          high: true
+        },
       }
+    },
+    methods: {
+      // 实时预览函数
+      realTime(data) {
+        this.previews = data
+        // console.log(data)
+      },
+      imgLoad(msg) {
+        // console.log(msg)
+      },
+      /* 删除背景图 */
+      clearImgback() {
+        this.uploadImgUrl = null
+      },
+    },
+    components: {
+      VueCropper
     }
   }
 </script>
@@ -43,9 +89,14 @@
     margin-top: 15px;
     background-color: white;
     padding: 20px 0;
-    .form-box {
-      /deep/ .el-form-item__content {
-
+    /deep/ .base-content {
+      width: 120px;
+      height: 120px;
+      text-align: center;
+      border: 1px solid #dcdfe6;
+      vertical-align: center;
+      .el-icon-upload {
+        margin-top: 30px;
       }
     }
   }

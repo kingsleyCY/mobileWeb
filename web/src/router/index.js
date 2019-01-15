@@ -1,8 +1,3 @@
-/*import Vue from 'vue'
-import Router from 'vue-router'
-
-Vue.use(Router)*/
-
 export default new VueRouter({
   mode: "history",
   routes: [
