@@ -9,6 +9,15 @@ export function register(param) {
   })
 }
 
+/* 编辑用户信息 */
+export function editUserDetail(id, param) {
+  return request({
+    url: '/apis/api/users/editUserDetail/' + id,
+    method: 'POST',
+    data: param
+  })
+}
+
 /* 注销 */
 export function layout() {
   return request({
