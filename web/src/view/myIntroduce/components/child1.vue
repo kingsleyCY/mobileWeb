@@ -29,11 +29,11 @@
       return {
         stackArr: [
           {
-            name: "HTML/CSS/JS",
+            name: "HTML/CSS",
             percent: 80,
             bgc: '#8E71C7',
           }, {
-            name: "JQuery",
+            name: "JS/JQuery",
             percent: 90,
             bgc: '#409eff',
           }, {

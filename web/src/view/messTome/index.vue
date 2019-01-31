@@ -35,7 +35,7 @@
                 <div style="font-style: italic;padding-top: 10px">
                   "这个人很懒，什么都没有留下"
                 </div>
-                <el-button type="text" @click="openUserDetail">个人详情</el-button>
+                <!--<el-button type="text" @click="openUserDetail">个人详情</el-button>-->
               </div>
               <div class="public-notice" v-else>
                 暂未登陆
