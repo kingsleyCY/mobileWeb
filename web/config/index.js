@@ -5,9 +5,9 @@
 const path = require('path')
 
 let STATICS_API = ''
-if(process.env.npm_lifecycle_event == 'cdev') { /*dev*/
+if (process.env.npm_lifecycle_event == 'cdev') { /*dev*/
   STATICS_API = 'http://localhost:8804'
-}else if(process.env.npm_lifecycle_event == 'dev') { /*master*/
+} else if (process.env.npm_lifecycle_event == 'dev') { /*master*/
   STATICS_API = 'http://localhost:8801'
 }
 module.exports = {
