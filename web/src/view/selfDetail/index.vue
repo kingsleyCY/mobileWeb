@@ -37,7 +37,7 @@
 
 <script>
   import VueCropper from 'vue-cropper'
-  import {uploadFile} from '@/api/login'
+  import { uploadFile, editUserDetail } from '@/api/login'
 
   export default {
     name: 'self-details',
@@ -93,7 +93,15 @@
       },
       /* 提交确认*/
       sureSubmit() {
-        console.log(this.form);
+        let param = {
+          useremail: this.form.useremail,
+          personSignature: this.form.personSignature,
+        }
+        editUserDetail(this.userInfo.userId, param).then(res => {
+          console.log(res);
+        }).catch(res => {
+          console.log(res);
+        })
       }
     },
     components: {

@@ -5,7 +5,7 @@ const common = new commonBase()
 const userInfo = {
   state: {
     username: null,
-    usereamil: null,
+    useremail: null,
     avtor: null,
     sex: null,
     root: null
@@ -16,7 +16,7 @@ const userInfo = {
     },
     REMOVE_USERINFO: function (state) {
       state.username = null
-      state.usereamil = null
+      state.useremail = null
       state.avtor = null
       state.sex = null
       state.root = null
