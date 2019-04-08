@@ -6,11 +6,19 @@
   url('//at.alicdn.com/t/webfont_4rxpnx5ke5w.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
   url('//at.alicdn.com/t/webfont_4rxpnx5ke5w.svg#杨任东竹石体-Bold') format('svg'); /* iOS 4.1- */
 }
+@font-face {
+  /* font-test*/
+  font-family: globalFont;
+  src:url('fonts/global.ttf'),
+  url('fonts/global.ttf'),
+  //url('font/tonjay-web.eot'); /* IE9 */
+}
 .container {
   margin: 0 auto;
 }
 * {
-  font-family: "kaiti" !important;
+  //font-family: globalFont !important;
+  font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif !important;
 }
 .webfont{
   font-family: "webfonts" !important;

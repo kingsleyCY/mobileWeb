@@ -11,7 +11,7 @@
             <el-card class="box-card">
               <div slot="header" class="clearfix">
                 <span class="title">个人信息</span>
-                <el-button style="padding: 0;float: right;" v-if="userInfo" type="text" @click="layoutSubmit">注销
+                <el-button style="padding: 0;float: right;" v-if="userInfo" type="text" @click="layoutSubmit">退出
                 </el-button>
               </div>
               <div class="public-notice" v-if="userInfo">

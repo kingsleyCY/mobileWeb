@@ -42,7 +42,7 @@
                       <use xlink:href="#icon-nansheng"></use>
                     </svg>
                     <div style="padding: 3px 10px;box-sizing: border-box">
-                      <el-button style="padding: 0" type="text" @click="layoutSubmit">注销</el-button>
+                      <el-button style="padding: 0" type="text" @click="layoutSubmit">退出</el-button>
                     </div>
                   </div>
                 </div>
