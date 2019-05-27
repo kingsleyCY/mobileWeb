@@ -11,9 +11,9 @@ if (process.env.npm_lifecycle_event == 'cbuild') { /*dev*/
   BASE_URL = '"http://dev.lioncc.cn"'
   socket_URL = '"http://139.196.127.127:8807"'
 } else if (process.env.npm_lifecycle_event == 'build') { /*master*/
-  BASE_API = '"https://lionynn.cn"'
-  STATICS_API = '"https://lionynn.cn"'
-  BASE_URL = '"http://lioncc.cn"'
+  BASE_API = '"http://119.3.77.140"'
+  STATICS_API = '"http://119.3.77.140"'
+  BASE_URL = '"http://119.3.77.140"'
   socket_URL = '"http://139.196.127.127:8806"'
 }
 module.exports = {
