@@ -14,7 +14,7 @@ if (process.env.npm_lifecycle_event == 'cbuild') { /*dev*/
   BASE_API = '"http://119.3.77.140"'
   STATICS_API = '"http://119.3.77.140"'
   BASE_URL = '"http://119.3.77.140"'
-  socket_URL = '"http://139.196.127.127:8806"'
+  socket_URL = '"http://119.3.77.140:8806"'
 }
 module.exports = {
   NODE_ENV: '"production"',
