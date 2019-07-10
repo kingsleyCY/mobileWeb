@@ -67,11 +67,11 @@
         }
       }
       &.xs-screen {
-        background: url("./../../assets/images/bgi-1.jpg") no-repeat center;
+        background: url("https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/bgi-1.jpg") no-repeat center;
         background-size: cover;
       }
       &.normal-screen {
-        background: url("./../../assets/images/bgi-2.jpg") no-repeat center;
+        background: url("https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/bgi-2.jpg") no-repeat center;
         background-size: cover;
       }
     }

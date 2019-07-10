@@ -79,7 +79,7 @@
   width: 90px;
   height: 100%;
   float: right;
-  background: url("../images/post-btn-hover.png") no-repeat center;
+  background: url("https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/post-btn-hover.png") no-repeat center;
   background-size: 100%;
   cursor: pointer;
 }

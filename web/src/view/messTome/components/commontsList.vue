@@ -97,10 +97,10 @@
 </template>
 
 <script>
-  import dou from "@/assets/images/stamp/dou.png"
-  import geili from "@/assets/images/stamp/geili.png"
-  import pei from "@/assets/images/stamp/pei.png"
-  import penzi from "@/assets/images/stamp/penzi.png"
+  import dou from "https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/dou.png"
+  import geili from "https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/geili.png"
+  import pei from "https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/pei.png"
+  import penzi from "base-avtor/penzi.png"
   import { getMessList, addMess, addApply, addYin } from '@/api/message'
   import { mapState, mapMutations } from "vuex"
 

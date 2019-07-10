@@ -163,8 +163,8 @@
 </template>
 
 <script>
-  import poJpg from "@/assets/images/po.jpg"
-  import qrweb from "@/assets/images/qrweb.png"
+  import poJpg from "https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/po.jpg"
+  import qrweb from "https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/qrweb.png"
   import { register } from '@/api/login'
   import { mapState, mapMutations } from "vuex"
 

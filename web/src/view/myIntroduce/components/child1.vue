@@ -1,6 +1,6 @@
 <template>
   <div :class="['myslf-baseinfo', xsScreen?'xs-screen':'']">
-    <img src="./../../../assets/images/logo-1.jpg" alt="logo" class="user-logo">
+    <img src="https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/logo-1.jpg" alt="logo" class="user-logo">
     <p class="user-name">Cheng丶C</p>
     <p class="brief-introduction">一位奋战前线的搬砖农名工, 一心只读圣贤书，两耳不闻窗外事</p>
     <div class="technology-stack">

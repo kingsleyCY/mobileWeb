@@ -1,5 +1,5 @@
 export default new VueRouter({
-  base: '/wom/',
+  mode: "history",
   mode: "history",
   routes: [
     {
