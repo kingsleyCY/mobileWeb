@@ -163,8 +163,6 @@
 </template>
 
 <script>
-  import poJpg from "https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/po.jpg"
-  import qrweb from "https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/qrweb.png"
   import { register } from '@/api/login'
   import { mapState, mapMutations } from "vuex"
 
@@ -200,7 +198,8 @@
       };
       let coefficient = 1
       return {
-        poJpg, qrweb,
+        poJpg: 'https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/po.jpg',
+        qrweb: 'https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/qrweb.png',
         screenWidth: document.body.clientWidth, // 屏幕尺寸
         btnLoading: false,
         userForm: {

@@ -97,10 +97,6 @@
 </template>
 
 <script>
-  import dou from "https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/dou.png"
-  import geili from "https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/geili.png"
-  import pei from "https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/pei.png"
-  import penzi from "base-avtor/penzi.png"
   import { getMessList, addMess, addApply, addYin } from '@/api/message'
   import { mapState, mapMutations } from "vuex"
 
@@ -108,7 +104,10 @@
     name: "commonts-list",
     data() {
       return {
-        dou, geili, pei, penzi,
+        dou: 'https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/dou.png',
+        geili: 'https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/geili.png',
+        pei: 'https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/pei.png',
+        penzi: 'https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/penzi.png',
         screenWidth: document.body.clientWidth, // 屏幕尺寸
         friendLink: [
           {
@@ -339,16 +338,16 @@
       computedYin(type) {
         switch (type) {
           case 1:
-            return dou;
+            return this.dou;
             break;
           case 2:
-            return geili;
+            return this.geili;
             break;
           case 3:
-            return pei;
+            return this.pei;
             break;
           case 4:
-            return penzi;
+            return this.penzi;
             break;
         }
       },

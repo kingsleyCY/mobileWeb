@@ -35,14 +35,13 @@
 </template>
 
 <script>
-  import defaultLogo from "https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/logo-1.jpg"
   import { mapState, mapMutations } from "vuex"
 
   export default {
     name: 'header-model',
     data() {
       return {
-        defaultLogo,
+        defaultLogo: 'https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/logo-1.jpg',
         activeIndex: "1",
         isPc: false,
         menuArr: [
