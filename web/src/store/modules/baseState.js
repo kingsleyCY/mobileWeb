@@ -30,7 +30,7 @@ const baseStates = {
     getAssesionToken: function ({ commit }, param) {
       // console.log('---');
       return new Promise((resolve, reject) => {
-        request.post('/apis/api/wx/getAccessToken', param).then(res => {
+        request.post('/api/wx/getAccessToken', param).then(res => {
           resolve(res)
         }).then(res => {
           reject(res)

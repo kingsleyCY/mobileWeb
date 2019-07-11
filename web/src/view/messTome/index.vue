@@ -16,7 +16,7 @@
               </div>
               <div class="public-notice" v-if="userInfo">
                 <div class="user-infor">
-                  <img :src="userInfo.avtor">
+                  <img :src="aliBaseUrl + userInfo.avtor">
                   <div>
                     <span class="user-name">
                       {{userInfo.username.slice(0,10) + (userInfo.username.length>10?'...':'')}}
@@ -71,6 +71,7 @@
     name: "mess-tome",
     data() {
       return {
+        aliBaseUrl: 'https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/',
         screenWidth: document.body.clientWidth, // 屏幕尺寸
         friendLink: [
           {

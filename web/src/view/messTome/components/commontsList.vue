@@ -4,7 +4,7 @@
       <div class="wrap">
         <div class="comment clearfix">
           <div class="head-face">
-            <img v-if="userInfo" :src="userInfo.avtor">
+            <img v-if="userInfo" :src="aliBaseUrl + userInfo.avtor">
             <p v-else class="login" @click="changeLoginModel(true)">登录</p>
           </div>
           <div class="content">
@@ -35,7 +35,7 @@
               <img :src="computedYin(items.type)" v-for="(items, indexs) in item.yinArr" :key="indexs">
             </div>
             <div class="base-info clearfix" :ref="'commentDetail' + index">
-              <img :src="item.userInfo.avtor" alt="">
+              <img :src="aliBaseUrl + item.userInfo.avtor" alt="">
               <div class="comments-content">
                 <p>{{item.username}}</p>
                 <p v-html="item.content"></p>
@@ -104,6 +104,7 @@
     name: "commonts-list",
     data() {
       return {
+        aliBaseUrl: 'https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/',
         dou: 'https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/dou.png',
         geili: 'https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/geili.png',
         pei: 'https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/pei.png',

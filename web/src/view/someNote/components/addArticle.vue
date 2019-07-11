@@ -104,9 +104,9 @@
       document.getElementById("editor").innerHTML = "";
       var editor = new E('#editor')
       if (window.location.host.indexOf('lioncc.cn') >= 0) {
-        editor.customConfig.uploadImgServer = this.env.BASE_API + '/apis/api/upload/oss'
+        editor.customConfig.uploadImgServer = this.env.BASE_API + '/api/upload/oss'
       } else {
-        editor.customConfig.uploadImgServer = '/apis/api/upload/oss'
+        editor.customConfig.uploadImgServer = '/api/upload/oss'
       }
       editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024
       editor.customConfig.uploadImgMaxLength = 1

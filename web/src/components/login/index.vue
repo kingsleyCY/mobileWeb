@@ -80,7 +80,7 @@
                   <img :src="userForm.avtor" class="selectAvtor">
                 </el-form-item>
                 <div class="avtor-select-box clearfix">
-                  <img :src="'/static/avtor/avtor' + (index + 1) + '.jpg'" @click="chooseAvtor(index)"
+                  <img :src="aliBaseUrl + 'avtor' + (index + 1) + '.jpg'" @click="chooseAvtor(index)"
                        v-for="(item, index) in 18" :key="index">
                 </div>
               </el-form>
@@ -208,7 +208,7 @@
           sex: '',
           password: '',
           confirm_password: '',
-          avtor: '/static/avtor/avtor1.jpg'
+          avtor: 'https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/avtor1.jpg'
         },
         rules: {
           username: [
@@ -257,7 +257,8 @@
           coefficient: coefficient,
           criticalAngle: 45 / coefficient,
           isLogin: true,
-        }
+        },
+        aliBaseUrl: 'https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/'
       }
     },
     methods: {
@@ -284,7 +285,7 @@
       },
       /* 选择头像 */
       chooseAvtor(index) {
-        this.userForm.avtor = "/static/avtor/avtor" + (index + 1) + ".jpg"
+        this.userForm.avtor = "https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/avtor" + (index + 1) + ".jpg"
       },
       /* 注册请求提交 */
       submitClick() {
@@ -438,7 +439,7 @@
           sex: '',
           password: '',
           confirm_password: '',
-          avtor: '/static/avtor/avtor1.jpg'
+          avtor: 'https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/avtor1.jpg'
         }
       },
       /* 移动端ToLogin/ToSign */

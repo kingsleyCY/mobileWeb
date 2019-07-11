@@ -207,7 +207,7 @@
         this.$nextTick(() => {
           this.$refs['form'].validate((valid) => {
             if (valid) {
-              this.$http.post('/apis/api/users/addUser', this.userForm)
+              this.$http.post('/api/users/addUser', this.userForm)
                 .then(res => {
                   // console.log(res);
                   if (res.code == 1) {

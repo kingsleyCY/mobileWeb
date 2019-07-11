@@ -32,7 +32,7 @@
               </div>
               <div class="public-notice" v-if="userInfo">
                 <div class="user-infor">
-                  <img :src="userInfo.avtor">
+                  <img :src="aliBaseUrl + userInfo.avtor">
                   <div>
                     <span class="user-name">{{userInfo.username}}</span>
                     <svg class="iconfont" aria-hidden="true" v-if="userInfo.sex == 1">
@@ -73,6 +73,7 @@
     name: 'some-note',
     data() {
       return {
+        aliBaseUrl: 'https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/',
         screenWidth: document.body.clientWidth, // 屏幕尺寸
         articleName: 'articleList',
         articleInfo: null,

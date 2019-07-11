@@ -25,7 +25,7 @@ const userInfo = {
   actions: {
     login({ commit }, param) {
       return new Promise((resolve, reject) => {
-        request.post('/apis/api/status/login', param).then(res => {
+        request.post('/api/status/login', param).then(res => {
           if (res.code == 1) {
             // console.log(res);
             localStorage.setItem("sessionid", res.date.sessionid)
@@ -52,7 +52,7 @@ const userInfo = {
     /* 二维码登录 */
     codeLogin({ commit }, param) {
       return new Promise((resolve, reject) => {
-        request.post('/apis/api/status/codeLogin', param).then(res => {
+        request.post('/api/status/codeLogin', param).then(res => {
           resolve(res)
         }).catch(res => {
           reject(res)
@@ -62,7 +62,7 @@ const userInfo = {
     /* 检测已绑定微信，客户端请求登录 */
     clientLogin({ commit }, param) {
       return new Promise((resolve, reject) => {
-        request.post('/apis/api/status/loginByServer', param).then(res => {
+        request.post('/api/status/loginByServer', param).then(res => {
           if (res.code == 1) {
             localStorage.setItem("sessionid", res.date.sessionid)
             localStorage.setItem("userInfo", JSON.stringify(res.date.userInfo))
@@ -86,7 +86,7 @@ const userInfo = {
       })
     },
     layout({ commit }, param) {
-      request.post('/apis/api/status/layout', param).then(res => {
+      request.post('/api/status/layout', param).then(res => {
         if (res.code == 1) {
           localStorage.setItem("sessionid", "")
           localStorage.setItem("userInfo", "")
