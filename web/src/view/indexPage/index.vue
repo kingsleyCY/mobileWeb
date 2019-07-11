@@ -34,7 +34,7 @@
                 <span class="title">关注小程序</span>
               </div>
               <div class="public-notice my-smallprogram">
-                <img :src="env.STATICS_API + '/images/smallProgram.jpg'" alt="">
+                <img :src="aliBaseUrl + 'smallProgram.jpg'" alt="">
                 <div class="smallgrogram-introduce">
                   <p>ID：四季豆花</p>
                   <p>网站相关联的小程序，刚好还可以练习一下小程序<br><br>不忘丶始终</p>
@@ -62,32 +62,32 @@
                   <div slot="content">GitHub</div>
                   <div class="social-contact">
                     <a href="https://github.com/Stur-Lion" target="_blank">
-                      <img :src="env.STATICS_API + '/images/github.jpg'">
+                      <img :src="aliBaseUrl + 'github.jpg'">
                     </a>
                   </div>
                 </el-tooltip>
                 <el-tooltip placement="top">
                   <div slot="content">
-                    <img :src="env.STATICS_API + '/images/qq-qr.png'">
+                    <img :src="aliBaseUrl + 'qq-qr.png'">
                   </div>
                   <div class="social-contact">
-                    <img :src="env.STATICS_API + '/images/qq.jpg'">
+                    <img :src="aliBaseUrl + 'qq.jpg'">
                   </div>
                 </el-tooltip>
                 <el-tooltip placement="top">
                   <div slot="content">
-                    <img :src="env.STATICS_API + '/images/weibo-qr.jpg'">
+                    <img :src="aliBaseUrl + 'weibo-qr.jpg'">
                   </div>
                   <div class="social-contact">
-                    <img :src="env.STATICS_API + '/images/weibo.jpg'">
+                    <img :src="aliBaseUrl + 'weibo.jpg'">
                   </div>
                 </el-tooltip>
                 <el-tooltip placement="top">
                   <div slot="content">
-                    <img :src="env.STATICS_API + '/images/weixin-qr.jpg'">
+                    <img :src="aliBaseUrl + 'weixin-qr.jpg'">
                   </div>
                   <div class="social-contact">
-                    <img :src="env.STATICS_API + '/images/weixin.jpg'">
+                    <img :src="aliBaseUrl + 'weixin.jpg'">
                   </div>
                 </el-tooltip>
               </div>
@@ -110,6 +110,7 @@
     name: 'index-page',
     data() {
       return {
+        aliBaseUrl: 'https://lioncc.oss-cn-beijing.aliyuncs.com/base-avtor/',
         screenWidth: document.body.clientWidth, // 屏幕尺寸
         articleName: 'articleList',
         articleInfo: null,
