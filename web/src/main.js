@@ -20,11 +20,11 @@ require("../static/comment/js/main")
 require("../static/comment/js/sinaFaceAndEffec")
 Vue.config.productionTip = false
 
-import VueSocketIO from 'vue-socket.io';
+/*import VueSocketIO from 'vue-socket.io';
 Vue.use(new VueSocketIO({
   debug: true,
   connection: process.env.socket_URL
-}))
+}))*/
 
 if (process.env.BASE_API) {
   /*axios.defaults.baseURL = process.env.BASE_API;*/
