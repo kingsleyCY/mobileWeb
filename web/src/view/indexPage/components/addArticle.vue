@@ -36,7 +36,7 @@
   import VueCropper from 'vue-cropper'
   import imgUpload from "@/components/imgUpload"
   import { editArticle, addArticle } from '@/api/article'
-  import { mapState } from "vuex"
+  import { mapState } from "Vuex"
 
   var E = require('wangeditor')  // 使用 npm 安装
   export default {

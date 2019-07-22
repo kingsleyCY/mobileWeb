@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import { mapState } from "vuex"
+  import { mapState } from "Vuex"
   export default {
     name: 'section-model',
     data() {

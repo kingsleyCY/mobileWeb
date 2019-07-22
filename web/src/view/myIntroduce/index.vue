@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import { mapState } from "vuex"
+  import { mapState } from "Vuex"
   import child1 from './components/child1'
   import child2 from './components/child2'
   import child3 from './components/child3'

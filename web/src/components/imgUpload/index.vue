@@ -43,7 +43,7 @@
 <script>
   import VueCropper from 'vue-cropper'
   import { uploadFile } from '@/api/login'
-  import { mapState } from "vuex"
+  import { mapState } from "Vuex"
 
   export default {
     name: "img-upload",

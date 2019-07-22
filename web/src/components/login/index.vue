@@ -164,7 +164,7 @@
 
 <script>
   import { register } from '@/api/login'
-  import { mapState, mapMutations } from "vuex"
+  import { mapState, mapMutations } from "Vuex"
 
   export default {
     data() {

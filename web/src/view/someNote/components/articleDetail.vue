@@ -32,7 +32,7 @@
 
 <script>
   import { articleDeatil } from '@/api/article'
-  import { mapState } from "vuex"
+  import { mapState } from "Vuex"
 
   export default {
     name: "article-detail",

@@ -1,6 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
+// import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
@@ -9,8 +9,9 @@ import 'lib-flexible'
 import Share from 'vue-social-share'
 Vue.use(Share)
 
-import ElementUI from 'element-ui';
-Vue.use(ElementUI);
+// import ElementUI from 'element-ui';
+// Vue.use(ElementUI);
+import './ele'
 import '@/style/index.scss'
 
 import commonBase from './common/index'
@@ -20,14 +21,8 @@ require("../static/comment/js/main")
 require("../static/comment/js/sinaFaceAndEffec")
 Vue.config.productionTip = false
 
-/*import VueSocketIO from 'vue-socket.io';
-Vue.use(new VueSocketIO({
-  debug: true,
-  connection: process.env.socket_URL
-}))*/
 
 if (process.env.BASE_API) {
-  /*axios.defaults.baseURL = process.env.BASE_API;*/
   Vue.prototype.BASE_URL = process.env.BASE_API;
 } else {
   Vue.prototype.BASE_URL = process.env.STATICS_API;

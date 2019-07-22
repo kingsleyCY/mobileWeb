@@ -26,7 +26,7 @@
   import Lottie from '@/components/lottie';
   import * as animationData from '../../assets/pinjump.json';
 
-  import { mapState } from "vuex"
+  import { mapState } from "Vuex"
 
   export default {
     name: 'index',

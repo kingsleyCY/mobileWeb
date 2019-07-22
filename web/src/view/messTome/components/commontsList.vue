@@ -98,7 +98,7 @@
 
 <script>
   import { getMessList, addMess, addApply, addYin } from '@/api/message'
-  import { mapState, mapMutations } from "vuex"
+  import { mapState, mapMutations } from "Vuex"
 
   export default {
     name: "commonts-list",

@@ -67,7 +67,7 @@
   import articleDetail from "./components/articleDetail"
   import { layout } from '@/api/login'
   import { getBaseText } from '@/api/article'
-  import { mapState, mapMutations } from "vuex"
+  import { mapState, mapMutations } from "Vuex"
 
   export default {
     name: 'some-note',

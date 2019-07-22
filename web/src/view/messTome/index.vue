@@ -65,7 +65,7 @@
 <script>
   import commontsList from "./components/commontsList"
   import { layout } from '@/api/login'
-  import { mapState, mapMutations } from "vuex"
+  import { mapState, mapMutations } from "Vuex"
 
   export default {
     name: "mess-tome",
