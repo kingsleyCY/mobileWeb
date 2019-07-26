@@ -8,9 +8,6 @@ import 'lib-flexible'
 
 import Share from 'vue-social-share'
 Vue.use(Share)
-
-// import ElementUI from 'element-ui';
-// Vue.use(ElementUI);
 import './ele'
 import '@/style/index.scss'
 
